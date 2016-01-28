@@ -473,13 +473,13 @@ function stConn2() {
     var strava_deets = {
         deets: []
     };
-    alert("connect");
+    //alert("connect");
     $('#status_msgs').show();
     $('#status_msgs').append("</br > Connecting to Strava ...");
     OAuth.initialize('7ZbKkdtjRFA8NVkn00ka1ixaIe8')
     OAuth.popup('strava', { cache: true }).done(function (result) {
-        alert(result);
-        console.log(result)
+       // alert(result);
+       // console.log(result)
         $('#status_msgs').append("</br > " + JSON.stringify(result));
         localStorage.removeItem('userdata');
         result.me().done(function (data) {
@@ -976,6 +976,25 @@ function showLocal() {
     //    $('#status_msgs').append("</br > st3: " + localStorage.getItem('oauthio_provider_strava'));
 }
 
+function twitterConn() {
+    $('#result').html("");
+    OAuth.initialize('7ZbKkdtjRFA8NVkn00ka1ixaIe8');
+    OAuth.redirect('twitter','/home/index').done(function (r) {
+        // the access_token is available via r.access_token
+        // but the http functions automagically wrap the jquery calls
+        r.get('/1.1/account/verify_credentials.json')
+            .done(function (data) {
+                $('#location').html("twitter: Hello, " + data.name + " !");
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                $('#location').html("req error: " + textStatus);
+            });
+    })
+                    .fail(function (e) {
+                        $('#result').html('error: ' + e.message);
+                    });
+}
+
 function initBtns() {
 
     var strava_segs = {
@@ -1114,25 +1133,7 @@ function initBtns() {
     });
 
 
-    $('#tw-connect').on('click', function () {
-        $('#result').html("");
-        OAuth.popup('twitter')
-                        .done(function (r) {
-                            // the access_token is available via r.access_token
-                            // but the http functions automagically wrap the jquery calls
-                            r.get('/1.1/account/verify_credentials.json')
-                                .done(function (data) {
-                                    $('#result').html("twitter: Hello, " + data.name + " !");
-                                })
-                                .fail(function (jqXHR, textStatus, errorThrown) {
-                                    $('#result').html("req error: " + textStatus);
-                                });
-                        })
-                        .fail(function (e) {
-                            $('#result').html('error: ' + e.message);
-                        });
-    });
-
+    
     $('#st-connect').on('click', function () {
         $('#result').html("status_msgs ...");
         //OAuth.popup('twitter', {cache: true}).done(function(twitter) {
