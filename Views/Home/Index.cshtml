@@ -11,157 +11,36 @@
         </div>
         </small>
     </div>
-    
-        <div id="status_msgs" class="whitec" style="display:none"></div>
-        <div id="seg_nearby" style="display:none">
 
-            <div id="map_canvas_nearby" style="height:200px;"></div>
-            <div id="map_activities">
+    <div id="status_msgs" class="whitec" style="display:none"></div>
+    <div id="seg_nearby" style="display:none">
 
-                <div class="row">
-
-                    <div class="col-xs-12 col-sm-12 col-lg-12">
-                        <div class="dash-unit" id="tableback_map">
-
-                            <div class="timebtns">
-                                <div class="btn-group btn-group-s" role="group">
-                                    <button type="button" class="btn btn-danger btn-sm" id="hr1">1-3Hrsc</button>
-                                    <button type="button" class="btn btn-danger btn-sm" id="hr2">4-6Hrs</button>
-                                    <button type="button" class="btn btn-danger btn-sm">7-9Hrs</button>
-                                    <button type="button" class="btn btn-danger btn-sm">Mon</button>
-                                </div>
-                            </div>
-                            <div id="map_table">
-                                <div class="framemail">
-                                    <div class="window">
-                                        <ul class="mail">
-                                            <li>
-                                                <i class="read">Act Name</i>
-                                                <p></p>
-                                                <p class="message">100m</p>
-                                                <div class="actions">
-                                                    <p>
-                                                    </p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- /dash-unit -->
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div id="seg_details" style="display:none">
-
-        </div>
-        <div id="seg_data" style="display:none">
-
-
-            <div id="seg_titleo"></div>
-          
-
-
-            <!-- FIRST ROW OF BLOCKS -->
-            <div class="row">
-
-                <!-- DONUT CHART BLOCK -->
-          
-
-            </div><!-- /row -->
-        </div>
-
-
-
-        <div id="table_calc_area2" style="display:none">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-lg-12">
-                    <div class="small-unit" id="table_calc_back2">
-                        <div class="timebtns">
-                            <button type="button" class="btn btn-primary btn-sm" onclick="ActsSegsRefresh()">Refresh 1</button>
-                            <button type="button" class="btn btn-primary btn-sm" onclick="analyseSegs()">Start 2</button>
-                            <button type="button" class="btn btn-primary btn-sm" onclick="weatherAct()">Weather 1</button>
-                            <button type="button" class="btn btn-primary btn-sm" onclick="weatherSeg()">Weather 2</button>
-                            <button type="button" class="btn btn-primary btn-sm" onclick="displayStars()">Show activity star ratings</button>
-                        </div>
-                        <div class="box2">
-                            <button type="button" class="btn btn-primary btn-xs" id="moreInfo" onclick="showRem()">
-                                <span class="glyphicon glyphicon-star"></span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="cont" id="rem_section" style="display:none">
-
-                        <div class="box2" id="rem_num">3 Remaining</div>
-                        <div class="box3">
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="24" style="width:60%;">
-                                </div>
-
-                            </div>
-                        </div><div class="box2" id="rem_msg"></div>
-
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-
-
-        <div id="my_activities" style="display:none">
+        <div id="map_canvas_nearby" style="height:200px;"></div>
+        <div id="map_activities">
 
             <div class="row">
 
                 <div class="col-xs-12 col-sm-12 col-lg-12">
-                    <div class="dash-unit">
+                    <div class="dash-unit" id="tableback_map">
+
                         <div class="timebtns">
                             <div class="btn-group btn-group-s" role="group">
-                                <button type="button" class="btn btn-primay btn-sm" autofocus="true" id="hr1a">1-3Hrs</button>
-                                <button type="button" class="btn btn-primary btn-sm" id="hr2a">4-6Hrs</button>
-                                <button type="button" class="btn btn-primay btn-sm" id="hr3a">7-9Hrs</button>
-                                <button type="button" class="btn btn-primary btn-sm" id="hr4a">Tue</button>
+                                <button type="button" class="btn btn-danger btn-sm" id="hr1">1-3Hrsc</button>
+                                <button type="button" class="btn btn-danger btn-sm" id="hr2">4-6Hrs</button>
+                                <button type="button" class="btn btn-danger btn-sm">7-9Hrs</button>
+                                <button type="button" class="btn btn-danger btn-sm">Mon</button>
                             </div>
                         </div>
-
-                        <div id="act_table" style="display:none">
+                        <div id="map_table">
                             <div class="framemail">
                                 <div class="window">
                                     <ul class="mail">
                                         <li>
-                                            <i class="read"></i>
-                                            <p>act here</p>
-                                            <p class="message">200m</p>
-                                            <div class="actions">
-                                                <p></p>
-
-                                            </div>
-                                        </li>
-
-                                        <div id="seg_effort" style="display:none">
-                                            <li>
-                                                <i class="read"></i>
-                                                <p>act 2 here</p>
-                                                <p class="message">200m</p>
-                                                <div class="actions">
-                                                    <p>
-                                                        stars
-                                                    </p>
-                                                </div>
-                                            </li>
-
-                                        </div>
-
-                                        <li>
-                                            <i class="read">read</i>
-                                            <p>act 2 here</p>
-                                            <p class="message">200m</p>
+                                            <i class="read">Act Name</i>
+                                            <p></p>
+                                            <p class="message">100m</p>
                                             <div class="actions">
                                                 <p>
-                                                    stars
                                                 </p>
                                             </div>
                                         </li>
@@ -175,79 +54,113 @@
             </div>
 
         </div>
-        <div id="data_pills1" style="display:none"></div>
-        <div id="seg_leaderboard" style="display:none">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-lg-12">
-                    <!-- LOCAL TIME BLOCK -->
-                    <div class="dash-unit" id="leaderback">
-                        <dtitle>Leaderboard</dtitle>
-                        <hr>
-                        <div id="canvas-holder3" style="text-align:center">
-                            <canvas id="leaderbd" width='400px' height='1500px' id="canvas"><canvas>
-                        </div>
+    </div>
+    <div id="seg_details" style="display:none">
 
-                        <div id="lb_table" style="display:none"></div>
+    </div>
+    <div id="seg_data" style="display:none">
 
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="seg_efforts" style="display:none">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-lg-12">
-                    <!-- LOCAL TIME BLOCK -->
-                    <div class="dash-unit" id="effortback">
-                        <dtitle>Segment Efforts</dtitle>
-                        <hr>
-                        <div id="eff_table" style="display:none"></div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-     
-        <div id="info">
+        <div id="seg_titleo"></div>
 
-            <div class="row">
 
-                <div class="col-xs-12 col-sm-12 col-lg-12">
-                    <div class="weather-unit">
-                        <dtitle>Location</dtitle>
-                        <div class="cont"><div id="location">here</div></div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- FIRST ROW OF BLOCKS -->
-        <div class="row" style="display:none">
-
-            <!-- USER PROFILE BLOCK -->
-            <div class="col-sm-3 col-lg-3">
-                <div class="dash-unit">
-                    <dtitle>User Profile</dtitle>
-                    <hr>
-                    <div class="thumbnail">
-                        <img src="face80x80.jpg" alt="Marcel Newman" class="img-circle">
-                    </div><!-- /thumbnail -->
-                    <h1>Marcel Newman</h1>
-                    <h3>Madrid, Spain</h3>
-                    <br>
-                    <div class="info-user">
-                        <i class="fa fa-shield"></i>
-                        <span aria-hidden="true" class="li_user fs1"></span>
-                        <span aria-hidden="true" class="li_settings fs1"></span>
-                        <span aria-hidden="true" class="li_mail fs1"></span>
-                        <span aria-hidden="true" class="li_key fs1"></span>
-                    </div>
-                </div>
-            </div>
+        <div class="row">
 
             <!-- DONUT CHART BLOCK -->
+
+
+        </div><!-- /row -->
+    </div>
+
+
+
+    <div id="table_calc_area2" style="display:none">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-lg-12">
+                <div class="small-unit" id="table_calc_back2">
+                    <div class="timebtns">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="ActsSegsRefresh()">Refresh 1</button>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="parse('act')">parse act</button>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="analyseSegs()">Start 2 an segs</button>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="weatherAct()">Weather 1</button>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="weatherSeg()">Weather 2</button>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="twitterConn()">Show activity star ratings</button>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="saveUser('nick','flet',123422,5,3)">Saveuser</button>
+                    </div>
+                    <div class="box2">
+                        <button type="button" class="btn btn-primary btn-xs" id="moreInfo" onclick="showRem()">
+                            <span class="glyphicon glyphicon-star"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="cont" id="rem_section" style="display:none">
+
+                    <div class="box2" id="rem_num">3 Remaining</div>
+                    <div class="box3">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="24" style="width:60%;">
+                            </div>
+
+                        </div>
+                    </div><div class="box2" id="rem_msg"></div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="seg_efforts" style="display:none">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-lg-12">
+                <!-- LOCAL TIME BLOCK -->
+                <div class="dash-unit" id="effortback">
+                    <dtitle>Segment Efforts</dtitle>
+                    <hr>
+                    <div id="eff_table" style="display:none"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="info">
+
+        <div class="row">
+
+            <div class="col-xs-12 col-sm-12 col-lg-12">
+                <div class="weather-unit">
+                    <dtitle>Location</dtitle>
+                    <div class="cont"><div id="location">here</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- FIRST ROW OF BLOCKS -->
+    <div class="row">
+        <div id="profile_tile" style="display:none">
+            <!-- USER PROFILE BLOCK -->
+            <div class="col-sm-3 col-lg-3">
+                <div class="dash-unit" style="height:75px">
+                    <br>
+                    <div id="user_details"></div>
+                    <br>
+
+                </div>
+            </div>
+            </div>
+        <!-- DONUT CHART BLOCK -->
+        <div id="weather_credits" style="display:none">
             <div class="col-sm-3 col-lg-3">
                 <div class="dash-unit">
-                    <dtitle>Site Bandwidth</dtitle>
+                    <dtitle>Weather Credits</dtitle>
                     <hr>
                     <div class="text-center">
 
@@ -269,55 +182,42 @@
 
                 </div>
             </div>
-            <!-- DONUT CHART BLOCK -->
-            <div class="col-sm-3 col-lg-3">
-                <div class="dash-unit">
-                    <dtitle>Disk Space</dtitle>
-                    <hr>
-                    <div id="space"></div>
-                    <h2>65%</h2>
-                </div>
-            </div>
+        </div>
+        <!-- DONUT CHART BLOCK -->
 
-            <div class="col-sm-3 col-lg-3">
+    </div><!-- /row -->
+    <!-- SECOND ROW OF BLOCKS -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-lg-6">
+            <!-- Activities BLOCK -->
+            <div id="my_activities" style="display:none">
 
-                <!-- LOCAL TIME BLOCK -->
-                <div class="half-unit">
-                    <dtitle>Local Time</dtitle>
-                    <hr>
-                    <div class="clockcenter">
-                        <digiclock>12:45:25</digiclock>
-                    </div>
-                </div>
-
-                <!-- SERVER UPTIME -->
-                <div class="button-unit">
-                    <dtitle>Server Uptime</dtitle>
-                    <hr>
-                    <div class="cont">
-                        <input type="submit" id="submit" name="submit" value="Send">
-                    </div>
-                </div>
-
-            </div>
-        </div><!-- /row -->
-        <!-- SECOND ROW OF BLOCKS -->
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-lg-6">
-                <!-- MAIL BLOCK -->
                 <div class="dash-unit" id="tableback">
                     <dtitle>Activities and Segments</dtitle>
                     <hr>
-                    
-                    <p style="position:absolute;right:22px;top:30px;z-index:400">
-                        <a class="btn btn-success btn-sm" href="#">
-                            Calculate star ratings (1 Credit) &nbsp;&nbsp; <i class="fa fa-lg fa-cog"></i>
-                        </a>
-                    </p>
-                    <p>&nbsp;</p>
 
-                    <i style="position:absolute;right:34px;top:100px;z-index:400;color:aquamarine" class="fa fa-cog fa-spin fa-fw margin-bottom"></i>
-                    <i style="position:absolute;right:34px;top:148px;z-index:400;color:aquamarine" class="fa fa-cog fa-spin fa-fw margin-bottom"></i>
+
+                    <div style="position:absolute;left:18px;top:30px;z-index:400">
+                        <div class="btn-group">
+                            <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                1 - 3 Hrs<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" onclick="displayStars(3)">1 - 3 Hrs</a></li>
+                                <li><a href="#" onclick="displayStars(6)">4 - 6 Hrs</a></li>
+                                <li><a href="#" onclick="displayStars(9)">7 - 9 Hrs</a></li>
+                                <li><a href="#" onclick="displayStars(12)">10 - 12 Hrs</a></li>
+                                <li><a href="#" onclick="displayStars(24)">Next 24 Hrs</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="position:absolute;right:18px;top:30px;z-index:400">
+                        <a class="btn btn-success btn-sm" href="#tableback" onclick="displayStars(3)" id="refreshStarsbtn">
+                            Refresh star ratings (1 Credit)</i>
+                        </a>
+                    </div>
+                    <p>&nbsp;</p>
+                <div id="winfo"></div>
                     <div class="framemail">
                         <div id="act_table2">
                             <div class="window">
@@ -336,398 +236,412 @@
                     </div>
                 </div><!-- /dash-unit -->
             </div><!-- /span3 -->
-          
-          <!-- Dist and Gain -->
-            <div class="col-xs-12 col-sm-12 col-lg-6">
-                <div class="half-unit">
-                    <div class="cont" id="seg_title"></div>
-                    <table>
-                        <tr>
-                            <td class="detailstd">
-                                <div class="cont" id="seg_dist"></div>
-                                <p>Total Distance</p>
-                            </td>
-                            <td>
-                                <div class="cont" id="seg_egain"></div><p>Elevation Gain</p>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Buttons -->
-        <div class="col-xs-4 col-sm-4 col-lg-4" style="display:none">
+        </div>
+        <!-- Dist and Gain -->
+        <div class="col-xs-12 col-sm-12 col-lg-6">
             <div class="half-unit">
-                <div class="timebtns">
-                    <div id="backBtn"></div>
-                </div>
-                <div class="timebtns">
-                    <div id="leaderboardBtn"></div>
-                </div>
-                <div class="timebtns">
-                    <div id="seBtn"></div>
+                <div class="cont" id="seg_title"></div>
+                <table>
+                    <tr>
+                        <td class="detailstd">
+                            <div class="cont" id="seg_dist"></div>
+                            <p>Total Distance</p>
+                        </td>
+                        <td>
+                            <div class="cont" id="seg_egain"></div><p>Elevation Gain</p>
+                        </td>
+                        <td>
+                            <div style="position:absolute;right:14px;bottom:20px" id="backBtn"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="col-xs-6 col-sm-6 col-lg-3">
+
+            <div class="dash-unit">
+                <dtitle>Activity Route</dtitle>
+                <hr>
+
+                <div class="circular" id="static_map">
                 </div>
             </div>
         </div>
 
-            <div class="col-xs-6 col-sm-6 col-lg-3">
+        <!-- DONUT CHART BLOCK -->
+        <div class="col-xs-6 col-sm-6 col-lg-3">
 
-                <div class="dash-unit">
-                    <dtitle>Activity Route</dtitle>
-                    <hr>
-
-                    <div class="circular" id="static_map">
-                    </div>
+            <div class="dash-unit">
+                <dtitle>Bearing Breakdown</dtitle>
+                <hr>
+                <div id="canvas-holder" style="text-align:center">
+                    <canvas id="chart-area" width="150px" height="150px" />
                 </div>
             </div>
-
-            <!-- DONUT CHART BLOCK -->
-            <div class="col-xs-6 col-sm-6 col-lg-3">
-
-                <div class="dash-unit">
-                    <dtitle>Bearing Breakdown</dtitle>
-                    <hr>
-                    <div id="canvas-holder" style="text-align:center">
-                        <canvas id="chart-area" width="150px" height="150px" />
-                    </div>
-                </div>
-            </div>
+        </div>
 
     </div>
-        <!-- THIRD ROW OF BLOCKS -->
-    <div id="seg_weather" style="display:none">
+    <!-- THIRD ROW OF BLOCKS -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-lg-6">
+
+            <div class="dash-unit" style="height:60px">
+                <div id="data_pills" style="display:none"></div>
+            </div>
+        </div>
+    </div>
+            <div id="seg_weather" style="display:none">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-lg-6">
+                        <!-- LOCAL TIME BLOCK -->
+                        <div class="dash-unit" style="height:1500px">
+
+                            <div id="wtitle"></div>
+                            <div id="canvas-holder2" style="text-align:center">
+                                <canvas id="weather" width='400px' height='1500px' id="canvas"><canvas>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+    <div id="seg_leaderboard" style="display:none">
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-lg-6">
+            <div class="col-xs-12 col-sm-12 col-lg-12">
                 <!-- LOCAL TIME BLOCK -->
-                <div class="weather-unit">
-                    <dtitle>Weather</dtitle>
+                <div class="dash-unit" id="leaderback">
+                    <dtitle>Leaderboard</dtitle>
                     <hr>
-                    <div id="canvas-holder2" style="text-align:center">
-                        <canvas id="weather" width='400px' height='1500px' id="canvas"><canvas>
+                    <div id="lbBtn"></div>
+                    
+                    <div id="canvas-holder3" style="text-align:center">
+                        <canvas id="leaderbd" width='400px' height='1500px' id="canvas"><canvas>
                     </div>
 
+                    <div id="lb_table" style="display:none"></div>
 
                 </div>
-
             </div>
         </div>
     </div>
+            <div class="row">
+                <div class="col-sm-3 col-lg-3">
 
-        <div class="row">
-            <div class="col-sm-3 col-lg-3">
+                    <!-- BARS CHART - lineandbars.js file -->
+                    <div class="half-unit">
+                        <dtitle>Stock Information</dtitle>
+                        <hr>
+                        <div class="cont">
+                            <div class="info-aapl">
+                                <h4>AAPL</h4>
+                                <ul>
+                                    <li><span class="orange" style="height: 37.5%"></span></li>
+                                    <li><span class="orange" style="height: 47.5%"></span></li>
+                                    <li><span class="orange" style="height: 70%"></span></li>
+                                    <li><span class="orange" style="height: 85%"></span></li>
+                                    <li><span class="green" style="height: 75%"></span></li>
+                                    <li><span class="green" style="height: 50%"></span></li>
+                                    <li><span class="green" style="height: 15%"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
-                <!-- BARS CHART - lineandbars.js file -->
-                <div class="half-unit">
-                    <dtitle>Stock Information</dtitle>
-                    <hr>
-                    <div class="cont">
-                        <div class="info-aapl">
-                            <h4>AAPL</h4>
-                            <ul>
-                                <li><span class="orange" style="height: 37.5%"></span></li>
-                                <li><span class="orange" style="height: 47.5%"></span></li>
-                                <li><span class="orange" style="height: 70%"></span></li>
-                                <li><span class="orange" style="height: 85%"></span></li>
-                                <li><span class="green" style="height: 75%"></span></li>
-                                <li><span class="green" style="height: 50%"></span></li>
-                                <li><span class="green" style="height: 15%"></span></li>
-                            </ul>
+                    <!-- TO DO LIST -->
+                    <div class="half-unit">
+                        <dtitle>To Do List</dtitle>
+                        <hr>
+                        <div class="cont">
+                            <p><bold>13</bold> | Pending Tasks</p>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%;">
+                                <span class="sr-only">60% Complete</span>
+
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- TO DO LIST -->
-                <div class="half-unit">
-                    <dtitle>To Do List</dtitle>
-                    <hr>
-                    <div class="cont">
-                        <p><bold>13</bold> | Pending Tasks</p>
+                <div class="col-sm-3 col-lg-3">
+
+                    <!-- LIVE VISITORS BLOCK -->
+                    <div class="half-unit">
+                        <dtitle>Live Visitors</dtitle>
+                        <hr>
+                        <div class="cont">
+                            <p><bold>388</bold></p>
+
+                        </div>
                     </div>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%;">
-                            <span class="sr-only">60% Complete</span>
+
+                    <!-- PAGE VIEWS BLOCK -->
+                    <div class="half-unit">
+                        <dtitle>Page Views</dtitle>
+                        <hr>
+                        <div class="cont">
+                            <p><bold>145.0K</bold></p>
 
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-sm-3 col-lg-3">
-
-                <!-- LIVE VISITORS BLOCK -->
-                <div class="half-unit">
-                    <dtitle>Live Visitors</dtitle>
-                    <hr>
-                    <div class="cont">
-                        <p><bold>388</bold></p>
-                        <p><img src="up-small.png" alt=""> 412 Max. | <img src="down-small.png" alt=""> 89 Min.</p>
-                    </div>
-                </div>
-
-                <!-- PAGE VIEWS BLOCK -->
-                <div class="half-unit">
-                    <dtitle>Page Views</dtitle>
-                    <hr>
-                    <div class="cont">
-                        <p><bold>145.0K</bold></p>
-                        <p><img src="up-small.png" alt=""> 23.88%</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-3 col-lg-3">
-                <!-- TOTAL SUBSCRIBERS BLOCK -->
-                <div class="half-unit">
-                    <dtitle>Total Subscribers</dtitle>
-                    <hr>
-                    <div class="cont">
-                        <p><bold>14.744</bold></p>
-                        <p>98 Subscribed Today</p>
-                    </div>
-                </div>
-
-                <!-- FOLLOWERS BLOCK -->
-                <div class="half-unit">
-                    <dtitle>Twitter Followers</dtitle>
-                    <hr>
-                    <div class="cont">
-                        <p><bold>17.833 Followers</bold></p>
-                        <p>a user</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- LATEST NEWS BLOCK -->
-            <div class="col-sm-3 col-lg-3">
-                <div class="dash-unit">
-                    <dtitle>Latest News</dtitle>
-                    <hr>
-                    <div class="info-user">
-                        <span aria-hidden="true" class="li_news fs2"></span>
-                    </div>
-                    <br>
-                    <div class="text">
-                        <p><b>Alvarez.is:</b> A beautiful new Dashboard theme has been realised by Carlos Alvarez. Please, visit <a href="http://alvarez.is">Alvarez.is</a> for more details.</p>
-                        <p><grey>Last Update: 5 minutes ago.</grey></p>
-                    </div>
-                </div>
-            </div>
-        </div><!-- /row -->
-        <!-- FOURTH ROW OF BLOCKS -->
-        <div class="row">
-
-            <!-- TWITTER WIDGET BLOCK -->
-            <div class="col-sm-3 col-lg-3">
-                <div class="dash-unit">
-                    <dtitle>Twitter Widget</dtitle>
-                    <hr>
-                    <div class="info-user">
-                        <span aria-hidden="true" class="li_megaphone fs2"></span>
-                    </div>
-                    <br>
-                    <div id="jstwitter" class="clearfix">
-                        <ul id="twitter_update_list"></ul>
-                    </div>
-                    <script src="http://twitter.com/javascripts/blogger.js"></script><!-- Script Needed to load the Tweets -->
-                    <script src="http://api.twitter.com/1/statuses/user_timeline/wrapbootstrap.json?callback=twitterCallback2&amp;count=1"></script>
-                    <!-- To show your tweets replace "wrapbootstrap", in the line above, with your user. -->
-                    <div class="text">
-                        <p><grey>Show your tweets here!</grey></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- NOTIFICATIONS BLOCK -->
-            <div class="col-sm-3 col-lg-3">
-                <div class="dash-unit">
-                    <dtitle>Notifications</dtitle>
-                    <hr>
-                    <div class="info-user">
-                        <span aria-hidden="true" class="li_bubble fs2"></span>
-                    </div>
-                    <div class="cont">
-                        <p><button class="btnnew noty" data-noty-options="{&quot;text&quot;:&quot;This is a success notification&quot;,&quot;layout&quot;:&quot;topRight&quot;,&quot;type&quot;:&quot;success&quot;}">Top Right</button></p>
-                        <p><button class="btnnew noty" data-noty-options="{&quot;text&quot;:&quot;This is an informaton notification&quot;,&quot;layout&quot;:&quot;topLeft&quot;,&quot;type&quot;:&quot;information&quot;}">Top Left</button></p>
-                        <p><button class="btnnew noty" data-noty-options="{&quot;text&quot;:&quot;This is an alert notification with fade effect.&quot;,&quot;layout&quot;:&quot;topCenter&quot;,&quot;type&quot;:&quot;alert&quot;,&quot;animateOpen&quot;: {&quot;opacity&quot;: &quot;show&quot;}}">Top Center (fade)</button></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SWITCHES BLOCK -->
-            <div class="col-sm-3 col-lg-3">
-                <div class="dash-unit">
-                    <dtitle>Switches</dtitle>
-                    <hr>
-                    <div class="info-user">
-                        <span aria-hidden="true" class="li_params fs2"></span>
-                    </div>
-                    <br>
-                    <div class="switch">
-                        <input type="radio" class="switch-input" name="view" value="on" id="on" checked="">
-                        <label for="on" class="switch-label switch-label-off">On</label>
-                        <input type="radio" class="switch-input" name="view" value="off" id="off">
-                        <label for="off" class="switch-label switch-label-on">Off</label>
-                        <span class="switch-selection"></span>
-                    </div>
-                    <div class="switch switch-blue">
-                        <input type="radio" class="switch-input" name="view2" value="week2" id="week2" checked="">
-                        <label for="week2" class="switch-label switch-label-off">Week</label>
-                        <input type="radio" class="switch-input" name="view2" value="month2" id="month2">
-                        <label for="month2" class="switch-label switch-label-on">Month</label>
-                        <span class="switch-selection"></span>
-                    </div>
-
-                    <div class="switch switch-yellow">
-                        <input type="radio" class="switch-input" name="view3" value="yes" id="yes" checked="">
-                        <label for="yes" class="switch-label switch-label-off">Yes</label>
-                        <input type="radio" class="switch-input" name="view3" value="no" id="no">
-                        <label for="no" class="switch-label switch-label-on">No</label>
-                        <span class="switch-selection"></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- GAUGE CHART BLOCK -->
-            <div class="col-sm-3 col-lg-3">
-                <div class="dash-unit">
-                    <dtitle>Gauge Chart</dtitle>
-                    <hr>
-                    <div class="info-user">
-                        <span aria-hidden="true" class="li_lab fs2"></span>
-                    </div>
-                    <canvas id="canvas" width="300" height="300"></canvas>
-                </div>
-            </div>
-
-        </div><!--/row -->
-        <!-- FOURTH ROW OF BLOCKS -->
-        <div class="row">
-
-            <!-- ACCORDION BLOCK -->
-            <div class="col-sm-3 col-lg-3">
-                <div class="dash-unit">
-                    <dtitle>Accordion</dtitle>
-                    <hr>
-                    <div class="accordion" id="accordion2">
-                        <div class="accordion-group">
-                            <div class="accordion-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                                    Collapsible Group Item #1
-                                </a>
-                            </div>
-                            <div id="collapseOne" class="accordion-body collapse in">
-                                <div class="accordion-inner">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem.
-                                </div>
-                            </div>
+                <div class="col-sm-3 col-lg-3">
+                    <!-- TOTAL SUBSCRIBERS BLOCK -->
+                    <div class="half-unit">
+                        <dtitle>Total Subscribers</dtitle>
+                        <hr>
+                        <div class="cont">
+                            <p><bold>14.744</bold></p>
+                            <p>98 Subscribed Today</p>
                         </div>
+                    </div>
 
-                        <div class="accordion-group">
-                            <div class="accordion-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-                                    Collapsible Group Item #2
-                                </a>
-                            </div>
-                            <div id="collapseTwo" class="accordion-body collapse">
-                                <div class="accordion-inner">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem.
-                                </div>
-                            </div>
+                    <!-- FOLLOWERS BLOCK -->
+                    <div class="half-unit">
+                        <dtitle>Twitter Followers</dtitle>
+                        <hr>
+                        <div class="cont">
+                            <p><bold>17.833 Followers</bold></p>
+                            <p>a user</p>
                         </div>
-
-                        <div class="accordion-group">
-                            <div class="accordion-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-                                    Collapsible Group Item #3
-                                </a>
-                            </div>
-                            <div id="collapseThree" class="accordion-body collapse">
-                                <div class="accordion-inner">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem.
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/accordion -->
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-sm-3 col-lg-3">
-
-                <!-- LAST USER BLOCK -->
-                <div class="half-unit">
-                    <dtitle>Last Registered User</dtitle>
-                    <hr>
-                    <div class="cont2">
-                        <img src="user-avatar.jpg" alt="">
+                <!-- LATEST NEWS BLOCK -->
+                <div class="col-sm-3 col-lg-3">
+                    <div class="dash-unit">
+                        <dtitle>Latest News</dtitle>
+                        <hr>
+                        <div class="info-user">
+                            <span aria-hidden="true" class="li_news fs2"></span>
+                        </div>
                         <br>
+                        <div class="text">
+                            <p><b>Alvarez.is:</b> A beautiful new Dashboard theme has been realised by Carlos Alvarez. Please, visit <a href="http://alvarez.is">Alvarez.is</a> for more details.</p>
+                            <p><grey>Last Update: 5 minutes ago.</grey></p>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /row -->
+            <!-- FOURTH ROW OF BLOCKS -->
+            <div class="row">
+
+                <!-- TWITTER WIDGET BLOCK -->
+                <div class="col-sm-3 col-lg-3">
+                    <div class="dash-unit">
+                        <dtitle>Twitter Widget</dtitle>
+                        <hr>
+                        <div class="info-user">
+                            <span aria-hidden="true" class="li_megaphone fs2"></span>
+                        </div>
                         <br>
-                        <p>Paul Smith</p>
-                        <p><bold>Liverpool, England</bold></p>
-                    </div>
-                </div>
-
-                <!-- MODAL BLOCK -->
-                <div class="half-unit">
-                    <dtitle>Modal</dtitle>
-                    <hr>
-                    <div class="cont">
-                        <a href="#myModal" role="button" class="btnnew" data-toggle="modal">Example Modal Window</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Modal title</h4>
+                        <div id="jstwitter" class="clearfix">
+                            <ul id="twitter_update_list"></ul>
                         </div>
-                        <div class="modal-body">
-                            ...
+                        <!-- To show your tweets replace "wrapbootstrap", in the line above, with your user. -->
+                        <div class="text">
+                            <p><grey>Show your tweets here!</grey></p>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-            <!-- FAST CONTACT BLOCK -->
-            <div class="col-sm-3 col-lg-3">
-                <div class="dash-unit">
-                    <dtitle>Fast Contact</dtitle>
-                    <hr>
-                    <div class="cont">
-                        <form action="#get-in-touch" method="POST" id="contact">
-                            <input type="text" id="contactname" name="contactname" placeholder="Name">
-                            <input type="text" id="email" name="email" placeholder="Email">
-                            <div class="textarea-container"><textarea id="message" name="message" placeholder="Message"></textarea></div>
-                            <input type="submit" id="submit" name="submit" value="Send">
-                        </form>
                     </div>
                 </div>
-            </div>
 
-            <!-- INFORMATION BLOCK -->
-            <div class="col-sm-3 col-lg-3">
-                <div class="dash-unit">
-                    <dtitle>Block Dashboard</dtitle>
-                    <hr>
-                    <div class="info-user">
-                        <span aria-hidden="true" class="li_display fs2"></span>
+                <!-- NOTIFICATIONS BLOCK -->
+                <div class="col-sm-3 col-lg-3">
+                    <div class="dash-unit">
+                        <dtitle>Notifications</dtitle>
+                        <hr>
+                        <div class="info-user">
+                            <span aria-hidden="true" class="li_bubble fs2"></span>
+                        </div>
+                        <div class="cont">
+                            <p><button class="btnnew noty" data-noty-options="{&quot;text&quot;:&quot;This is a success notification&quot;,&quot;layout&quot;:&quot;topRight&quot;,&quot;type&quot;:&quot;success&quot;}">Top Right</button></p>
+                            <p><button class="btnnew noty" data-noty-options="{&quot;text&quot;:&quot;This is an informaton notification&quot;,&quot;layout&quot;:&quot;topLeft&quot;,&quot;type&quot;:&quot;information&quot;}">Top Left</button></p>
+                            <p><button class="btnnew noty" data-noty-options="{&quot;text&quot;:&quot;This is an alert notification with fade effect.&quot;,&quot;layout&quot;:&quot;topCenter&quot;,&quot;type&quot;:&quot;alert&quot;,&quot;animateOpen&quot;: {&quot;opacity&quot;: &quot;show&quot;}}">Top Center (fade)</button></p>
+                        </div>
                     </div>
-                    <br>
-                    <div class="text">
-                        <p>Block Dashboard created by Basicoh.</p>
-                        <p>Special Thanks to Highcharts, Linecons and Bootstrap for their amazing tools.</p>
-                    </div>
-
                 </div>
-            </div>
 
-        </div><!--/row -->
+                <!-- SWITCHES BLOCK -->
+                <div class="col-sm-3 col-lg-3">
+                    <div class="dash-unit">
+                        <dtitle>Switches</dtitle>
+                        <hr>
+                        <div class="info-user">
+                            <span aria-hidden="true" class="li_params fs2"></span>
+                        </div>
+                        <br>
+                        <div class="switch">
+                            <input type="radio" class="switch-input" name="view" value="on" id="on" checked="">
+                            <label for="on" class="switch-label switch-label-off">On</label>
+                            <input type="radio" class="switch-input" name="view" value="off" id="off">
+                            <label for="off" class="switch-label switch-label-on">Off</label>
+                            <span class="switch-selection"></span>
+                        </div>
+                        <div class="switch switch-blue">
+                            <input type="radio" class="switch-input" name="view2" value="week2" id="week2" checked="">
+                            <label for="week2" class="switch-label switch-label-off">Week</label>
+                            <input type="radio" class="switch-input" name="view2" value="month2" id="month2">
+                            <label for="month2" class="switch-label switch-label-on">Month</label>
+                            <span class="switch-selection"></span>
+                        </div>
+
+                        <div class="switch switch-yellow">
+                            <input type="radio" class="switch-input" name="view3" value="yes" id="yes" checked="">
+                            <label for="yes" class="switch-label switch-label-off">Yes</label>
+                            <input type="radio" class="switch-input" name="view3" value="no" id="no">
+                            <label for="no" class="switch-label switch-label-on">No</label>
+                            <span class="switch-selection"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GAUGE CHART BLOCK -->
+                <div class="col-sm-3 col-lg-3">
+                    <div class="dash-unit">
+                        <dtitle>Gauge Chart</dtitle>
+                        <hr>
+                        <div class="info-user">
+                            <span aria-hidden="true" class="li_lab fs2"></span>
+                        </div>
+                        <canvas id="canvas" width="300" height="300"></canvas>
+                    </div>
+                </div>
+
+            </div><!--/row -->
+            <!-- FOURTH ROW OF BLOCKS -->
+            <div class="row">
+
+                <!-- ACCORDION BLOCK -->
+                <div class="col-sm-3 col-lg-3">
+                    <div class="dash-unit">
+                        <dtitle>Accordion</dtitle>
+                        <hr>
+                        <div class="accordion" id="accordion2">
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                                        Collapsible Group Item #1
+                                    </a>
+                                </div>
+                                <div id="collapseOne" class="accordion-body collapse in">
+                                    <div class="accordion-inner">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                                        Collapsible Group Item #2
+                                    </a>
+                                </div>
+                                <div id="collapseTwo" class="accordion-body collapse">
+                                    <div class="accordion-inner">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                                        Collapsible Group Item #3
+                                    </a>
+                                </div>
+                                <div id="collapseThree" class="accordion-body collapse">
+                                    <div class="accordion-inner">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis mattis lorem.
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--/accordion -->
+                    </div>
+                </div>
+
+                <div class="col-sm-3 col-lg-3">
+
+                    <!-- LAST USER BLOCK -->
+                    <div class="half-unit">
+                        <dtitle>Last Registered User</dtitle>
+                        <hr>
+                        <div class="cont2">
+
+                            <br>
+                            <br>
+                            <p>Paul Smith</p>
+                            <p><bold>Liverpool, England</bold></p>
+                        </div>
+                    </div>
+
+                    <!-- MODAL BLOCK -->
+                    <div class="half-unit">
+                        <dtitle>Modal</dtitle>
+                        <hr>
+                        <div class="cont">
+                            <a href="#myModal" role="button" class="btnnew" data-toggle="modal">Example Modal Window</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Modal title</h4>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+                <!-- FAST CONTACT BLOCK -->
+                <div class="col-sm-3 col-lg-3">
+                    <div class="dash-unit">
+                        <dtitle>Fast Contact</dtitle>
+                        <hr>
+                        <div class="cont">
+                            <input type="submit" onclick="twitterConn()" name="submit" value="Send">
+                            <form action="#" method="POST" id="contact">
+                                <input type="text" id="contactname" name="contactname" placeholder="Name">
+                                <input type="text" id="email" name="email" placeholder="Email">
+                                <div class="textarea-container"><textarea id="message" name="message" placeholder="Message"></textarea></div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INFORMATION BLOCK -->
+                <div class="col-sm-3 col-lg-3">
+                    <div class="dash-unit">
+                        <dtitle>Block Dashboard</dtitle>
+                        <hr>
+                        <div class="info-user">
+                            <span aria-hidden="true" class="li_display fs2"></span>
+                        </div>
+                        <br>
+                        <div class="text">
+                            <p>Block Dashboard created by Basicoh.</p>
+                            <p>Special Thanks to Highcharts, Linecons and Bootstrap for their amazing tools.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div><!--/row -->
 
 
 
-    </div> <!-- /container -->
+        </div> <!-- /container -->

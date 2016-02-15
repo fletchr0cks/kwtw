@@ -8,18 +8,31 @@
       <Column Name="Polyline" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.TopWeather" Member="TopWeathers">
+    <Type Name="TopWeather">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SegID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Windspeed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Stars" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.[User]" Member="Users">
     <Type Name="User">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="StravaID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Firstname" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="Lastname" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Lastname" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="City" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="Country" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="Lat" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Column Name="Long" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Column Name="Credits" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreditsWait" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Activities" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Segments" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

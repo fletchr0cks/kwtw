@@ -33,6 +33,9 @@ namespace kwtwsite.Models
     partial void InsertSegment(Segment instance);
     partial void UpdateSegment(Segment instance);
     partial void DeleteSegment(Segment instance);
+    partial void InsertTopWeather(TopWeather instance);
+    partial void UpdateTopWeather(TopWeather instance);
+    partial void DeleteTopWeather(TopWeather instance);
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
@@ -73,6 +76,14 @@ namespace kwtwsite.Models
 			get
 			{
 				return this.GetTable<Segment>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TopWeather> TopWeathers
+		{
+			get
+			{
+				return this.GetTable<TopWeather>();
 			}
 		}
 		
@@ -219,6 +230,188 @@ namespace kwtwsite.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TopWeather")]
+	public partial class TopWeather : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private int _SegID;
+		
+		private int _UserID;
+		
+		private int _Windspeed;
+		
+		private int _Stars;
+		
+		private System.Nullable<System.DateTime> _Timestamp;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnSegIDChanging(int value);
+    partial void OnSegIDChanged();
+    partial void OnUserIDChanging(int value);
+    partial void OnUserIDChanged();
+    partial void OnWindspeedChanging(int value);
+    partial void OnWindspeedChanged();
+    partial void OnStarsChanging(int value);
+    partial void OnStarsChanged();
+    partial void OnTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnTimestampChanged();
+    #endregion
+		
+		public TopWeather()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SegID", DbType="Int NOT NULL")]
+		public int SegID
+		{
+			get
+			{
+				return this._SegID;
+			}
+			set
+			{
+				if ((this._SegID != value))
+				{
+					this.OnSegIDChanging(value);
+					this.SendPropertyChanging();
+					this._SegID = value;
+					this.SendPropertyChanged("SegID");
+					this.OnSegIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int NOT NULL")]
+		public int UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Windspeed", DbType="Int NOT NULL")]
+		public int Windspeed
+		{
+			get
+			{
+				return this._Windspeed;
+			}
+			set
+			{
+				if ((this._Windspeed != value))
+				{
+					this.OnWindspeedChanging(value);
+					this.SendPropertyChanging();
+					this._Windspeed = value;
+					this.SendPropertyChanged("Windspeed");
+					this.OnWindspeedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stars", DbType="Int NOT NULL")]
+		public int Stars
+		{
+			get
+			{
+				return this._Stars;
+			}
+			set
+			{
+				if ((this._Stars != value))
+				{
+					this.OnStarsChanging(value);
+					this.SendPropertyChanging();
+					this._Stars = value;
+					this.SendPropertyChanged("Stars");
+					this.OnStarsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Timestamp", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Timestamp
+		{
+			get
+			{
+				return this._Timestamp;
+			}
+			set
+			{
+				if ((this._Timestamp != value))
+				{
+					this.OnTimestampChanging(value);
+					this.SendPropertyChanging();
+					this._Timestamp = value;
+					this.SendPropertyChanged("Timestamp");
+					this.OnTimestampChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[User]")]
 	public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -231,7 +424,7 @@ namespace kwtwsite.Models
 		
 		private string _Firstname;
 		
-		private System.Data.Linq.Binary _Lastname;
+		private string _Lastname;
 		
 		private string _City;
 		
@@ -245,6 +438,12 @@ namespace kwtwsite.Models
 		
 		private System.Nullable<int> _Status;
 		
+		private System.Nullable<int> _CreditsWait;
+		
+		private System.Nullable<int> _Activities;
+		
+		private System.Nullable<int> _Segments;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -255,7 +454,7 @@ namespace kwtwsite.Models
     partial void OnStravaIDChanged();
     partial void OnFirstnameChanging(string value);
     partial void OnFirstnameChanged();
-    partial void OnLastnameChanging(System.Data.Linq.Binary value);
+    partial void OnLastnameChanging(string value);
     partial void OnLastnameChanged();
     partial void OnCityChanging(string value);
     partial void OnCityChanged();
@@ -269,6 +468,12 @@ namespace kwtwsite.Models
     partial void OnCreditsChanged();
     partial void OnStatusChanging(System.Nullable<int> value);
     partial void OnStatusChanged();
+    partial void OnCreditsWaitChanging(System.Nullable<int> value);
+    partial void OnCreditsWaitChanged();
+    partial void OnActivitiesChanging(System.Nullable<int> value);
+    partial void OnActivitiesChanged();
+    partial void OnSegmentsChanging(System.Nullable<int> value);
+    partial void OnSegmentsChanged();
     #endregion
 		
 		public User()
@@ -336,8 +541,8 @@ namespace kwtwsite.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Lastname", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
-		public System.Data.Linq.Binary Lastname
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Lastname", DbType="VarChar(MAX)")]
+		public string Lastname
 		{
 			get
 			{
@@ -472,6 +677,66 @@ namespace kwtwsite.Models
 					this._Status = value;
 					this.SendPropertyChanged("Status");
 					this.OnStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreditsWait", DbType="Int")]
+		public System.Nullable<int> CreditsWait
+		{
+			get
+			{
+				return this._CreditsWait;
+			}
+			set
+			{
+				if ((this._CreditsWait != value))
+				{
+					this.OnCreditsWaitChanging(value);
+					this.SendPropertyChanging();
+					this._CreditsWait = value;
+					this.SendPropertyChanged("CreditsWait");
+					this.OnCreditsWaitChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Activities", DbType="Int")]
+		public System.Nullable<int> Activities
+		{
+			get
+			{
+				return this._Activities;
+			}
+			set
+			{
+				if ((this._Activities != value))
+				{
+					this.OnActivitiesChanging(value);
+					this.SendPropertyChanging();
+					this._Activities = value;
+					this.SendPropertyChanged("Activities");
+					this.OnActivitiesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Segments", DbType="Int")]
+		public System.Nullable<int> Segments
+		{
+			get
+			{
+				return this._Segments;
+			}
+			set
+			{
+				if ((this._Segments != value))
+				{
+					this.OnSegmentsChanging(value);
+					this.SendPropertyChanging();
+					this._Segments = value;
+					this.SendPropertyChanged("Segments");
+					this.OnSegmentsChanged();
 				}
 			}
 		}

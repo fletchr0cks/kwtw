@@ -10,10 +10,10 @@
     <script type="text/javascript" src="~/Scripts/indexW.js"></script>
     <script type="text/javascript" src="~/Scripts/indexD.js"></script>
     <script type="text/javascript" src="~/Scripts/oauth.js"></script>
-    <script type="text/javascript" src="~/Scripts/mapsapijs.js"></script>
+    <!---script type="text/javascript" src="~/Scripts/mapsapijs.js"></!--script-->
     <script type="text/javascript" src="~/Scripts/markerclusterer.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=false"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry"></script>
     <script type="text/javascript" src="~/Scripts/Chart.js"></script>
 
     <link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
@@ -23,7 +23,7 @@
     <link href="~/Content/font-style.css" rel="stylesheet">
     <link href="~/Content/flexslider.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Content/font-awesome.css">
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <!--script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></!--script-->
 
     <style type="text/css">
         body {
@@ -36,12 +36,19 @@
 
         $(document).ready(function () {
       //     alert("ready")
-           // $.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyBVDErdMAzGhcjVpaqCP4rDpCe7r6WcDog&sensor=false');
+         //   $.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyBVDErdMAzGhcjVpaqCP4rDpCe7r6WcDog&sensor=false');
+           // https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=geometry
             checkData();
             //checkConnection();
             
         });
+        $(function () {
+            $(".dropdown-menu li a").click(function () {
+                var selText = $(this).text();
+                $(this).parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
+            });
 
+        });
         </script>
 
 </head>
@@ -58,11 +65,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.html">Activities</a></li>
+                    <li class="active"><a href="index">Activities</a></li>
                     <li><a href="manager.html"><i class="icon-folder-open icon-white"></i>Nearby</a></li>
                     <li><a href="#" onclick="showLocal()"><i class="icon-calendar icon-white"></i> Calendar</a></li>
-                    <li><a href="tables.html"><i class="icon-th icon-white"></i> Tables</a></li>
-                    <li><a href="login.html"><i class="icon-lock icon-white"></i> Login</a></li>
+                    <li><a href="/home/beta"><i class="icon-th icon-white"></i> Beta</a></li>
+                    <li><a href="/home/contact"><i class="icon-lock icon-white"></i> Login</a></li>
                     <li><a href="user.html"><i class="icon-user icon-white"></i> User</a></li>
 
                 </ul>
