@@ -254,6 +254,7 @@
     <Content Include="Scripts\mapsapijs.js" />
     <Content Include="Scripts\markerclusterer.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\oauth.js" />
     <Content Include="Scripts\oauth.min.js" />
     <Content Include="Scripts\respond.js" />

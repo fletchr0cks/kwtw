@@ -24,12 +24,21 @@
                     <div class="dash-unit" id="tableback_map">
 
                         <div class="timebtns">
-                            <div class="btn-group btn-group-s" role="group">
-                                <button type="button" class="btn btn-danger btn-sm" id="hr1">1-3Hrsc</button>
-                                <button type="button" class="btn btn-danger btn-sm" id="hr2">4-6Hrs</button>
-                                <button type="button" class="btn btn-danger btn-sm">7-9Hrs</button>
-                                <button type="button" class="btn btn-danger btn-sm">Mon</button>
+                            <div style="position:absolute;left:18px;top:30px;z-index:400">
+                                <div class="btn-group">
+                                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        1 - 3 Hrs<span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" onclick="displayStarsmap(3)">1 - 3 Hrs</a></li>
+                                        <li><a href="#" onclick="displayStarsmap(6)">4 - 6 Hrs</a></li>
+                                        <li><a href="#" onclick="displayStarsmap(9)">7 - 9 Hrs</a></li>
+                                        <li><a href="#" onclick="displayStarsmap(12)">10 - 12 Hrs</a></li>
+                                        <li><a href="#" onclick="displayStarsmap(24)">Next 24 Hrs</a></li>
+                                    </ul>
+                                </div>
                             </div>
+
                         </div>
                         <div id="map_table">
                             <div class="framemail">
@@ -213,7 +222,7 @@
                     </div>
                     <div style="position:absolute;right:18px;top:30px;z-index:400">
                         <a class="btn btn-success btn-sm" href="#tableback" onclick="displayStars(3)" id="refreshStarsbtn">
-                            Refresh star ratings (1 Credit)</i>
+                            Refresh star ratings
                         </a>
                     </div>
                     <p>&nbsp;</p>
@@ -251,6 +260,9 @@
                             <div class="cont" id="seg_egain"></div><p>Elevation Gain</p>
                         </td>
                         <td>
+                            <div id="favBtn"></div>
+                        </td>
+                        <td>
                             <div style="position:absolute;right:14px;bottom:20px" id="backBtn"></div>
                         </td>
                     </tr>
@@ -284,11 +296,13 @@
 
     </div>
     <!-- THIRD ROW OF BLOCKS -->
-    <div class="row">
+    <div class="row" id="pills_row" style="display:none">
         <div class="col-xs-12 col-sm-12 col-lg-6">
 
             <div class="dash-unit" style="height:60px">
-                <div id="data_pills" style="display:none"></div>
+                <div class="cont">
+                    <div id="data_pills" style="display:none"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -314,10 +328,20 @@
             <div class="col-xs-12 col-sm-12 col-lg-12">
                 <!-- LOCAL TIME BLOCK -->
                 <div class="dash-unit" id="leaderback">
-                    <dtitle>Leaderboard</dtitle>
+                    <dtitle id="lbdata">Leaderboard</dtitle>
                     <hr>
-                    <div id="lbBtn"></div>
                     
+                    <div class="cont"><div id="lbBtn"></div>
+                        <div></div>
+                        <div id="komimg" class="circular_sml"></div>
+                        <div style="position:absolute;left:98px;top:58px" id="komdata">KOM: name here</div>
+                        <div style="position:absolute;left:98px;top:95px" id="hkomdata">hist kom data</div>
+                        <div id="komstarcanvas">
+                            <canvas id="komcanvas" width='400px' height='15px'><canvas>
+                        </div>
+                        <div style="position:absolute;left:98px;top:135px" id="komability">kom ability</div>
+                    </div>
+                    <p>&nbsp;</p>
                     <div id="canvas-holder3" style="text-align:center">
                         <canvas id="leaderbd" width='400px' height='1500px' id="canvas"><canvas>
                     </div>

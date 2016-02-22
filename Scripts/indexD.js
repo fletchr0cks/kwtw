@@ -363,7 +363,7 @@ function GoogleMap(lat, lng) {
         infowindow = new google.maps.InfoWindow({
             content: "holding..."
         });
-        $("#map_msg").html("Loading markers ... ");
+        console.log("Loading markers ... ");
 
         return map;
     }
@@ -510,7 +510,7 @@ function setMarkers(map, bounds_map, PID) {
             $('#map_table').html(top + midhtml + "</ul></div></div>");
             //var mcOptions = { gridSize: 50, maxZoom: 18 };
             //var markerCluster = new MarkerClusterer(map, markers_array, mcOptions);
-            parse(ct,"map");
+            parse("map");
 
 
 
@@ -570,24 +570,30 @@ var canvas = document.getElementById('weather');
 
 }
 
-function showLeader(ID) {
+function showLeader(ID,type) {
     console.log("show leader" + ID);
     $('#seg_weather').slideUp();
     $('#seg_efforts').slideUp();
     var lbdata = localStorage.getItem('lb_data_' + ID);
     if (lbdata == null) {
-        stLeader(ID);
+        stLeader(ID,type);
         console.log("no local lb data");
     } else {
         console.log("local lb data");
-        drawLeaderboard(ID);
+        drawLeaderboard(ID,type); //changed
     }
 }
 
-function showEfforts(ID) {    
-    $('#seg_weather').slideUp();
-    $('#seg_leaderboard').slideUp();
-    stEffort(ID);
+function showEfforts(ID) {
+    var effs = localStorage.getItem('eff_data_' + ID);
+    if (effs == null) {
+        $('#seg_weather').slideUp();
+        $('#seg_leaderboard').slideUp();
+        stEffort(ID);
+    } else {
+        drawSegEffort(ID);
+    }
+    
 }
 
 
@@ -597,6 +603,8 @@ function poly_map(ID, i, name) {
     $('#seg_weather').show();
     $('#data_pills').show();
     $('#seg_details').show();
+    $('#pills_row').show();
+    $('#data_pills').show();
     $('#map_activities').hide();
     $('#map_canvas_nearby').hide();
     $('#static_map').fadeIn();
@@ -605,12 +613,22 @@ function poly_map(ID, i, name) {
     //alert(json);
     var dist = j2.points[i].dist;
     var egain = j2.points[i].gain;
-    var btn ="<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"showLeader(" + ID +")\">Leaderboard</button>";
-    $('#seg_title').html("<h5>" + name + "</h5>");
+    var favbtn = "<a class=\"btn btn-large btn-danger\" href=\"#\" onclick=\"addFav(" + ID + ")\"><i class=\"fa fa-star-o icon-2x pull-left\"></i>Add<br>To Fvourites</a>";
+    var Backbtn ="<button type=\"button\" class=\"btn btn-primary btn-lg\" onclick=\"backMap()\">Back</button>";
+    $('#seg_title').html("<h1>" + name + "</h1>");
     $('#seg_dist').html("<p><bold>" + dist + "</bold></p>");
     $('#seg_egain').html("<p><bold>" + egain + "</bold></p>");
-    $('#leaderboardBtn').html(btn);
-  
+    //$('#leaderboardBtn').html(Lbbtn);
+    $('#backBtn').html(Backbtn);
+    $('#favBtn').html(favbtn);
+    var type = "map";
+   
+    $('#data_pills').html("<div class=\"btn-group btn-group-s\" role=\"group\">" +
+"<button type=\"button\" class=\"btn btn-success btn-sm\" id=\"wpill\" autofocus=\"true\" onclick=\"drawWeather(" + ID + ")\">Weather</button>" +
+"<button type=\"button\" class=\"btn btn-success btn-sm\" id=\"ewpill\" onclick=\"showEfforts(" + ID + ")\">Efforts</button>" +
+"<button type=\"button\" class=\"btn btn-success btn-sm\" id=\"lpill\" onclick=\"showLeader(" + ID + ",'" + type + "')\">Leaderboard</button>" +
+"<button type=\"button\" class=\"btn btn-success btn-sm\" id=\"spill\">KOMability</button>" +
+"</div></div>");
     var pl = j2.points[i].points;
     drawMap(pl);
    
@@ -644,8 +662,9 @@ function poly2(ID, i, name) {
     $('#my_activities').hide();
     $('#act_table_header').hide();
     $('#seg_data').show();
+    $('#pills_row').hide();
     $('#seg_weather').show();
-     $('#data_pills').show();
+     $('#data_pills').hide();
     $('#seg_details').show();
     $('#static_map').fadeIn();
    // alert(i + name);
@@ -692,6 +711,7 @@ function polySegs(ID, i, name) {
     $('#act_table_header').hide();
     $('#seg_data').show();
     $('#seg_weather').show();
+    $('#pills_row').show();
      $('#data_pills').show();
     $('#seg_details').show();
     $('#static_map').fadeIn();
@@ -714,12 +734,22 @@ function polySegs(ID, i, name) {
      //$('#seg_details').html(top_html + side_html);
     var pl = localStorage.getItem(ID+"_poly");
     //var pl = j2.segs[i].poly;
+    var ddmenu = "<div style=\"position:absolute;left:18px;top:30px;z-index:400\"><div class=\"btn-group\">" +
+                "<button class=\"btn btn-success btn-sm dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" +
+                 "Weather<span class=\"caret\"></span></button><ul class=\"dropdown-menu\">" +
+                 "<li><a href=\"#\" onclick=\"drawWeather(" + ID + ")v>Weather</a></li>" +
+                  "<li><a href=\"#\" onclick=\"showEfforts(" + ID + ")\">Efforts</a></li>" +
+                  "<li><a href=\"#\" onclick=\"showLeader(" + ID + ")\">Leaderboard</a></li></ul></div></div>";
+
+    var type = "segs";
+   
      $('#data_pills').html("<div class=\"btn-group btn-group-s\" role=\"group\">" +
-  "<button type=\"button\" class=\"btn btn-info btn-sm\" id=\"wpill\" autofocus=\"true\" onclick=\"drawWeather(" + ID +")\">Weather</button>" +
-  "<button type=\"button\" class=\"btn btn-info btn-sm\" id=\"ewpill\" onclick=\"showEfforts(" + ID +")\">Efforts</button>" +
-  "<button type=\"button\" class=\"btn btn-info btn-sm\" id=\"lpill\" onclick=\"showLeader(" + ID +")\">Leaderboard</button>" +
-  "<button type=\"button\" class=\"btn btn-info btn-sm\" id=\"spill\">Split</button>" +
+  "<button type=\"button\" class=\"btn btn-success btn-sm\" id=\"wpill\" autofocus=\"true\" onclick=\"drawWeather(" + ID + ")\">Weather</button>" +
+  "<button type=\"button\" class=\"btn btn-success btn-sm\" id=\"ewpill\" onclick=\"showEfforts(" + ID + ")\">Efforts</button>" +
+  "<button type=\"button\" class=\"btn btn-success btn-sm\" id=\"lpill\" onclick=\"showLeader(" + ID + ",'" + type + "')\">Leaderboard</button>" +
+  "<button type=\"button\" class=\"btn btn-success btn-sm\" id=\"spill\">KOMability</button>" +
   "</div></div>");
+   // $('#data_pills').html(ddmenu);
 
     drawMap(pl);
     drawChart(ID);
@@ -988,8 +1018,9 @@ $('#location').append(polyline + " "  + ID + " " + parentID + "</br>");
     for (var i = 0; i < arrayLength1; i++) {
         var latlng1 = myStringArray1[i];
         var latlng2 = myStringArray1[i + 1];
-        var bearing = google.maps.geometry.spherical.computeHeading(latlng1, latlng2);
-        
+        if (latlng2 != undefined) {
+            var bearing = google.maps.geometry.spherical.computeHeading(latlng1, latlng2);
+        }
     var dist = google.maps.geometry.spherical.computeDistanceBetween(latlng1, latlng2);
     var percent = calcDistProp(dist, totalDist);
     dist = Math.round(parseInt(dist));
@@ -1402,24 +1433,43 @@ function getTimediff(ID) {
 
 }
 
-function getLatlng(ID) {
-    var json = localStorage.getItem('all_seg_efforts');
-    var j2 = eval('(' + json + ')');
-    var lat;
-    var lng;
-    var latlng;
-    //alert(ID + " " + wdata);
-    //var timenow = Math.round(new Date().getTime() / 1000);
-    $.each(j2.segs, function (i, wd) {  
-        if (wd.ID == ID ) { //or parentID
-            //lat = wd.lat;
-           // lng = wd.lng;
-            latlng = wd.latlng;
-        }
-    });
-    //alert(timenow + " " + epoch);
-    return latlng;
-
+function getLatlng(ID,type) {
+    if (type == 'map') {
+        var json = localStorage.getItem('seg_loc_data');
+        var j2 = eval('(' + json + ')');
+        var lat;
+        var lng;
+        var latlng;
+   //     console.log(ID + " " + json);
+        //var timenow = Math.round(new Date().getTime() / 1000);
+        $.each(j2.points, function (i, wd) {
+            console.log(ID + " " + wd.PID);
+            if (wd.PID == ID) { //or parentID
+                //lat = wd.lat;
+                // lng = wd.lng;
+                latlng = wd.endlatlong;
+            }
+        });
+        //alert(timenow + " " + epoch);
+        return latlng;
+    } else {
+        var json = localStorage.getItem('all_seg_efforts');
+        var j2 = eval('(' + json + ')');
+        var lat;
+        var lng;
+        var latlng;
+        //alert(ID + " " + wdata);
+        //var timenow = Math.round(new Date().getTime() / 1000);
+        $.each(j2.segs, function (i, wd) {
+            if (wd.ID == ID) { //or parentID
+                //lat = wd.lat;
+                // lng = wd.lng;
+                latlng = wd.latlng;
+            }
+        });
+        //alert(timenow + " " + epoch);
+        return latlng;
+    }
 }
 
 function getParent(ID) {
@@ -1459,6 +1509,10 @@ function prettify(diff) {
 
 function drawWeather(ID) {
     //var bdata = localStorage.getItem(ID+"_array");
+    var starvals = {
+        stardata: []
+    };
+
     var bearing_store = ID+"_array";
     $('#seg_leaderboard').slideUp();
     $('#seg_efforts').slideUp();
@@ -1722,7 +1776,7 @@ function drawWeather(ID) {
         ctx2d.fillStyle = "#f93";
         // ctx2d.fillText(brg + "." + pval0f + "." + arval1f + " .. " + (brg - 30) + "." + pval1f + "." + arval2f + " .. " + (brg + 30) + "." + pval2f + "." + arval3f + " " + foll_wind_val + "stm:" + numstars, 53, posyt);
         // ctx2d.fillText(brg + "." + pval0h + "." + arval1h + " .. " + (brg - 30) + "." + pval1h + "." + arval2h + " .. " + (brg + 30) + "." + pval2h + "." + arval3h + " " + head_wind_val + "st:" + starval, 53, posyt + 32);
-        ctx2d.fillText(cond, 53, posyt + 49);  //was cond
+        ctx2d.fillText(cond + " " + brg, 53, posyt + 49);  //was cond
         ctx2d.font = '13px Arial Bold ';
         ctx2d.fillStyle = "#ffca4a";
         //if (foll_wind_val > 20 || 
@@ -1733,7 +1787,10 @@ function drawWeather(ID) {
            numstars = calcStars(starval);
            drawStarsF(ctx2d, numstars, posy + 30,230);
         }
-
+        starvals.stardata.push[{
+            "stars": numstars,
+            "hour": hour
+        }]
         //star(ctx2d, 260, posy + 30, 10, 5, 0.5, "f");
         //star(ctx2d, 295, posy + 30, 10, 5, 0.5, "f");
         //star(ctx2d, 330, posy + 30, 10, 5, 0.5, "o");
