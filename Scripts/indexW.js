@@ -19,7 +19,7 @@ function saveUser(firstname, lastname, stravaID, NumAct, NumSeg) {
 
 function checkData() {
 
-    if (localStorage.getItem("userdata") == null) {
+    if (localStorage.getItem("userdata") == null) {tn
         $('#status_msgs').append("no data");
         $('#UnAuthApp').show();
         // initBtns();
@@ -44,6 +44,7 @@ function checkData() {
         $('#act_table').show();
     }
 
+    
 
     if (localStorage.getItem('oauthio_provider_strava') === null) {
         $('#footerMsgS').html("Not Authenticated with Strava. Tap 'Connect to Strava'");
@@ -79,7 +80,25 @@ var json = localStorage.getItem('all_seg_efforts');
     });
      return "hi"
 
-} 
+}
+
+function dispStarsChk() {
+    var Hrs = localStorage.getItem("Hrs");
+    if (Hrs == null) {
+        $('#refreshStarsbtn').html("Show Stars");
+    } else {
+        displayStars(Hrs);
+    }
+    var ddtext = "<div class=\"btn-group\"><button class=\"btn btn-success btn-sm dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" +
+                  " new Hrs " + Hrs + "<span class=\"caret\"></span></button><ul class=\"dropdown-menu\">" +
+                                "<li><a href=\"#\" onclick=\"displayStars(3)\">1 - 3 Hrs</a></li>" +
+                                "<li><a href=\"#\" onclick=\"displayStars(6)\">4 - 6 Hrs</a></li>" +
+                                "<li><a href=\"#\" onclick=\"displayStars(9)\">7 - 9 Hrs</a></li>" +
+                                "<li><a href=\"#\" onclick=\"displayStars(12)\">10 - 12 Hrs</a></li>" +
+                                "<li><a href=\"#\" onclick=\"displayStars(24)\">Next 24 Hrs</a></li></ul></div>";
+
+    $('#Hrsdd').html(ddtext);
+}
 
 //var resp = getPoly ('222');
 //$('#location').append(resp + "</br>");
@@ -88,16 +107,33 @@ var json = localStorage.getItem('all_seg_efforts');
 function getAct() {
     $('#seg_nearby').hide();
     $('#status_msgs').hide();
+    $('#profile_tile').hide();
     drawTable();
+}
+
+function sw2() {
+    console.log("sw 2");
+
+
+    var groupname = document.getElementByName("week2").value;
+    console.log(groupname);
+
+}
+
+function Settings() {
+    $('#act_table').hide();
+    $('#my_activities').hide();
+    $('#profile_tile').show();
 }
 
 function getNearby() {
  //   alert("map")
+    $('#profile_tile').hide();
     $('#act_table_header').hide();
     $('#act_table').hide();
     $('#my_activities').hide();
     $('#seg_nearby').show();
-    $('#seg_data').hide();
+    //$('#seg_data').hide();
     // getSegsbyBounds();
     console.log("get nearby");
     showmap();
@@ -113,9 +149,10 @@ function drawTable() {
     $('#act_table_header').show();
     $('#act_table2').show();
     $('#my_activities').show();
-    $('#seg_data').hide();
-    $('#seg_weather').hide();
-    $('#seg_details').hide();
+    $('deets_tile').show();
+  //  $('#seg_data').hide();
+  //  $('#seg_weather').hide();
+   // $('#seg_details').hide();
     //var json = localStorage.getItem('all_seg_efforts');
     //$('#location').append(json + "</br>");
     var top = "<div class=\"framemail\"><div class=\"window\"><ul class=\"mail\">";
@@ -137,7 +174,7 @@ function drawTable() {
         }
         if (act_ct == 0) {
             firstID = seg.ID;
-            midhtml = midhtml + "<li onclick=\"poly2(" + seg.ID + "," + i + ",'" + seg.name + "')\"><i class=\"read\"></i><p  id=\"trow_" + seg.ID + "\" class=\"un_sel\">" + seg.name + "</p><p class=\"message\">" + seg.dist + "m</p>" +
+            midhtml = midhtml + "<li onclick=\"poly2(" + seg.ID + "," + i + ",'" + seg.name + "')\"><i class=\"read\"></i><p  id=\"trow_" + seg.ID + "\" class=\"sel\">" + seg.name + "</p><p class=\"message\">" + seg.dist + "m</p>" +
                     "<div class=\"actions\" id=\"stars_" + seg.ID + "\"></div></li><div id=\"segs_" + seg.ID + "\"></div>";
 
         } else {
@@ -153,10 +190,10 @@ function drawTable() {
     });
     var ht = parseInt((act_ct * 48) + 250); //56
     $('#tableback').height(ht);
-    //alert(firstID)
-    //drawMap(pl);
-    //drawChart(firstID);
-  //  drawWeather(firstID);
+   // alert(firstID)
+   // drawMap(pl);
+    drawChart(firstID);
+   drawWeather(firstID);
 
     var ref_btn = "<div class=\"minihead\"><button class=\"btn btn-primary\" onclick=\"stAct()\">Refresh My Activities</button></div>";
     $('#actMsgs').html(act_ct + " Activities loaded.");
@@ -213,6 +250,7 @@ function getSegs() {
                 }
                 parents.push(seg.ID);
     });
+    dispStarsChk();
 }
 
 function drawLeaderboard(ID,type) {
@@ -221,22 +259,22 @@ function drawLeaderboard(ID,type) {
     $('#eff_table').hide();
     $('#seg_weather').hide();
     $('#seg_efforts').hide();
-    var btnhtml = "<div style=\"position:absolute;right:18px;top:30px;z-index:400\"><a class=\"btn btn-success btn-sm\" href=\"#leaderback\" onclick=\"showHistweather(" + ID + ",'" + type + "')\">" +
-                   "Show historical wind conditions (1 Credit)</i></a></div>";
-
+    var btnhtml = "<div id=\"cont\"><a class=\"btn btn-success btn-sm\" href=\"#leaderback\" onclick=\"showHistweather(" + ID + ",'" + type + "')\">" +
+                   "Show historical wind conditions</i></a></div>";
+    //style=\"position:absolute;right:18px;top:40px;z-index:400\"
     $('#lbBtn').html(btnhtml);
     var top = "<div class=\"framemail\"><div class=\"window\"><ul class=\"mail\">";
     var json = localStorage.getItem('lb_data_' + ID);
     var j2 = eval('(' + json + ')');
     var timestr = j2.timestamp[0].now;
-    var refstr = "Leaderboard data retrieved " + timestr;
+    var refstr = "<h3>Data retrieved " + timestr + "</h3>";
     var kompic = j2.segs[0].profile;
     var komname = j2.segs[0].name;
     var komtime = j2.segs[0].mov_time;
     var komimg = "<img style=\"width:80px;height:auto\" src=\"" + kompic + "\">";
     $('#lbdata').html(refstr);
     $('#komimg').html(komimg);
-    $('#komdata').html("<h2>" + komname + "</h2><h3>" + komtime + " seconds</h3>");
+    $('#komdata').html("<div style=\"font-size:30px\">" + komname + "</div><div style=\"text-align:left\">" + komtime + " seconds</div>");
     var midhtml = "";
     var act_ct = 0;
     var posy = 4; //54;
@@ -307,28 +345,32 @@ function drawLeaderboard_hist(ID,type) {
     $('#eff_table').hide();
     $('#seg_weather').hide();
     $('#seg_efforts').hide();
-    var btnhtml = "<div style=\"position:absolute;right:18px;top:30px;z-index:400\"><a class=\"btn btn-success btn-sm\" href=\"#leaderback\" onclick=\"showHistweather(" + ID + ",'" + type + "')\">" +
-                   "Show historical wind conditions (1 Credit)</i></a></div>";
-   
+
+    var btnhtml = "<div id=\"cont\"><a class=\"btn btn-success btn-sm\" href=\"#leaderback\" onclick=\"showHistweather(" + ID + ",'" + type + "')\">" +
+               "Show historical wind conditions</i></a></div>";
+    //style=\"position:absolute;right:18px;top:40px;z-index:400\"
     $('#lbBtn').html(btnhtml);
-    var hist = true;
     var top = "<div class=\"framemail\"><div class=\"window\"><ul class=\"mail\">";
-    var json = localStorage.getItem('lb_data_'+ID);
+    var json = localStorage.getItem('lb_data_' + ID);
     var j2 = eval('(' + json + ')');
+    var timestr = j2.timestamp[0].now;
     var hdata = localStorage.getItem(ID + '_0_hist');
     var bearing_store = ID + "_array";
     var j3 = eval('(' + hdata + ')');
     var wspd = j3.hdata[0].wspeed;
     var kombrg = j3.hdata[0].wbrg;
-    var timestr = j2.timestamp[0].now;
-    var refstr = "Leaderboard data retrieved " + timestr;
+
+    var refstr = "<h3>Data retrieved " + timestr + "</h3>";
     var kompic = j2.segs[0].profile;
     var komname = j2.segs[0].name;
     var komtime = j2.segs[0].mov_time;
     var komimg = "<img style=\"width:80px;height:auto\" src=\"" + kompic + "\">";
     $('#lbdata').html(refstr);
     $('#komimg').html(komimg);
-    $('#komdata').html("<h2>" + komname + "</h2><h3>" + komtime + " seconds</h3>");
+    $('#komdata').html("<div style=\"font-size:30px\">" + komname + "</div><div style=\"text-align:left\">" + komtime + " seconds</div>");
+
+    var hist = true;
+
     //kom star calc
     var brg = kombrg;
     
@@ -369,25 +411,25 @@ function drawLeaderboard_hist(ID,type) {
     var starval = 500 + (parseInt(foll_wind_val) - parseInt(head_wind_val));
     var numstars = 0;
     var canvas = document.getElementById('komcanvas');
-    canvas.width = 350;
-    canvas.height = 15;
-    canvas.style.width = '350px';
-    canvas.style.height = '15px';
+    canvas.width = 300;
+    canvas.height = 25;
+    canvas.style.width = '300px';
+    canvas.style.height = '25px';
     var ctx2d = canvas.getContext('2d');
     ctx2d.clearRect(0, 0, ctx2d.canvas.width, ctx2d.canvas.height);
     ctx2d.fillStyle = "#ffca4a";
 
 
     if (starval <= 0) {
-        drawStarsO(ctx2d, 5, 0, 200);
+        drawStarsO(ctx2d, 5, 15, 170);
     } else {
         numstars = calcStars(starval);
-        drawStarsF(ctx2d, numstars, 0, 200);
+        drawStarsF(ctx2d, numstars, 15, 170);
     }
     //numstars = 5
-    $('#hkomdata').html("<h3>" + wspd + " " + starval + "  " + numstars + "</h3>");
-    var komf = 1 / (numstars / 5);
-    $('#komability').html("KOMabilty factor: " + komf);
+//    $('#hkomdata').html("<h3>" + wspd + " " + starval + "  " + numstars + "</h3>");
+    var komf = Math.floor(1 / (numstars / 5));
+    $('#komability').html("KOMabilty Factor: " + komf);
     var midhtml = "";
     var act_ct = 0;
     var posy = 4; //54;
@@ -673,22 +715,41 @@ var index = 0;
 function displayStars(hrs) { //get seg weather
     //1-3 = 3
     //4-6 = 6
-    var ID = "469475975";
+    var wdata = localStorage.getItem("weatherdata");
+    var wdataj = eval('(' + wdata + ')');
+
+    var ID = wdataj.wdata[0].ID;      //"469475975";
     var jsonact = localStorage.getItem('segdata');
     var jsonseg = localStorage.getItem('all_seg_efforts');
     var jsondata = localStorage.getItem(ID + "_weather");
+    $('#refreshStarsbtn').html("Refresh Stars Ratings");
+    var Hrs = localStorage.getItem("Hrs");
+    localStorage.setItem("Hrs", hrs);
+    
     var parsed_json = eval('(' + jsondata + ')');
 
     var j2s = eval('(' + jsonseg + ')');
     var j2a = eval('(' + jsonact + ')');
     var fh = hrs - 3;
     var lh = hrs - 1
+    var hrstxt = lh + " - " + fh + " Hrs";
+    var ddtext = "<div class=\"btn-group\"><button class=\"btn btn-success btn-sm dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" +
+              + hrstxt + "<span class=\"caret\"></span></button><ul class=\"dropdown-menu\">" +
+                            "<li><a href=\"#\" onclick=\"displayStars(3)\">1 - 3 Hrs</a></li>" +
+                            "<li><a href=\"#\" onclick=\"displayStars(6)\">4 - 6 Hrs</a></li>" +
+                            "<li><a href=\"#\" onclick=\"displayStars(9)\">7 - 9 Hrs</a></li>" +
+                            "<li><a href=\"#\" onclick=\"displayStars(12)\">10 - 12 Hrs</a></li>" +
+                            "<li><a href=\"#\" onclick=\"displayStars(24)\">Next 24 Hrs</a></li></ul></div>";
+
+    $('#Hrsdd').html(ddtext);
+
+
     var firsthour = parsed_json.hourly_forecast[fh].FCTTIME.civil;
     var lasthour = parsed_json.hourly_forecast[lh].FCTTIME.civil;
     $('#location').append("Calculating activity ratings for selected wind conditions");
     var timediff = getTimediff(ID);
     var timeago = prettify(timediff);
-    $('#winfo').html("<h3>Showing star ratings from " + firsthour + " to " + lasthour + "</h3><h4>Weather data can be refresh in 3 hours</h4>");
+    $('#winfo').html("<h3>Showing star ratings from " + firsthour + " to " + lasthour + "</h3><h3>Weather data retrieved " + timeago +"</h3>");
     $.each(j2s.segs, function (i, seg) {
         $('#stars_' + seg.ID).html("<p>Calculating ... </p>");
         calcStarsInline(seg.ID,hrs);

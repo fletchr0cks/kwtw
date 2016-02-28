@@ -76,6 +76,16 @@ td.alnright { text-align: right; }
 	margin-left:10px;
 }
 
+.circular_pfl {
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	overflow: hidden;
+    -webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+	border: 1px solid #2fb4c8;
+	margin-left:10px;
+}
 
       
 .circular {
@@ -290,7 +300,7 @@ td.alnright { text-align: right; }
 	background-image:url('sep-half.png');
 	background-color: #3d3d3d;
 	color:white;
-	height:130px;
+	height:400px;
 }
 
 .half-unit:hover {
@@ -593,15 +603,36 @@ digiclock {
 
 .clockcenter {
 	text-align:center;
-}
+}       
 
 .timebtns {
     padding-bottom: 10px;
-    padding-left: 12px;
+    padding-left: 12px;     
     padding-top:10px
 }
     
-    
+.menubtns {
+    position: absolute;
+    left: 10px;
+    z-index: 1000;
+    top: 10px
+}
+
+.logoimg {
+    position: absolute;
+    right: 5px;
+    z-index: 300;
+    top: 5px
+
+}    
+
+.profile {
+    position: absolute;
+    right: 98px;
+    z-index: 300;
+    top: 5px
+
+}    
 
 
 /**********Mail Style Configuration**********/   
@@ -725,7 +756,7 @@ digiclock {
 .framemail .window .mail li .actions {
     height: 20px;
     position: absolute;
-    right: 0px;
+    right: 10px;
     width: 95px;
     text-align: center;
     top: 0;

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
+   
     @Scripts.Render("~/bundles/modernizr")
 
     <script type="text/javascript" src="~/Scripts/indexW.js"></script>
@@ -19,18 +19,14 @@
 
     <link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
-
+    <link href="~/Content/bootstrap.css" rel="stylesheet">
     <link href="~/Content/main.css" rel="stylesheet">
     <link href="~/Content/font-style.css" rel="stylesheet">
     <link href="~/Content/flexslider.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Content/font-awesome.css">
     <!--script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></!--script-->
 
-    <style type="text/css">
-        body {
-            padding-top: 60px;
-        }
-    </style>
+   
 
     <script type="text/javascript">
 
@@ -54,29 +50,7 @@
 
 </head>
 <body>
-    <div class="navbar-nav navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">Logo</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="/">Activities</a></li>
-                    <li><a href="#"  onclick="getNearby()"><i class="icon-folder-open icon-white"></i>Map</a></li>
-                    <li><a href="#" onclick="showLocal()"><i class="icon-calendar icon-white"></i> Calendar</a></li>
-                    <li><a href="/home/beta"><i class="icon-th icon-white"></i> Beta</a></li>
-                    <li><a href="/home/contact"><i class="icon-lock icon-white"></i> Login</a></li>
-                    <li><a href="user.html"><i class="icon-user icon-white"></i> User</a></li>
 
-                </ul>
-            </div><!--/.nav-collapse -->
-        </div>
-    </div>
     <div class="container body-content">
         @RenderBody()
         <hr />

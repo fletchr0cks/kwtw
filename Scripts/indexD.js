@@ -541,32 +541,30 @@ function backMap() {
     $('#seg_details').hide();
     $('#map_activities').show();
     $('#map_canvas_nearby').show();
-
+    $('#deets_tile').hide();
+    $('html, body').animate({
+        scrollTop: $("#seg_nearby").offset().top
+    }, 2000);
 }
 
 function backAct() {
-var canvas = document.getElementById('weather');
-    canvas.width = 350;
-    canvas.height = 1500;
-    canvas.style.width = '350px';
-    canvas.style.height = '1500px';
-    var ctx2d = canvas.getContext('2d');
-    ctx2d.clearRect(0, 0, ctx2d.canvas.width, ctx2d.canvas.height);
-    ctx2d.fillStyle = "rgba(255, 255, 255, 0.0)";
-    ctx2d.fillRect(0, 0, 350, 2000);
- $('#table_calc_area2').hide();
-   $('#act_table_header').show();
-   $('#testbtns').hide();
-   $('#status_msgs').hide();
-   $('#table_calc_area2').hide();
+ //$('#table_calc_area2').hide();
+  // $('#act_table_header').show();
+ //  $('#testbtns').hide();
+  // $('#status_msgs').hide();
+  // $('#deets_tile').hide();
+  // $('#table_calc_area2').hide();
   // $('#table_calc_area2').show();
-    $('#act_table').show();
-    $('#my_activities').show();
-    $('#seg_data').hide();
-    $('#seg_weather').hide();
-    $('#seg_details').hide();
-    $('#seg_leaderboard').hide();
-    $('#data_pills').hide();
+ //   $('#act_table').show();
+ //   $('#my_activities').show();
+  //  $('#seg_data').hide();
+  //  $('#seg_weather').hide();
+  //  $('#seg_details').hide();
+  //  $('#seg_leaderboard').hide();
+  //  $('#data_pills').hide();
+    $('html, body').animate({
+        scrollTop: $("#my_activities").offset().top
+    }, 2000);
 
 }
 
@@ -598,23 +596,27 @@ function showEfforts(ID) {
 
 
 function poly_map(ID, i, name) {
-    $('#map_table').hide();
+  //  $('#map_table').hide();
     $('#seg_data').show();
     $('#seg_weather').show();
     $('#data_pills').show();
     $('#seg_details').show();
     $('#pills_row').show();
     $('#data_pills').show();
-    $('#map_activities').hide();
-    $('#map_canvas_nearby').hide();
+    $('#deets_tile').show();
+    $('html, body').animate({
+        scrollTop: $("#seg_title").offset().top
+    }, 2000);
+   // $('#map_activities').hide();
+   // $('#map_canvas_nearby').hide();
     $('#static_map').fadeIn();
     var json = localStorage.getItem('seg_loc_data');
     var j2 = eval('(' + json + ')');
     //alert(json);
     var dist = j2.points[i].dist;
     var egain = j2.points[i].gain;
-    var favbtn = "<a class=\"btn btn-large btn-danger\" href=\"#\" onclick=\"addFav(" + ID + ")\"><i class=\"fa fa-star-o icon-2x pull-left\"></i>Add<br>To Fvourites</a>";
-    var Backbtn ="<button type=\"button\" class=\"btn btn-primary btn-lg\" onclick=\"backMap()\">Back</button>";
+    var favbtn = "<a class=\"btn btn-large btn-primary\" href=\"#\" onclick=\"addFav(" + ID + ")\"><i class=\"fa fa-star-o icon-2x pull-left\"></i>Add<br>To Fvourites</a>";
+    var Backbtn ="<button type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"backMap()\">Back</button>";
     $('#seg_title').html("<h1>" + name + "</h1>");
     $('#seg_dist').html("<p><bold>" + dist + "</bold></p>");
     $('#seg_egain').html("<p><bold>" + egain + "</bold></p>");
@@ -658,15 +660,33 @@ function poly_map(ID, i, name) {
 
 
 function poly2(ID, i, name) {
-    $('#table_calc_area2').hide();
-    $('#my_activities').hide();
-    $('#act_table_header').hide();
+    //$('#table_calc_area2').hide();
+    //$('#my_activities').hide();
+    //$('#act_table_header').hide();
+    var canvas = document.getElementById('weather');
+    canvas.width = 350;
+    canvas.height = 1500;
+    canvas.style.width = '350px';
+    canvas.style.height = '1500px';
+    var ctx2d = canvas.getContext('2d');
+    ctx2d.clearRect(0, 0, ctx2d.canvas.width, ctx2d.canvas.height);
+    ctx2d.fillStyle = "rgba(255, 255, 255, 0.0)";
+    ctx2d.fillRect(0, 0, 350, 2000);
+
+    $('trow_' + ID).removeClass('framemail.window.mail li.unsel');
+    $('trow_' + ID).addClass('framemail.window.mail li.sel');
+
     $('#seg_data').show();
     $('#pills_row').hide();
     $('#seg_weather').show();
+    $('#deets_tile').show();
      $('#data_pills').hide();
     $('#seg_details').show();
     $('#static_map').fadeIn();
+    $('html, body').animate({
+        scrollTop: $("#seg_title").offset().top
+    }, 2000);
+
    // alert(i + name);
     var json = localStorage.getItem('segdata');
   //  alert(json);
@@ -674,7 +694,7 @@ function poly2(ID, i, name) {
     var dist = j2.segs[i].dist;
     var egain = j2.segs[i].egain;
     //var Lbbtn ="<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"showLeader(" + ID +")\">Leaderboard</button>";
-    var Backbtn ="<button type=\"button\" class=\"btn btn-primary btn-lg\" onclick=\"backAct()\">Back</button>";
+    var Backbtn ="<button type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"backAct()\">Back</button>";
     $('#seg_title').html("<h1>" + name + "</h1>");
     $('#seg_dist').html("<p><bold>" + dist + "</bold></p>");
     $('#seg_egain').html("<p><bold>" + egain + "</bold></p>");
@@ -699,6 +719,7 @@ function poly2(ID, i, name) {
     p11 = 0
     p12 = 0;
     totalDist = 0
+
    // $('#title').html(name);
     //decodepoly(pl, ID);
     
@@ -706,15 +727,20 @@ function poly2(ID, i, name) {
 }
 
 function polySegs(ID, i, name) {
-    $('#table_calc_area2').hide();
-    $('#my_activities').hide();
-    $('#act_table_header').hide();
-    $('#seg_data').show();
-    $('#seg_weather').show();
+    //$('#table_calc_area2').hide();
+    //$('#my_activities').hide();
+    //$('#act_table_header').hide();
+//    $('#seg_data').show();
+//    $('#seg_weather').show();
+//    $('#deets_tile').show();
     $('#pills_row').show();
      $('#data_pills').show();
-    $('#seg_details').show();
+//    $('#seg_details').show();
     $('#static_map').fadeIn();
+    $('html, body').animate({
+        scrollTop: $("#seg_title").offset().top
+    }, 2000);
+
     //alert(i + name);
     var json = localStorage.getItem('all_seg_efforts');
     var j2 = eval('(' + json + ')');
@@ -724,7 +750,7 @@ function polySegs(ID, i, name) {
     //var egain = j2.segs[i].egain;
     var Lbbtn ="<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"showLeader(" + ID +"," + parentID + ")\">Leaderboard</button>";
     var Sebtn ="<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"showEfforts(" + ID +")\">Segment Efforts</button>";
-    var Backbtn ="<button type=\"button\" class=\"btn btn-primary btn-lg\" onclick=\"backAct()\">Back</button>";
+    var Backbtn ="<button type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"backAct()\">Back</button>";
     $('#seg_title').html("<h1>" + name + "</h1>");
     $('#seg_dist').html("<p><bold>" + dist + "</bold></p>");
     $('#seg_egain').html("<p><bold>" + kom_rank + "</bold></p>");
@@ -1496,13 +1522,13 @@ function prettify(diff) {
     var str;
     if ((diff / 60) < 0) {
         //just now
-        str = "Updated just now."
+        str = "just now."
     } else if (parseInt(diff / 60) > 0 && parseInt(diff / 60) < 60) {
         //minutes
-        str = "Updated " + parseInt(diff / 60) + " minutes ago.x"
+        str = parseInt(diff / 60) + " minutes ago.x"
     } else {
         //hours
-        str = "Updated " + parseInt(diff / 60) + " hours ago.h"
+        str = parseInt(diff / 360) + " hours ago.h"
     }
     return str;
 }
@@ -1538,7 +1564,7 @@ function drawWeather(ID) {
 
     var timediff = getTimediff(ID);
     var timeago = prettify(timediff);
-    $('#wtitle').html("<h3>Weather for " + location + ", " + country + "</h3><h3>"+timeago + timediff +"</h3>");
+    $('#wtitle').html("<h3 style=\"text-align:left\">Weather for " + location + ", " + country + "</h3><h3 style=\"text-align:left\">Data as of " + timediff + "</h3>");
     //var theDatas = new Lawnchair('data');
     var timenow = new Date();
     var hour_now = timenow.getHours();
@@ -1552,14 +1578,20 @@ function drawWeather(ID) {
     var posy = 4; //54;
     var posyt = 15; //65;
     var canvas = document.getElementById('weather');
-    canvas.width = 350;
-    canvas.height = 1500;
-    canvas.style.width = '350px';
-    canvas.style.height = '1500px';
+    var canvasr = document.getElementById('weather_stars');
+ //   canvas.width = 350;
+   // canvas.height = 1500;
+ //   canvas.style.width = '350px';
+ //   canvas.style.height = '1500px';
     var ctx2d = canvas.getContext('2d');
+    var ctx2dr = canvasr.getContext('2d');
     ctx2d.clearRect(0, 0, ctx2d.canvas.width, ctx2d.canvas.height);
     ctx2d.fillStyle = "rgba(255, 255, 255, 0.0)";
-    ctx2d.fillRect(0, 0, 350, 2000);
+    ctx2d.fillRect(0, 0, 360, 2000);
+    ctx2dr.clearRect(0, 0, ctx2dr.canvas.width, ctx2dr.canvas.height);
+    ctx2dr.fillStyle = "rgba(255, 255, 255, 0.0)";
+    ctx2dr.fillRect(0, 0, 350, 2000);
+
     var ni = 1;
     var done_dt = 0;
     var first_hour = -1;
@@ -1585,7 +1617,7 @@ function drawWeather(ID) {
         var temp = (parseInt(zone.temp.metric) * 3) + 10;
         var winddeg = parseInt(zone.wdir.degrees);
 
-        var start = 53;
+        var start = 59;
         if (parseInt(zone.temp.metric) < 1) {
             start = 42 + (parseInt(zone.temp.metric) * 3);
             temp = 53 - start;
@@ -1635,9 +1667,9 @@ function drawWeather(ID) {
         ctx2d.fillStyle = '#FFF';
         if (hour < 10) {
 
-            ctx2d.fillText(hour, 16, posyt + 10);
+            ctx2d.fillText(hour, 14, posyt + 10);
         } else {
-            ctx2d.fillText(hour, 6, posyt + 10);
+            ctx2d.fillText(hour, 4, posyt + 10);
         }
         //alert(hour);
         ctx2d.font = '10px Arial';
@@ -1647,13 +1679,16 @@ function drawWeather(ID) {
          //ctx2d.drawImage(imgi, 50, posyt + 10);
         //divide line
         ctx2d.fillStyle = "#2fb4c8";
-        ctx2d.fillRect(0, posy - 5, 350, 1);
+        ctx2d.fillRect(0, posy - 5, 250, 1);
+
+        ctx2dr.fillStyle = "#2fb4c8";
+        ctx2dr.fillRect(0, posy - 5, 130, 1);
 
         //arrow
 
         ctx2d.save();
         ctx2d.strokeStyle = "#2fb4c8";
-        ctx2d.translate(30, posy + 50);
+        ctx2d.translate(30, posy + 55);
         ctx2d.rotate(90 * Math.PI / 180);
         //ctx2d.save();
         ctx2d.rotate(winddeg * Math.PI / 180);
@@ -1691,22 +1726,26 @@ function drawWeather(ID) {
 
         //wind
         ctx2d.fillStyle = "#2fb4c8";
-        ctx2d.fillRect(53, posy + 4, ws + 25, 20);
+        ctx2d.fillRect(59, posy + 42, ws + 25, 22);
 
         ctx2d.font = '14px Arial';
         ctx2d.fillStyle = "#fff";
-        ctx2d.font = '12px Arial';
-        ctx2d.fillText("mph", 69, posyt + 8);
-        ctx2d.fillText(zone.wspd.metric, 55, posyt + 8);
+      //  ctx2d.font = '12px Arial';
+        ctx2d.fillText("mph", 80, posyt + 46);
+        ctx2d.fillText(zone.wspd.metric, 62, posyt + 46);
+        ctx2d.fillStyle = "#2fb4c8";
+
+        //cond
+        ctx2d.fillText(cond, 59, posyt + 6);  //was cond
+
 
         //temp
-        ctx2d.fillStyle = "#2fb4c8";
         //      ctx2d.fillStyle = "#66A68B";
         //      ctx2d.fillRect(start, posy + 32, temp, 16);
         ctx2d.font = '16px Arial';
         //        ctx2d.fillStyle = temp_txt;
-        ctx2d.fillText(zone.temp.metric, (start), posyt + 30);//33
-        ctx2d.fillText("°C", (start + 15), posyt + 30);//33
+        ctx2d.fillText(zone.temp.metric, (start), posyt + 27);//33
+        ctx2d.fillText("°C", (start + 15), posyt + 27);//33
         
 
         //rain
@@ -1776,16 +1815,16 @@ function drawWeather(ID) {
         ctx2d.fillStyle = "#f93";
         // ctx2d.fillText(brg + "." + pval0f + "." + arval1f + " .. " + (brg - 30) + "." + pval1f + "." + arval2f + " .. " + (brg + 30) + "." + pval2f + "." + arval3f + " " + foll_wind_val + "stm:" + numstars, 53, posyt);
         // ctx2d.fillText(brg + "." + pval0h + "." + arval1h + " .. " + (brg - 30) + "." + pval1h + "." + arval2h + " .. " + (brg + 30) + "." + pval2h + "." + arval3h + " " + head_wind_val + "st:" + starval, 53, posyt + 32);
-        ctx2d.fillText(cond + " " + brg, 53, posyt + 49);  //was cond
-        ctx2d.font = '13px Arial Bold ';
+        ctx2d.font = '13px Arial Bold';
         ctx2d.fillStyle = "#ffca4a";
         //if (foll_wind_val > 20 || 
+        ctx2dr.fillStyle = "#ffca4a";
 
         if (starval <= 0) {
-            drawStarsO(ctx2d, 5, posy + 30, 230);
+            drawStarsO(ctx2dr, 5, posy + 30, 9);
         } else {
            numstars = calcStars(starval);
-           drawStarsF(ctx2d, numstars, posy + 30,230);
+           drawStarsF(ctx2dr, numstars, posy + 30,9);
         }
         starvals.stardata.push[{
             "stars": numstars,

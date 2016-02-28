@@ -11,7 +11,26 @@
         </div>
         </small>
     </div>
-
+    <div style="height:50px"></div>
+    <div class="menubtns">
+            <div class="btn-group">
+                <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    My Activities and Segments<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" onclick="getAct()">My Activities and Segments</a></li>
+                    <li><a href="#" onclick="getNearby()">Segments Nearby</a></li>
+                    <li><a href="#" onclick="getFavs()">Favorites</a></li>
+                    <li><a href="#" onclick="Settings()">Settings</a></li>
+                    <li><a href="#" onclick="displayStarsmap(24)">Next 24 Hrs</a></li>
+                </ul>
+            
+        </div>
+       
+    </div>
+    <div class="profile"><img class="circular_pfl "src="~/Content/face80x80.jpg" /></div>
+    <div class="logoimg"><img style="width:auto;height: 42px;" src="~/Content/kom_logo_db.png" /></div>
+     
     <div id="status_msgs" class="whitec" style="display:none"></div>
     <div id="seg_nearby" style="display:none">
 
@@ -153,20 +172,23 @@
     
 
     <!-- FIRST ROW OF BLOCKS -->
-    <div class="row">
-        <div id="profile_tile" style="display:none">
+    <div id="profile_tile" style="display:none">
+        <div class="row">
+
             <!-- USER PROFILE BLOCK -->
             <div class="col-sm-3 col-lg-3">
-                <div class="dash-unit" style="height:75px">
+                <div class="dash-unit" style="height:155px">
                     <br>
                     <div id="user_details"></div>
                     <br>
+                    <div class="cont">
+                        <input type="submit" id="submit" name="submit" value="Sign Out">
+                    </div>
 
                 </div>
             </div>
-            </div>
+       
         <!-- DONUT CHART BLOCK -->
-        <div id="weather_credits" style="display:none">
             <div class="col-sm-3 col-lg-3">
                 <div class="dash-unit">
                     <dtitle>Weather Credits</dtitle>
@@ -187,10 +209,46 @@
                     </div>
                     <div class="cont">
                         <input type="submit" id="submit" name="submit" value="Buy Credits">
+                        <input type="submit" id="submit" name="submit" value="Go Premium">
                     </div>
 
                 </div>
             </div>
+            <div class="col-sm-3 col-lg-3">
+                <div class="dash-unit">
+                    <dtitle>Settngs</dtitle>
+                    <hr>
+                    <div class="text-center">
+                    </div>
+                    <div class="cont">
+                        <div class="switch" id="weeks">
+                            <input type="radio" class="switch-input" name="view" value="on" id="on" checked="">
+                            <label for="on" class="switch-label switch-label-off">Metric</label>
+                            <input type="radio" class="switch-input" name="view" value="off" id="off">
+                            <label for="off" class="switch-label switch-label-on">Imperial</label>
+                            <span class="switch-selection"></span>
+                        </div>
+                        <div class="switch switch-blue" onchange="sw2()">
+                            <input type="radio" class="switch-input" name="view2" value="week2" id="week2" checked="">
+                            <label for="week2" class="switch-label switch-label-off">KOM</label>
+                            <input type="radio" class="switch-input" name="view2" value="month2" id="month2">
+                            <label for="month2" class="switch-label switch-label-on">QOM</label>
+                            <span class="switch-selection"></span>
+                        </div>
+
+                        <div class="switch switch-yellow">
+                            <input type="radio" class="switch-input" name="view3" value="yes" id="yes" checked="">
+                            <label for="yes" class="switch-label switch-label-off">Yes</label>
+                            <input type="radio" class="switch-input" name="view3" value="no" id="no">
+                            <label for="no" class="switch-label switch-label-on">No</label>
+                            <span class="switch-selection"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
         </div>
         <!-- DONUT CHART BLOCK -->
 
@@ -206,7 +264,7 @@
                     <hr>
 
 
-                    <div style="position:absolute;left:18px;top:30px;z-index:400">
+                    <div style="position:absolute;left:18px;top:30px;z-index:400" id="Hrsdd">
                         <div class="btn-group">
                             <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 1 - 3 Hrs<span class="caret"></span>
@@ -221,12 +279,13 @@
                         </div>
                     </div>
                     <div style="position:absolute;right:18px;top:30px;z-index:400">
-                        <a class="btn btn-success btn-sm" href="#tableback" onclick="displayStars(3)" id="refreshStarsbtn">
+                        <a class="btn btn-primary btn-sm" href="#tableback" onclick="displayStars(3)" id="refreshStarsbtn">
                             Refresh star ratings
                         </a>
                     </div>
-                    <p>&nbsp;</p>
-                <div id="winfo"></div>
+                    <div style="position:absolute;left:5px;top:65px" id="winfo"></div>
+
+               <div style="height:70px">&nbsp;</div>
                     <div class="framemail">
                         <div id="act_table2">
                             <div class="window">
@@ -246,54 +305,41 @@
                 </div><!-- /dash-unit -->
             </div><!-- /span3 -->
         </div>
-        <!-- Dist and Gain -->
-        <div class="col-xs-12 col-sm-12 col-lg-6">
-            <div class="half-unit">
-                <div class="cont" id="seg_title"></div>
-                <table>
-                    <tr>
-                        <td class="detailstd">
-                            <div class="cont" id="seg_dist"></div>
-                            <p>Total Distance</p>
-                        </td>
-                        <td>
-                            <div class="cont" id="seg_egain"></div><p>Elevation Gain</p>
-                        </td>
-                        <td>
-                            <div id="favBtn"></div>
-                        </td>
-                        <td>
-                            <div style="position:absolute;right:14px;bottom:20px" id="backBtn"></div>
-                        </td>
-                    </tr>
-                </table>
+        <!-- Dist and Gain HIDE -->
+        <div id="deets_tile">
+            <div class="col-xs-12 col-sm-12 col-lg-6">
+                <div class="half-unit">
+
+                    <div style="position:absolute;left:10px;top:5px" id="seg_title"></div>
+                    <div style="position:absolute;right:10px;top:5px" id="backBtn"><div id="favBtn"></div></div>
+
+                    <div style="position:absolute;left:50px;top:67px;text-align:center">
+                        <div id="seg_dist"></div>
+                        <div>Total Distance</div>
+                    </div>
+
+                    <div style="position:absolute;right:50px;top:67px;text-align:center"">
+                        <div id="seg_egain"></div>
+                        <div>Elevation Gain</div>
+                    </div>
+
+                    <div style="position:absolute;left:10px;top:135px;text-align:center"">
+                        <div class="circular" id="static_map">
+                        </div>
+
+                    </div>
+                    <div style="position:absolute;right:10px;top:135px;text-align:center"">
+                        <div id="canvas-holder" style="text-align:center">
+                            <canvas id="chart-area" width="160px" height="160px" />
+                        </div>
+                        <div>Route Headings</div>
+                    </div>
+
+                </div>
             </div>
         </div>
-
         <!-- Buttons -->
-        <div class="col-xs-6 col-sm-6 col-lg-3">
-
-            <div class="dash-unit">
-                <dtitle>Activity Route</dtitle>
-                <hr>
-
-                <div class="circular" id="static_map">
-                </div>
-            </div>
-        </div>
-
-        <!-- DONUT CHART BLOCK -->
-        <div class="col-xs-6 col-sm-6 col-lg-3">
-
-            <div class="dash-unit">
-                <dtitle>Bearing Breakdown</dtitle>
-                <hr>
-                <div id="canvas-holder" style="text-align:center">
-                    <canvas id="chart-area" width="150px" height="150px" />
-                </div>
-            </div>
-        </div>
-
+        
     </div>
     <!-- THIRD ROW OF BLOCKS -->
     <div class="row" id="pills_row" style="display:none">
@@ -311,38 +357,46 @@
                     <div class="col-xs-12 col-sm-12 col-lg-6">
                         <!-- LOCAL TIME BLOCK -->
                         <div class="dash-unit" style="height:1500px">
+                            <dtitle>Weather</dtitle>
+                            <hr>
+                            <div style="position:absolute;left:5px;top:28px" id="wtitle"></div>
+                            <button style="position:absolute;right:10px;top:28px" type="button" class="btn btn-primary btn-sm">Refresh</button>
 
-                            <div id="wtitle"></div>
-                            <div id="canvas-holder2" style="text-align:center">
-                                <canvas id="weather" width='400px' height='1500px' id="canvas"><canvas>
+                            <div style="height:40px">&nbsp;</div>
+                            <div style="text-align:left;display:inline-block" id="canvas-holder2">
+                                <canvas id="weather" width='250px' height='1500px'><canvas>
                             </div>
-
-
-                        </div>
+                            <div style="text-align:left;display:inline-block;position:absolute;right:5px" id="canvas-holder3">
+                                <canvas id="weather_stars" width='130px' height='1500px'><canvas>
+                            </div>
+                            
+                   
 
                     </div>
                 </div>
             </div>
+    </div>
     <div id="seg_leaderboard" style="display:none">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-lg-12">
                 <!-- LOCAL TIME BLOCK -->
                 <div class="dash-unit" id="leaderback">
-                    <dtitle id="lbdata">Leaderboard</dtitle>
+                    <dtitle>Leaderboard</dtitle>       
                     <hr>
-                    
-                    <div class="cont"><div id="lbBtn"></div>
-                        <div></div>
-                        <div id="komimg" class="circular_sml"></div>
-                        <div style="position:absolute;left:98px;top:58px" id="komdata">KOM: name here</div>
-                        <div style="position:absolute;left:98px;top:95px" id="hkomdata">hist kom data</div>
-                        <div id="komstarcanvas">
-                            <canvas id="komcanvas" width='400px' height='15px'><canvas>
+                    <button style="position:absolute;right:10px;top:24px" type="button" class="btn btn-primary btn-sm">Refresh</button>
+                    <div style="position:absolute;left:5px;top:25px" id="lbdata"></div>
+                    <div class="cont" style="padding-top:25px"><div id="lbBtn"></div>
+                      
+                        <div style="position:absolute;left:5px;top:104px" id="komimg" class="circular_sml"></div>
+                        <div style="position:absolute;left:98px;top:97px" id="komdata"></div>
+                        <div style="position:absolute;left:98px;top:160px" id="komability"></div>
+                        <div style="position:absolute;right:5px;top:199px;font-size:14px;color:#f93" id="komstarcanvas" style="z-index:600">
+                            <canvas id="komcanvas" width='300px' height='25px'><canvas>
                         </div>
-                        <div style="position:absolute;left:98px;top:135px" id="komability">kom ability</div>
+
                     </div>
-                    <p>&nbsp;</p>
-                    <div id="canvas-holder3" style="text-align:center">
+                 
+                    <div style="position:absolute;left:5px;top:190px" id="canvas-holder3" style="text-align:center">
                         <canvas id="leaderbd" width='400px' height='1500px' id="canvas"><canvas>
                     </div>
 
@@ -352,7 +406,7 @@
             </div>
         </div>
     </div>
-            <div class="row">
+            <div class="row" style="display:none">
                 <div class="col-sm-3 col-lg-3">
 
                     <!-- BARS CHART - lineandbars.js file -->
@@ -453,7 +507,7 @@
                 </div>
             </div><!-- /row -->
             <!-- FOURTH ROW OF BLOCKS -->
-            <div class="row">
+            <div class="row" style="display:none">
 
                 <!-- TWITTER WIDGET BLOCK -->
                 <div class="col-sm-3 col-lg-3">
@@ -538,7 +592,7 @@
 
             </div><!--/row -->
             <!-- FOURTH ROW OF BLOCKS -->
-            <div class="row">
+            <div class="row" style="display:none">
 
                 <!-- ACCORDION BLOCK -->
                 <div class="col-sm-3 col-lg-3">
