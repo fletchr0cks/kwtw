@@ -19,29 +19,33 @@ function saveUser(firstname, lastname, stravaID, NumAct, NumSeg) {
 
 function checkData() {
 
-    if (localStorage.getItem("userdata") == null) {tn
+    if (localStorage.getItem("userdata") == null) {
         $('#status_msgs').append("no data");
         $('#UnAuthApp').show();
         // initBtns();
-       // alert("no data");
+        // alert("no data");
     } else {
-       // alert("data");
-       //clearCache();
-       //$('#table_calc_back2').height(200);
-       $('#rem_info').show();
-       $('#info').hide();
-       $('#table_calc_area2').hide();
-       //$('#hr1a').button('active');
-       countWdata();
-       var data = localStorage.getItem("userdata");
-        var ct = localStorage.getItem(ct);
-      //  var firstname = 
+        // alert("data");
+        //clearCache();
+        //$('#table_calc_back2').height(200);
+        $('#rem_info').show();
+        $('#info').hide();
+        $('#table_calc_area2').hide();
+      //  $('#info').show();
+        //$('#hr1a').button('active');
+        countWdata();
+        var data = localStorage.getItem("userdata");
+        var wdata = localStorage.getItem("weatherdata");
+       // var ct = localStorage.getItem(ct);
+        //  var firstname = 
         //$('#settings').hide();
         //initBtns();
         //parse(ct,"act");
-      //  getAct();
-        drawTable();
-        $('#act_table').show();
+        //  getAct();
+        if (wdata != null) {
+            drawTable();
+            $('#act_table').show();
+        }
     }
 
     
@@ -56,8 +60,9 @@ function checkData() {
         var user = eval('(' + userdata + ')');
         var name = user.deets[0]['firstname'] + " " + user.deets[0]['lastname']
         var loc = user.deets[0]['city'] + ", " + user.deets[0]['country'];
+        var pic = "<img style=\"width:80px;height:auto\" src=\"" + user.deets[0]['profile'] + "\">";
         $('#user_details').html("<h1>" + name + "</h1><h3>" + loc + "</h3>");
-
+        $('#userimg').html(pic);
         $('#status_msgs').hide();
         $('#status_msgs').append(userdata);
         //  var name = 
@@ -83,14 +88,21 @@ var json = localStorage.getItem('all_seg_efforts');
 }
 
 function dispStarsChk() {
-    var Hrs = localStorage.getItem("Hrs");
-    if (Hrs == null) {
+    var hrs = localStorage.getItem("Hrs");
+    if (hrs == null) {
         $('#refreshStarsbtn').html("Show Stars");
     } else {
-        displayStars(Hrs);
+        displayStars(hrs);
     }
+    var fh = hrs - 2;
+    var lh = hrs;
+    fh = fh.toString();
+    lh = lh.toString();
+    //alert(fh + lh);
+    var hrstxt = fh + " - " + lh + " Hrs";
+
     var ddtext = "<div class=\"btn-group\"><button class=\"btn btn-success btn-sm dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" +
-                  " new Hrs " + Hrs + "<span class=\"caret\"></span></button><ul class=\"dropdown-menu\">" +
+                  hrstxt + "<span class=\"caret\"></span></button><ul class=\"dropdown-menu\">" +
                                 "<li><a href=\"#\" onclick=\"displayStars(3)\">1 - 3 Hrs</a></li>" +
                                 "<li><a href=\"#\" onclick=\"displayStars(6)\">4 - 6 Hrs</a></li>" +
                                 "<li><a href=\"#\" onclick=\"displayStars(9)\">7 - 9 Hrs</a></li>" +
@@ -174,7 +186,7 @@ function drawTable() {
         }
         if (act_ct == 0) {
             firstID = seg.ID;
-            midhtml = midhtml + "<li onclick=\"poly2(" + seg.ID + "," + i + ",'" + seg.name + "')\"><i class=\"read\"></i><p  id=\"trow_" + seg.ID + "\" class=\"sel\">" + seg.name + "</p><p class=\"message\">" + seg.dist + "m</p>" +
+            midhtml = midhtml + "<li onclick=\"poly2(" + seg.ID + "," + i + ",'" + seg.name + "')\"><i class=\"read\"></i><p  id=\"trow_" + seg.ID + "\" class=\"un_sel\">" + seg.name + "</p><p class=\"message\">" + seg.dist + "m</p>" +
                     "<div class=\"actions\" id=\"stars_" + seg.ID + "\"></div></li><div id=\"segs_" + seg.ID + "\"></div>";
 
         } else {
@@ -182,18 +194,20 @@ function drawTable() {
         "<div class=\"actions\" id=\"stars_" + seg.ID + "\"></div></li><div id=\"segs_" + seg.ID + "\"></div>";
 
         }
-            act_ct++;
-         //   getW(seg.latlng,seg.ID); //only if no weather data
-            
+        act_ct++;
+        var wdata = localStorage.getItem(wdata);
+        if (wdata == null) {
+           // getW(seg.latlng,seg.ID); //only if no weather data
+        }
            
            
     });
-    var ht = parseInt((act_ct * 48) + 250); //56
+    var ht = parseInt((act_ct * 48) + 350); //56
     $('#tableback').height(ht);
    // alert(firstID)
    // drawMap(pl);
-    drawChart(firstID);
-   drawWeather(firstID);
+ //   drawChart(firstID);
+ //  drawWeather(firstID);
 
     var ref_btn = "<div class=\"minihead\"><button class=\"btn btn-primary\" onclick=\"stAct()\">Refresh My Activities</button></div>";
     $('#actMsgs').html(act_ct + " Activities loaded.");
@@ -227,29 +241,33 @@ function showEff() {
 function getSegs() {
     clearTimeout(getSegtimer);
     var json = localStorage.getItem('all_seg_efforts');
-    var jact = eval('(' + json + ')');
-   
-    var parents = [];
-  
-    function check_array(parents,parentID) {
-        return jQuery.inArray(parentID, parents);
+    if (json != null) {
+
+        var jact = eval('(' + json + ')');
+
+        var parents = [];
+
+        function check_array(parents, parentID) {
+            return jQuery.inArray(parentID, parents);
+        }
+        $.each(jact.segs, function (i, seg) {
+            var pbrank = seg.pb_rank;
+            var pb = "";
+            if (pbrank == "1") {
+                // pb= "<i class=\"fa fa-shield\"></i>&nbsp;&nbsp;&nbsp;"
+            }
+            var seghtml = "";
+
+            seghtml = seghtml + "<li onclick=\"polySegs(" + seg.ID + "," + i + ",'" + seg.name + "')\"><i class=\"read\"></i><p class=\"seg_row\"><i class=\"fa fa-trophy\"></i>&nbsp;&nbsp;&nbsp;" + pb + seg.name + "</p><p class=\"message\">" + seg.dist + "m</p>" +
+            "<div class=\"actions\" id=\"stars_" + seg.ID + "\"></div></li>";
+            if (check_array(parents, seg.ID) == -1) {
+                $('#segs_' + seg.parentID).append(seghtml);
+                //no need as segments are in activities
+                //      getW(seg.latlng, seg.ID); //only if no weather data
+            }
+            parents.push(seg.ID);
+        });
     }
-    $.each(jact.segs, function (i, seg) {
-        var pbrank = seg.pb_rank;
-        var pb="";
-        if (pbrank == "1") {
-            pb= "<i class=\"fa fa-shield\"></i>&nbsp;&nbsp;&nbsp;"
-        } 
-        var seghtml = "";
-     
-                seghtml = seghtml + "<li onclick=\"polySegs(" + seg.ID + "," + i + ",'" + seg.name + "')\"><i class=\"read\"></i><p class=\"seg_row\"><i class=\"fa fa-trophy\"></i>&nbsp;&nbsp;&nbsp;" + pb + seg.name + "</p><p class=\"message\">" + seg.dist + "m</p>" +
-                "<div class=\"actions\" id=\"stars_" + seg.ID + "\"></div></li>";
-                if (check_array(parents, seg.ID) == -1) {
-                    $('#segs_' + seg.parentID).html(seghtml);
-              //      getW(seg.latlng, seg.ID); //only if no weather data
-                }
-                parents.push(seg.ID);
-    });
     dispStarsChk();
 }
 
@@ -590,18 +608,24 @@ function showHistweather(SegID,type) {
         var timer3 = setTimeout(function () { startGethist1(SegID, 2) }, 3000);
         function startGethist2(SegID, i) {
             clearInterval(timer2);
-            var date = j2.segs[i].time;
-            CallHistWeather(latlng, date, SegID, i,type)
+            if (j2.segs[i].time != undefined) {
+                var date = j2.segs[i].time;
+                CallHistWeather(latlng, date, SegID, i, type)
+            }
         }
         function startGethist(SegID, i) {
             clearInterval(timer1);
-            var date = j2.segs[i].time;
-            CallHistWeather(latlng, date, SegID, i, type)
+            if (j2.segs[i].time != undefined) {
+                var date = j2.segs[i].time;
+                CallHistWeather(latlng, date, SegID, i, type)
+            }
         }
         function startGethist1(SegID, i) {
             clearInterval(timer3);
-            var date = j2.segs[i].time;
-            CallHistWeather(latlng, date, SegID, i,type)
+            if (j2.segs[i].time != undefined) {
+                var date = j2.segs[i].time;
+                CallHistWeather(latlng, date, SegID, i, type)
+            }
         }
     }
 }
@@ -668,10 +692,14 @@ weatherAct();
 
 }
 
+function hideW(){
+    $('#wbtns').hide();
+}
+
 function weatherAct() {          //  create a loop function
 var json = localStorage.getItem('segdata');
 var j2 = eval('(' + json + ')');
-
+$('#location').show();
 var time = 0;
 
     $.each(j2.segs, function (i, seg) { //if (i < 10) {            //  if the counter < 10, call the loop function
@@ -723,18 +751,21 @@ function displayStars(hrs) { //get seg weather
     var jsonseg = localStorage.getItem('all_seg_efforts');
     var jsondata = localStorage.getItem(ID + "_weather");
     $('#refreshStarsbtn').html("Refresh Stars Ratings");
-    var Hrs = localStorage.getItem("Hrs");
+  //  var Hrs = localStorage.getItem("Hrs");
     localStorage.setItem("Hrs", hrs);
     
     var parsed_json = eval('(' + jsondata + ')');
 
     var j2s = eval('(' + jsonseg + ')');
     var j2a = eval('(' + jsonact + ')');
-    var fh = hrs - 3;
-    var lh = hrs - 1
-    var hrstxt = lh + " - " + fh + " Hrs";
+    var fh = hrs - 2;
+    var lh = hrs;
+    fh = fh.toString();
+    lh = lh.toString();
+    //alert(fh + lh);
+    var hrstxt = fh + " - " + lh + " Hrs";
     var ddtext = "<div class=\"btn-group\"><button class=\"btn btn-success btn-sm dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">" +
-              + hrstxt + "<span class=\"caret\"></span></button><ul class=\"dropdown-menu\">" +
+              hrstxt + "<span class=\"caret\"></span></button><ul class=\"dropdown-menu\">" +
                             "<li><a href=\"#\" onclick=\"displayStars(3)\">1 - 3 Hrs</a></li>" +
                             "<li><a href=\"#\" onclick=\"displayStars(6)\">4 - 6 Hrs</a></li>" +
                             "<li><a href=\"#\" onclick=\"displayStars(9)\">7 - 9 Hrs</a></li>" +
@@ -774,28 +805,29 @@ function stConn2() {
     OAuth.popup('strava', { cache: true }).done(function (result) {
        // alert(result);
        // console.log(result)
-        $('#status_msgs').append("</br > " + JSON.stringify(result));
+     
         localStorage.removeItem('userdata');
-        result.me().done(function (data) {
+        // result.me().done(function (data) {
+        result.get('https://www.strava.com/api/v3/athlete').done(function (data) {
             // do something with `data`, e.g. print data.name
-
+            $('#location').append("</br > " + JSON.stringify(data));
             strava_deets.deets.push({
                 "firstname": data.firstname,
+                "profile": data.profile,
                 "lastname": data.lastname,
-                "stravaID": data.ID,
+                "stravaID": data.id,
                 "city": data.city,
-                "state": data.state,
-                "profile": data.profile
-
+                "state": data.state
             });
             
             var jsondeets = JSON.stringify(strava_deets);
             localStorage.setItem('userdata', jsondeets);
             localStorage.setItem('fulluserdata', JSON.stringify(result));
+            saveUser(data.firstname, data.lastname, data.id, 0, 0);
             $('#status_msgs').append("</br > " + data.lastname);
             $('#AuthApp').show();
             $('#UnAuthApp').hide();
-            stAct();
+           stAct();
             // do some stuff with result
         });
 
@@ -942,7 +974,7 @@ var index = 0;
     var segjson = localStorage.getItem(ID+"_poly");
     var poly = segjson.segs.poly;
     var ID = segjson.segs.ID;
-    alert("start decode" + poly + " " + ID);
+ //   alert("start decode" + poly + " " + ID);
       var timers = setInterval(function () { startDecode(poly,ID,i,index) }, 5000);
       //var speed = 1000;
       //var timer = setInterval(startDecode(poly,ID,i), speed);
@@ -1005,7 +1037,8 @@ var index = 0;
 
 //getSegpolysTimer();
 function ActsSegsRefresh() {
-    stAct();
+    //stAct();
+    stConn2();
 }
 
 
@@ -1059,13 +1092,15 @@ function stAct() {
             var firstname = user.deets[0]['firstname'];
             var lastname = +user.deets[0]['lastname'];
             var stravaID = user.deets[0]['ID'];
-            saveUser(firstname, lastname, stravaID, ct, 0);
+            //updateUser(firstname, lastname, stravaID, ct, 0);
            // alert(jsontext);
             //alert("Retrieved " + ct + " Activities.");
             //drawTable();
           parse("act"); 
-            var timer = setInterval(function () { startDecode() }, 5000);     
+          var timer = setInterval(function () { startDecode() }, 5000);
+            console.log("analyse segs in 5 seconds")
             function startDecode() {
+                
                 clearInterval(timer);
                 analyseSegs();
             }
@@ -1400,7 +1435,7 @@ function initBtns() {
         if (res == false) {
             $('#status_msgs').append("Not connected");
         } else {
-            alert(token);
+     //       alert(token);
             $('#status_msgs').append("Connecting with: " + token);
             //res.get('https://www.strava.com/api/v3/athlete').done(function (data) {
             //alert("nb click" + res);

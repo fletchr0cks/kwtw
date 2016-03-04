@@ -99,7 +99,7 @@ function x10(val) {
 }
 
 function segAlgoData() {
-    alert(pArray);
+   // alert(pArray);
     var i = 4;
     var segBearings = {
         pvals: []
@@ -1004,7 +1004,7 @@ function get_static_style(styles) {
 }
 
 function maptest() {
-    alert("hi");
+  //  alert("hi");
     var mapStyle = [{ elementType: "geometry", stylers: [{ hue: "#ff4400" }, { saturation: -68 }, { lightness: -4 }, { gamma: .72}] }, { featureType: "road", elementType: "labels.icon" }, { featureType: "landscape.man_made", elementType: "geometry", stylers: [{ hue: "#0077ff" }, { gamma: 3.1}] }, { featureType: "water", stylers: [{ hue: "#00ccff" }, { gamma: .44 }, { saturation: -33}] }, { featureType: "poi.park", stylers: [{ hue: "#44ff00" }, { saturation: -23}] }, { featureType: "water", elementType: "labels.text.fill", stylers: [{ hue: "#007fff" }, { gamma: .77 }, { saturation: 65 }, { lightness: 99}] }, { featureType: "water", elementType: "labels.text.stroke", stylers: [{ gamma: .11 }, { weight: 5.6 }, { saturation: 99 }, { hue: "#0091ff" }, { lightness: -86}] }, { featureType: "transit.line", elementType: "geometry", stylers: [{ lightness: -48 }, { hue: "#ff5e00" }, { gamma: 1.2 }, { saturation: -23}] }, { featureType: "transit", elementType: "labels.text.stroke", stylers: [{ saturation: -64 }, { hue: "#ff9100" }, { lightness: 16 }, { gamma: .47 }, { weight: 2.7}]}];
     var src = get_static_style(mapStyle);
 
@@ -1385,7 +1385,7 @@ function getP_head(bearing) {
 function cleanPval(val) {
     if (val == undefined) {
         return 0;
-        alert(val);
+     //   alert(val);
     }
     else if (val > 20) {
         return val;
@@ -2072,7 +2072,7 @@ function checkWeather(latlng, ct, ID) {
     var latxx = lat + 1;
     var lngx = lng - 1
     $.each(wdata_json.wdata, function (i, wd) {
-        alert(wd.lat + " " + latx + " " + latxx);
+   //     alert(wd.lat + " " + latx + " " + latxx);
         $('#location').append("Is " + wd.lat + " > " + latx + " and < " + latxx + "</br>");
         if (wd.lat > latx && wd.lat < latxx) {
               callW = false;
