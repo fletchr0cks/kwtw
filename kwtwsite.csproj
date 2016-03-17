@@ -192,6 +192,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ConnectWithStrava%402x.png" />
     <Content Include="Content\face.jpg" />
     <Content Include="Content\face36x36.jpg" />
     <Content Include="Content\face80x80.jpg" />
@@ -199,6 +200,7 @@
     <Content Include="Content\font-style.css" />
     <Content Include="Content\glyphicons-halflings-white.png" />
     <Content Include="Content\glyphicons-halflings.png" />
+    <Content Include="Content\kom_logo_db.png" />
     <Content Include="Content\login.css" />
     <Content Include="Content\logo.png" />
     <Content Include="Content\logo30.png" />
@@ -237,6 +239,7 @@
     <Content Include="Scripts\dash-charts.js" />
     <Content Include="Scripts\dash-noty.js" />
     <Content Include="Scripts\gauge.js" />
+    <Content Include="Scripts\gauge.min.js" />
     <Content Include="Scripts\highcharts.js" />
     <Content Include="Scripts\indexD.js" />
     <Content Include="Scripts\indexW.js" />
@@ -249,6 +252,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\justgage.js" />
     <Content Include="Scripts\lineandbars.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\mapsapijs.js" />
@@ -257,6 +261,7 @@
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\oauth.js" />
     <Content Include="Scripts\oauth.min.js" />
+    <Content Include="Scripts\raphael-2.1.4.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />

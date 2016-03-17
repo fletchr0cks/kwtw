@@ -12,7 +12,7 @@ namespace kwtwsite.Controllers
     public class HomeController : Controller
     {
         DataRepo datarepo = new DataRepo();
-       
+        private DataClasses1DataContext db = new DataClasses1DataContext();
 
         public ActionResult Index()
         {
@@ -46,14 +46,25 @@ namespace kwtwsite.Controllers
         {
             
             var DataContext = new DataClasses1DataContext();
-            var userct = from u in DataContext.Users
+           
+
+        var userct = from u in DataContext.Users
                          where u.StravaID == StravaID
                          select u;
 
             if (userct.Count() > 0) {
                 //update
+                var sc = db.Users
+                .Where(s => s.StravaID == StravaID)
+                .First();
 
-            } else
+                sc.Activities = NumAct;
+                sc.Segments = NumSeg;
+                db.SubmitChanges();
+
+
+            }
+            else
             {
                 //save new
                 User unew = new Models.User();
@@ -68,12 +79,45 @@ namespace kwtwsite.Controllers
 
 
             }
-
-
-
-            ViewBag.Message = "Your contact page.";
+            
 
            
         }
+
+        public void SaveSegment(string segname, int segID, string array, string polyline, string latlng)
+        {
+
+            var DataContext = new DataClasses1DataContext();
+
+
+            var segct = from u in DataContext.Segments
+                         where u.SegmentID == segID
+                         select u;
+
+            if (segct.Count() > 0)
+            {
+                //update
+              
+            }
+            else
+            {
+                //save new
+                Segment segnew = new Models.Segment();
+                segnew.SegmentID = segID;
+                segnew.SegmentName = segname;
+                segnew.BearingArray = array;
+                segnew.Polyline = polyline;
+                segnew.latlng = latlng;
+
+                datarepo.Add(segnew);
+                datarepo.Save();
+
+
+            }
+
+
+
+        }
+
     }
 }

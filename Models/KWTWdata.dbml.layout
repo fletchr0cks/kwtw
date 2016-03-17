@@ -2,22 +2,22 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DataClasses1">
   <DataContextMoniker Name="/DataClasses1DataContext" />
   <nestedChildShapes>
-    <classShape Id="d01482df-84d1-41d5-ba99-228098ba0e88" absoluteBounds="0.5, 1.125, 2, 1.5785953776041666">
+    <classShape Id="39340934-512e-4a71-9f0e-3b11adf745e0" absoluteBounds="0.5, 1, 2, 2.1554996744791666">
       <DataClassMoniker Name="/DataClasses1DataContext/Segment" />
       <nestedChildShapes>
-        <elementListCompartment Id="12550586-4573-4ecc-bef6-46cb5fcbf72f" absoluteBounds="0.51499999999999968, 1.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="cafbeafe-96cb-4a37-9042-6a1deb116870" absoluteBounds="0.51500000000000012, 1.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="9e90f246-b11e-4fea-88c0-79af9f569228" absoluteBounds="4.125, 1.125, 2, 1.9631982421875">
-      <DataClassMoniker Name="/DataClasses1DataContext/TopWeather" />
-      <nestedChildShapes>
-        <elementListCompartment Id="6ca35000-846d-45a0-961f-2312528ad204" absoluteBounds="4.14, 1.585, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="cd8248f4-94f6-4ca8-b92c-a63ac0e026fb" absoluteBounds="2.125, 0.5, 2, 3.3093082682291666">
+    <classShape Id="42436144-b57d-4bbd-8979-ae626233dee3" absoluteBounds="2.75, 1.25, 2, 3.6939111328124996">
       <DataClassMoniker Name="/DataClasses1DataContext/User" />
       <nestedChildShapes>
-        <elementListCompartment Id="1d00ac9e-b99d-484d-8949-7d0cab38b9e1" absoluteBounds="2.14, 0.96, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="eb1036e3-f7e9-4525-b5d8-605e67755a09" absoluteBounds="2.765, 1.71, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="33c066db-14c8-4bc5-9532-a56285b41f7b" absoluteBounds="4.875, 1.375, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/DataClasses1DataContext/TopWeather" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8f000cb5-349a-45c3-a502-f613cd1c3344" absoluteBounds="4.89, 1.835, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

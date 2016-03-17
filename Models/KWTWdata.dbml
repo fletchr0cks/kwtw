@@ -6,15 +6,8 @@
       <Column Name="SegmentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="BearingArray" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Polyline" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.TopWeather" Member="TopWeathers">
-    <Type Name="TopWeather">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="SegID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Windspeed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Stars" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SegmentName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="latlng" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Timestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
@@ -33,6 +26,19 @@
       <Column Name="CreditsWait" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Activities" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Segments" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="latlng" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="logdata" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TopWeather" Member="TopWeathers">
+    <Type Name="TopWeather">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SegID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Windspeed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Stars" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Timestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="latlng" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

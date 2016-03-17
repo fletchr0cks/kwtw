@@ -52,6 +52,17 @@ h5 {
 	margin-left:5px;
 }
 
+.msg_sml {
+	font-family: 'Open Sans', sans-serif;
+    color:#8bc7eb;
+    font-size:14px;
+}
+
+.gauge {
+        width: 150px;
+        height: 150px;
+}
+
 td.detailstd 
 {
     padding-right: 10px;
@@ -64,6 +75,18 @@ td.alnright { text-align: right; }
         height: 100%;
       }
 
+.circular_user {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	overflow: hidden;
+    -webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+	border: 1px solid #2fb4c8;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
       
 .circular_sml {
 	width: 80px;
@@ -300,7 +323,7 @@ td.alnright { text-align: right; }
 	background-image:url('sep-half.png');
 	background-color: #3d3d3d;
 	color:white;
-	height:400px;
+	height:350px;
 }
 
 .half-unit:hover {
@@ -615,7 +638,7 @@ digiclock {
     position: absolute;
     left: 10px;
     z-index: 1000;
-    top: 10px
+    top: 10px;
 }
 
 .logoimg {
@@ -756,7 +779,7 @@ digiclock {
 .framemail .window .mail li .actions {
     height: 20px;
     position: absolute;
-    right: 10px;
+    right: 3px;
     width: 95px;
     text-align: center;
     top: 0;

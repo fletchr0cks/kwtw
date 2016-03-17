@@ -4,15 +4,20 @@
 
 <div class="container">
     <div id="UnAuthApp" style="display:none">
-        <button class="btn btn-positive btn-block" onclick="stConn2()">Connect to Strava</button>
-        <div class="bar bar-footer">
-            <a class="icon icon-gear pull-right" href="#composeModal" onclick="showTest()"></a>
-            <small class="updated-text">Not authenticated with Strava
+        <div class="cont">
+            <img style="width:auto;height:80px;" src="~/Content/kom_logo_db.png" />
+
+            <div style="height:50px"></div>
+            <img src="~/Content/ConnectWithStrava@2x.png" onclick="stConn2()" onmouseover="" style="cursor: pointer;" />
+            <div class="text-center" style="padding-top:20px" id="status_area">
+                &nbsp;
+                <div style="height:53px;width:60px;text-align:center;color:#00AF96" class="fa fa-4x fa-cog fa-spin"></div>
+                <div id="status_msgs" style="display:none;text-align:center;color:#00AF96"></div>
+            </div>           
         </div>
-        </small>
     </div>
     <div style="height:50px"></div>
-    <div class="menubtns">
+    <div class="menubtns" id="menu_buttons">
             <div class="btn-group">
                 <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     My Activities and Segments<span class="caret"></span>
@@ -28,14 +33,15 @@
         </div>
        
     </div>
-    <div class="profile"><img class="circular_pfl "src="~/Content/face80x80.jpg" /></div>
-    <div class="logoimg"><img style="width:auto;height: 42px;" src="~/Content/kom_logo_db.png" /></div>
-    <div id="loading" style="z-index:200;position:absolute;left:0px;text-align:center;height:500px;top:100px;background-color:gainsboro;display:none"><i class="fa fa-star-o icon-4x"></i></div>
-    <div id="status_msgs" class="whitec" style="display:none"></div>
+
+
+    <div id="pic_header" class="profile"></div>
+    <div id="logo_header" class="logoimg"><img style="width:auto;height: 42px;" src="~/Content/kom_logo_db.png" /></div>
+     
     <div id="seg_nearby" style="display:none">
 
-        <div id="map_canvas_nearby" style="height:200px;"></div>
-        <div id="map_activities">
+        <div id="map_canvas_nearby" style="height:200px"></div>
+        <div id="map_activities" style="padding-top:10px">
 
             <div class="row">
 
@@ -43,7 +49,7 @@
                     <div class="dash-unit" id="tableback_map">
 
                         <div class="timebtns">
-                            <div style="position:absolute;left:18px;top:30px;z-index:400">
+                            <div style="position:absolute;left:18px;top:13px;z-index:400">
                                 <div class="btn-group">
                                     <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         1 - 3 Hrs<span class="caret"></span>
@@ -59,24 +65,20 @@
                             </div>
 
                         </div>
-                        <div id="map_table">
-                            <div class="framemail">
-                                <div class="window">
-                                    <ul class="mail">
-                                        <li>
-                                            <i class="read">Act Name</i>
-                                            <p></p>
-                                            <p class="message">100m</p>
-                                            <div class="actions">
-                                                <p>
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
+                        <div style="position:absolute;left:18px;top:48px" class="msg_sml" id="winfomap">
+                            <div style="height:26px;width:30px;text-align:center;margin-top:9px;margin-left:2px" class="fa fa-2x fa-cog fa-spin"></div>
+                            <div style="display:inline-block;margin-bottom:8px">&nbsp;Calculating ...</div>
+                        </div>
+                        <div style="height:70px">&nbsp;</div>
+
+                            <div id="map_table" style="padding-top:35px">
+                                <div class="text-center">
+                                    &nbsp;
+                                    <div style="height:53px;width:60px;text-align:center" class="fa fa-4x fa-cog fa-spin"></div>
+                                    <div>Retrieving Segments Nearby</div>
                                 </div>
                             </div>
-                        </div>
-                    </div><!-- /dash-unit -->
+                        </div><!-- /dash-unit -->
 
                 </div>
             </div>
@@ -103,7 +105,7 @@
     </div>
 
 
-
+    
     <div id="table_calc_area2" style="display:none">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-lg-12">
@@ -170,8 +172,9 @@
                     
                     <div id="userimg" class="circular_user"></div>
                     <div class="cont">
-                        
-                        <input type="submit" id="submit" name="submit" onclick="hideW()" value="Sign Out">
+                        <input type="submit" id="submit" name="submit" onclick="stConn2()" value="Refresh Activities and Segments from Strava">
+
+                      <input type="submit" id="submit" name="submit" onclick="hideW()" value="Sign Out">
                     </div>
 
                 </div>
@@ -267,70 +270,70 @@
                             </ul>
                         </div>
                     </div>
-                    <div style="position:absolute;right:18px;top:30px;z-index:400">
-                        <a class="btn btn-primary btn-sm" href="#tableback" onclick="dispStarsChk()" id="refreshStarsbtn">
-                            Geneate star ratings
+                    <div style="position:absolute;right:18px;top:30px;z-index:400" id="refreshBtn">
+                        <a class="btn btn-primary btn-sm" href="#tableback" onclick="refreshWeather('act')" id="refreshStarsbtn">
+                           Refresh Weather
                         </a>
                         <div id="wbtns">
                         <button type="button" class="btn btn-primary btn-sm" onclick="weatherAct()">Weather 1</button>
                         <button type="button" class="btn btn-primary btn-sm" onclick="weatherSeg()">Weather 2</button>
                             </div>
                     </div>
-                    <div style="position:absolute;left:5px;top:65px" id="winfo"></div>
+                    <div style="position:absolute;left:18px;top:65px" class="msg_sml" id="winfo">
+                        <div style="height:26px;width:30px;text-align:center;margin-top:9px;margin-left:2px" class="fa fa-2x fa-cog fa-spin"></div>
+                        <div style="display:inline-block;margin-bottom:8px">&nbsp;Calculating ...</div>
+                    </div>
 
                <div style="height:70px">&nbsp;</div>
                     <div class="framemail">
                         <div id="act_table2">
-                            <div class="window">
-                                <ul class="mail">
-                                    You have no acivities for segment efforts, have a look at the map view
-                                    <li onclick="poly2()">
-                                        <i class="read"></i><p>name</p><p class="message">200m</p>
-                                        <div class="actions" id="stars_"><p></p></div>
-                                    </li>
-                                    <li onclick="poly2()">
-                                        <i class="read"></i><p>name</p><p class="message">200m</p>
-                                        <div class="actions" id="stars_"><p></p></div>
-                                    </li>
-                                </ul>
+                            <div class="text-center">
+                                &nbsp;
+                                <div style="height:53px;width:60px;text-align:center" class="fa fa-4x fa-cog fa-spin"></div>
+                                <div id="actMsgs"></div>
                             </div>
+                        </div>
+
                         </div>
                     </div>
                 </div><!-- /dash-unit -->
             </div><!-- /span3 -->
-        </div>
+       
         <!-- Dist and Gain HIDE -->
-        <div id="deets_tile">
-            <div class="col-xs-12 col-sm-12 col-lg-6">
-                <div class="half-unit">
+      
+            <div class="col-xs-12 col-sm-12 col-lg-6" id="deets_tile">
+                <div>
+                    <!--hide this-->
+                    <div class="half-unit">
 
-                    <div style="position:absolute;left:10px;top:5px" id="seg_title"></div>
-                    <div style="position:absolute;right:10px;top:5px" id="backBtn"><div id="favBtn"></div></div>
+                        <div style="position:absolute;left:10px;top:5px" id="seg_title"></div>
+                        <div style="position:absolute;right:10px;top:5px" id="backBtn"><div id="favBtn"></div></div>
 
-                    <div style="position:absolute;left:50px;top:67px;text-align:center">
-                        <div id="seg_dist"></div>
-                        <div>Total Distance</div>
-                    </div>
+                        <div style="position:absolute;left:50px;top:67px;text-align:center">
+                            <div id="seg_dist"></div>
+                            <div>Total Distance</div>
+                        </div>
 
-                    <div style="position:absolute;right:50px;top:67px;text-align:center"">
-                        <div id="seg_egain"></div>
-                        <div>Elevation Gain</div>
-                    </div>
+                        <div style="position:absolute;right:50px;top:67px;text-align:center" ">
+                            <div id="seg_egain"></div>
+                            <div>Elevation Gain</div>
+                        </div>
 
-                    <div style="position:absolute;left:10px;top:135px;text-align:center"">
-                        <div class="circular" id="static_map">
+                        <div style="position:absolute;left:10px;top:156px;text-align:center" ">
+                            <div class="circular" id="static_map">
+                            </div>
+                            <div style="padding-top:5px">Route map</div>
+
+                        </div>
+                        <div style="position:absolute;right:10px;top:148px;text-align:center" ">
+                            <div id="canvas-holder" style="text-align:center">
+                                <canvas id="chart-area" width="160px" height="160px" />
+                            </div>
+                            <div>Route Headings</div>
                         </div>
 
                     </div>
-                    <div style="position:absolute;right:10px;top:135px;text-align:center"">
-                        <div id="canvas-holder" style="text-align:center">
-                            <canvas id="chart-area" width="160px" height="160px" />
-                        </div>
-                        <div>Route Headings</div>
-                    </div>
-
                 </div>
-            </div>
         </div>
         <!-- Buttons -->
         
@@ -346,11 +349,12 @@
             </div>
         </div>
     </div>
+
             <div id="seg_weather" style="display:none">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-lg-6">
                         <!-- LOCAL TIME BLOCK -->
-                        <div class="dash-unit" style="height:1500px">
+                        <div class="dash-unit" style="height:1920px">
                             <dtitle>Weather</dtitle>
                             <hr>
                             <div style="position:absolute;left:5px;top:28px" id="wtitle"></div>
@@ -358,10 +362,10 @@
 
                             <div style="height:40px">&nbsp;</div>
                             <div style="text-align:left;display:inline-block" id="canvas-holder2">
-                                <canvas id="weather" width='250px' height='1500px'><canvas>
+                                <canvas id="weather" width='250px' height='1829px'><canvas>
                             </div>
                             <div style="text-align:left;display:inline-block;position:absolute;right:5px" id="canvas-holder3">
-                                <canvas id="weather_stars" width='130px' height='1500px'><canvas>
+                                <canvas id="weather_stars" width='110px' height='1829px'><canvas>
                             </div>
                             
                    
@@ -377,20 +381,21 @@
                 <div class="dash-unit" id="leaderback">
                     <dtitle>Leaderboard</dtitle>       
                     <hr>
-                    <button style="position:absolute;right:10px;top:24px" type="button" class="btn btn-primary btn-sm">Refresh</button>
-                    <div style="position:absolute;left:5px;top:25px" id="lbdata"></div>
+                    <button style="position:absolute;right:10px;top:29px" type="button" class="btn btn-primary btn-sm">Refresh</button>
+                    <div style="position:absolute;left:13px;top:30px" class="msg_sml" id="lbdata"></div>
                     <div class="cont" style="padding-top:25px"><div id="lbBtn"></div>
                       
                         <div style="position:absolute;left:5px;top:104px" id="komimg" class="circular_sml"></div>
                         <div style="position:absolute;left:98px;top:97px" id="komdata"></div>
                         <div style="position:absolute;left:98px;top:160px" id="komability"></div>
-                        <div style="position:absolute;right:5px;top:199px;font-size:14px;color:#f93" id="komstarcanvas" style="z-index:600">
-                            <canvas id="komcanvas" width='300px' height='25px'><canvas>
+                        <div style="position:absolute;left:210px;top:140px;text-align:center">
+                            <div style="width:160px;height:160px" id="g1" class="gauge"></div>                              
                         </div>
+              
 
                     </div>
                  
-                    <div style="position:absolute;left:5px;top:190px" id="canvas-holder3" style="text-align:center">
+                    <div style="position:absolute;left:5px;top:265px" id="canvas-holder3" style="text-align:center">
                         <canvas id="leaderbd" width='400px' height='1500px' id="canvas"><canvas>
                     </div>
 
@@ -409,12 +414,24 @@
                 <div class="dash-unit" id="effortback">
                     <dtitle>Segment Efforts</dtitle>
                     <hr>
-                    <div id="eff_table" style="display:none"></div>
+                    <button style="position:absolute;right:10px;top:29px" type="button" class="btn btn-primary btn-sm">Refresh</button>
+                    <div style="position:absolute;left:13px;top:30px" class="msg_sml" id="sgdata"></div>
+                    <div class="cont" style="padding-top:25px">
+                        <div id="sgBtn"></div>
+                        
+                    </div>
 
+                    <div style="position:absolute;left:5px;top:105px" id="canvas-holder5" style="text-align:center">
+                        <canvas id="segeff" width='400px' height='1500px'><canvas>
+                    </div>
+
+                  
                 </div>
             </div>
+
         </div>
-    </div>
+            </div>
+        
             <div class="row" style="display:none">
                 <div class="col-sm-3 col-lg-3">
 

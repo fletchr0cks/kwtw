@@ -16,6 +16,11 @@ namespace kwtwsite.Models
             db.Users.InsertOnSubmit(newuser);
         }
 
+        public void Add(Segment newseg)
+        {
+            db.Segments.InsertOnSubmit(newseg);
+        }
+
         public void Save()
         {
             db.SubmitChanges();

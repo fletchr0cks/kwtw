@@ -33,12 +33,12 @@ namespace kwtwsite.Models
     partial void InsertSegment(Segment instance);
     partial void UpdateSegment(Segment instance);
     partial void DeleteSegment(Segment instance);
-    partial void InsertTopWeather(TopWeather instance);
-    partial void UpdateTopWeather(TopWeather instance);
-    partial void DeleteTopWeather(TopWeather instance);
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertTopWeather(TopWeather instance);
+    partial void UpdateTopWeather(TopWeather instance);
+    partial void DeleteTopWeather(TopWeather instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
@@ -79,19 +79,19 @@ namespace kwtwsite.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<TopWeather> TopWeathers
-		{
-			get
-			{
-				return this.GetTable<TopWeather>();
-			}
-		}
-		
 		public System.Data.Linq.Table<User> Users
 		{
 			get
 			{
 				return this.GetTable<User>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TopWeather> TopWeathers
+		{
+			get
+			{
+				return this.GetTable<TopWeather>();
 			}
 		}
 	}
@@ -110,6 +110,12 @@ namespace kwtwsite.Models
 		
 		private string _Polyline;
 		
+		private string _SegmentName;
+		
+		private string _latlng;
+		
+		private System.Nullable<System.DateTime> _Timestamp;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -122,6 +128,12 @@ namespace kwtwsite.Models
     partial void OnBearingArrayChanged();
     partial void OnPolylineChanging(string value);
     partial void OnPolylineChanged();
+    partial void OnSegmentNameChanging(string value);
+    partial void OnSegmentNameChanged();
+    partial void OnlatlngChanging(string value);
+    partial void OnlatlngChanged();
+    partial void OnTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnTimestampChanged();
     #endregion
 		
 		public Segment()
@@ -209,164 +221,42 @@ namespace kwtwsite.Models
 			}
 		}
 		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TopWeather")]
-	public partial class TopWeather : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private int _SegID;
-		
-		private int _UserID;
-		
-		private int _Windspeed;
-		
-		private int _Stars;
-		
-		private System.Nullable<System.DateTime> _Timestamp;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnSegIDChanging(int value);
-    partial void OnSegIDChanged();
-    partial void OnUserIDChanging(int value);
-    partial void OnUserIDChanged();
-    partial void OnWindspeedChanging(int value);
-    partial void OnWindspeedChanged();
-    partial void OnStarsChanging(int value);
-    partial void OnStarsChanged();
-    partial void OnTimestampChanging(System.Nullable<System.DateTime> value);
-    partial void OnTimestampChanged();
-    #endregion
-		
-		public TopWeather()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SegmentName", DbType="VarChar(MAX)")]
+		public string SegmentName
 		{
 			get
 			{
-				return this._ID;
+				return this._SegmentName;
 			}
 			set
 			{
-				if ((this._ID != value))
+				if ((this._SegmentName != value))
 				{
-					this.OnIDChanging(value);
+					this.OnSegmentNameChanging(value);
 					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
+					this._SegmentName = value;
+					this.SendPropertyChanged("SegmentName");
+					this.OnSegmentNameChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SegID", DbType="Int NOT NULL")]
-		public int SegID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_latlng", DbType="VarChar(50)")]
+		public string latlng
 		{
 			get
 			{
-				return this._SegID;
+				return this._latlng;
 			}
 			set
 			{
-				if ((this._SegID != value))
+				if ((this._latlng != value))
 				{
-					this.OnSegIDChanging(value);
+					this.OnlatlngChanging(value);
 					this.SendPropertyChanging();
-					this._SegID = value;
-					this.SendPropertyChanged("SegID");
-					this.OnSegIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int NOT NULL")]
-		public int UserID
-		{
-			get
-			{
-				return this._UserID;
-			}
-			set
-			{
-				if ((this._UserID != value))
-				{
-					this.OnUserIDChanging(value);
-					this.SendPropertyChanging();
-					this._UserID = value;
-					this.SendPropertyChanged("UserID");
-					this.OnUserIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Windspeed", DbType="Int NOT NULL")]
-		public int Windspeed
-		{
-			get
-			{
-				return this._Windspeed;
-			}
-			set
-			{
-				if ((this._Windspeed != value))
-				{
-					this.OnWindspeedChanging(value);
-					this.SendPropertyChanging();
-					this._Windspeed = value;
-					this.SendPropertyChanged("Windspeed");
-					this.OnWindspeedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stars", DbType="Int NOT NULL")]
-		public int Stars
-		{
-			get
-			{
-				return this._Stars;
-			}
-			set
-			{
-				if ((this._Stars != value))
-				{
-					this.OnStarsChanging(value);
-					this.SendPropertyChanging();
-					this._Stars = value;
-					this.SendPropertyChanged("Stars");
-					this.OnStarsChanged();
+					this._latlng = value;
+					this.SendPropertyChanged("latlng");
+					this.OnlatlngChanged();
 				}
 			}
 		}
@@ -444,6 +334,10 @@ namespace kwtwsite.Models
 		
 		private System.Nullable<int> _Segments;
 		
+		private string _latlng;
+		
+		private string _logdata;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -474,6 +368,10 @@ namespace kwtwsite.Models
     partial void OnActivitiesChanged();
     partial void OnSegmentsChanging(System.Nullable<int> value);
     partial void OnSegmentsChanged();
+    partial void OnlatlngChanging(string value);
+    partial void OnlatlngChanged();
+    partial void OnlogdataChanging(string value);
+    partial void OnlogdataChanged();
     #endregion
 		
 		public User()
@@ -737,6 +635,252 @@ namespace kwtwsite.Models
 					this._Segments = value;
 					this.SendPropertyChanged("Segments");
 					this.OnSegmentsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_latlng", DbType="VarChar(50)")]
+		public string latlng
+		{
+			get
+			{
+				return this._latlng;
+			}
+			set
+			{
+				if ((this._latlng != value))
+				{
+					this.OnlatlngChanging(value);
+					this.SendPropertyChanging();
+					this._latlng = value;
+					this.SendPropertyChanged("latlng");
+					this.OnlatlngChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_logdata", DbType="VarChar(MAX)")]
+		public string logdata
+		{
+			get
+			{
+				return this._logdata;
+			}
+			set
+			{
+				if ((this._logdata != value))
+				{
+					this.OnlogdataChanging(value);
+					this.SendPropertyChanging();
+					this._logdata = value;
+					this.SendPropertyChanged("logdata");
+					this.OnlogdataChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TopWeather")]
+	public partial class TopWeather : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private int _SegID;
+		
+		private int _UserID;
+		
+		private int _Windspeed;
+		
+		private int _Stars;
+		
+		private System.Nullable<System.DateTime> _Timestamp;
+		
+		private string _latlng;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnSegIDChanging(int value);
+    partial void OnSegIDChanged();
+    partial void OnUserIDChanging(int value);
+    partial void OnUserIDChanged();
+    partial void OnWindspeedChanging(int value);
+    partial void OnWindspeedChanged();
+    partial void OnStarsChanging(int value);
+    partial void OnStarsChanged();
+    partial void OnTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnTimestampChanged();
+    partial void OnlatlngChanging(string value);
+    partial void OnlatlngChanged();
+    #endregion
+		
+		public TopWeather()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SegID", DbType="Int NOT NULL")]
+		public int SegID
+		{
+			get
+			{
+				return this._SegID;
+			}
+			set
+			{
+				if ((this._SegID != value))
+				{
+					this.OnSegIDChanging(value);
+					this.SendPropertyChanging();
+					this._SegID = value;
+					this.SendPropertyChanged("SegID");
+					this.OnSegIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int NOT NULL")]
+		public int UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Windspeed", DbType="Int NOT NULL")]
+		public int Windspeed
+		{
+			get
+			{
+				return this._Windspeed;
+			}
+			set
+			{
+				if ((this._Windspeed != value))
+				{
+					this.OnWindspeedChanging(value);
+					this.SendPropertyChanging();
+					this._Windspeed = value;
+					this.SendPropertyChanged("Windspeed");
+					this.OnWindspeedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stars", DbType="Int NOT NULL")]
+		public int Stars
+		{
+			get
+			{
+				return this._Stars;
+			}
+			set
+			{
+				if ((this._Stars != value))
+				{
+					this.OnStarsChanging(value);
+					this.SendPropertyChanging();
+					this._Stars = value;
+					this.SendPropertyChanged("Stars");
+					this.OnStarsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Timestamp", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Timestamp
+		{
+			get
+			{
+				return this._Timestamp;
+			}
+			set
+			{
+				if ((this._Timestamp != value))
+				{
+					this.OnTimestampChanging(value);
+					this.SendPropertyChanging();
+					this._Timestamp = value;
+					this.SendPropertyChanged("Timestamp");
+					this.OnTimestampChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_latlng", DbType="VarChar(50)")]
+		public string latlng
+		{
+			get
+			{
+				return this._latlng;
+			}
+			set
+			{
+				if ((this._latlng != value))
+				{
+					this.OnlatlngChanging(value);
+					this.SendPropertyChanging();
+					this._latlng = value;
+					this.SendPropertyChanged("latlng");
+					this.OnlatlngChanged();
 				}
 			}
 		}
