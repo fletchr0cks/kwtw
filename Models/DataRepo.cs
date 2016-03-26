@@ -19,7 +19,15 @@ namespace kwtwsite.Models
         public void Add(Segment newseg)
         {
             db.Segments.InsertOnSubmit(newseg);
+            db.Dispose();
         }
+
+        public void Add(TopWeather wnew)
+        {
+            db.TopWeathers.InsertOnSubmit(wnew);
+            db.Dispose();
+        }
+
 
         public void Save()
         {

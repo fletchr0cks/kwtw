@@ -30,12 +30,15 @@ namespace kwtwsite.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertSegment(Segment instance);
-    partial void UpdateSegment(Segment instance);
-    partial void DeleteSegment(Segment instance);
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertView(View instance);
+    partial void UpdateView(View instance);
+    partial void DeleteView(View instance);
+    partial void InsertSegment(Segment instance);
+    partial void UpdateSegment(Segment instance);
+    partial void DeleteSegment(Segment instance);
     partial void InsertTopWeather(TopWeather instance);
     partial void UpdateTopWeather(TopWeather instance);
     partial void DeleteTopWeather(TopWeather instance);
@@ -71,14 +74,6 @@ namespace kwtwsite.Models
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Segment> Segments
-		{
-			get
-			{
-				return this.GetTable<Segment>();
-			}
-		}
-		
 		public System.Data.Linq.Table<User> Users
 		{
 			get
@@ -87,217 +82,27 @@ namespace kwtwsite.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<View> Views
+		{
+			get
+			{
+				return this.GetTable<View>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Segment> Segments
+		{
+			get
+			{
+				return this.GetTable<Segment>();
+			}
+		}
+		
 		public System.Data.Linq.Table<TopWeather> TopWeathers
 		{
 			get
 			{
 				return this.GetTable<TopWeather>();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Segments")]
-	public partial class Segment : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _SID;
-		
-		private int _SegmentID;
-		
-		private string _BearingArray;
-		
-		private string _Polyline;
-		
-		private string _SegmentName;
-		
-		private string _latlng;
-		
-		private System.Nullable<System.DateTime> _Timestamp;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSIDChanging(int value);
-    partial void OnSIDChanged();
-    partial void OnSegmentIDChanging(int value);
-    partial void OnSegmentIDChanged();
-    partial void OnBearingArrayChanging(string value);
-    partial void OnBearingArrayChanged();
-    partial void OnPolylineChanging(string value);
-    partial void OnPolylineChanged();
-    partial void OnSegmentNameChanging(string value);
-    partial void OnSegmentNameChanged();
-    partial void OnlatlngChanging(string value);
-    partial void OnlatlngChanged();
-    partial void OnTimestampChanging(System.Nullable<System.DateTime> value);
-    partial void OnTimestampChanged();
-    #endregion
-		
-		public Segment()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int SID
-		{
-			get
-			{
-				return this._SID;
-			}
-			set
-			{
-				if ((this._SID != value))
-				{
-					this.OnSIDChanging(value);
-					this.SendPropertyChanging();
-					this._SID = value;
-					this.SendPropertyChanged("SID");
-					this.OnSIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SegmentID", DbType="Int NOT NULL")]
-		public int SegmentID
-		{
-			get
-			{
-				return this._SegmentID;
-			}
-			set
-			{
-				if ((this._SegmentID != value))
-				{
-					this.OnSegmentIDChanging(value);
-					this.SendPropertyChanging();
-					this._SegmentID = value;
-					this.SendPropertyChanged("SegmentID");
-					this.OnSegmentIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BearingArray", DbType="VarChar(50)")]
-		public string BearingArray
-		{
-			get
-			{
-				return this._BearingArray;
-			}
-			set
-			{
-				if ((this._BearingArray != value))
-				{
-					this.OnBearingArrayChanging(value);
-					this.SendPropertyChanging();
-					this._BearingArray = value;
-					this.SendPropertyChanged("BearingArray");
-					this.OnBearingArrayChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Polyline", DbType="VarChar(MAX)")]
-		public string Polyline
-		{
-			get
-			{
-				return this._Polyline;
-			}
-			set
-			{
-				if ((this._Polyline != value))
-				{
-					this.OnPolylineChanging(value);
-					this.SendPropertyChanging();
-					this._Polyline = value;
-					this.SendPropertyChanged("Polyline");
-					this.OnPolylineChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SegmentName", DbType="VarChar(MAX)")]
-		public string SegmentName
-		{
-			get
-			{
-				return this._SegmentName;
-			}
-			set
-			{
-				if ((this._SegmentName != value))
-				{
-					this.OnSegmentNameChanging(value);
-					this.SendPropertyChanging();
-					this._SegmentName = value;
-					this.SendPropertyChanged("SegmentName");
-					this.OnSegmentNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_latlng", DbType="VarChar(50)")]
-		public string latlng
-		{
-			get
-			{
-				return this._latlng;
-			}
-			set
-			{
-				if ((this._latlng != value))
-				{
-					this.OnlatlngChanging(value);
-					this.SendPropertyChanging();
-					this._latlng = value;
-					this.SendPropertyChanged("latlng");
-					this.OnlatlngChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Timestamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> Timestamp
-		{
-			get
-			{
-				return this._Timestamp;
-			}
-			set
-			{
-				if ((this._Timestamp != value))
-				{
-					this.OnTimestampChanging(value);
-					this.SendPropertyChanging();
-					this._Timestamp = value;
-					this.SendPropertyChanged("Timestamp");
-					this.OnTimestampChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -338,6 +143,10 @@ namespace kwtwsite.Models
 		
 		private string _logdata;
 		
+		private System.Nullable<System.DateTime> _FirstLogin;
+		
+		private string _LastRefresh;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -372,6 +181,10 @@ namespace kwtwsite.Models
     partial void OnlatlngChanged();
     partial void OnlogdataChanging(string value);
     partial void OnlogdataChanged();
+    partial void OnFirstLoginChanging(System.Nullable<System.DateTime> value);
+    partial void OnFirstLoginChanged();
+    partial void OnLastRefreshChanging(string value);
+    partial void OnLastRefreshChanged();
     #endregion
 		
 		public User()
@@ -679,6 +492,434 @@ namespace kwtwsite.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstLogin", DbType="Date")]
+		public System.Nullable<System.DateTime> FirstLogin
+		{
+			get
+			{
+				return this._FirstLogin;
+			}
+			set
+			{
+				if ((this._FirstLogin != value))
+				{
+					this.OnFirstLoginChanging(value);
+					this.SendPropertyChanging();
+					this._FirstLogin = value;
+					this.SendPropertyChanged("FirstLogin");
+					this.OnFirstLoginChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastRefresh", DbType="NChar(10)")]
+		public string LastRefresh
+		{
+			get
+			{
+				return this._LastRefresh;
+			}
+			set
+			{
+				if ((this._LastRefresh != value))
+				{
+					this.OnLastRefreshChanging(value);
+					this.SendPropertyChanging();
+					this._LastRefresh = value;
+					this.SendPropertyChanged("LastRefresh");
+					this.OnLastRefreshChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Views")]
+	public partial class View : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _VID;
+		
+		private System.Nullable<int> _SegID;
+		
+		private System.Nullable<int> _Timestamp;
+		
+		private System.Nullable<int> _UserID;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnVIDChanging(int value);
+    partial void OnVIDChanged();
+    partial void OnSegIDChanging(System.Nullable<int> value);
+    partial void OnSegIDChanged();
+    partial void OnTimestampChanging(System.Nullable<int> value);
+    partial void OnTimestampChanged();
+    partial void OnUserIDChanging(System.Nullable<int> value);
+    partial void OnUserIDChanged();
+    #endregion
+		
+		public View()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int VID
+		{
+			get
+			{
+				return this._VID;
+			}
+			set
+			{
+				if ((this._VID != value))
+				{
+					this.OnVIDChanging(value);
+					this.SendPropertyChanging();
+					this._VID = value;
+					this.SendPropertyChanged("VID");
+					this.OnVIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SegID", DbType="Int")]
+		public System.Nullable<int> SegID
+		{
+			get
+			{
+				return this._SegID;
+			}
+			set
+			{
+				if ((this._SegID != value))
+				{
+					this.OnSegIDChanging(value);
+					this.SendPropertyChanging();
+					this._SegID = value;
+					this.SendPropertyChanged("SegID");
+					this.OnSegIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Timestamp", DbType="Int")]
+		public System.Nullable<int> Timestamp
+		{
+			get
+			{
+				return this._Timestamp;
+			}
+			set
+			{
+				if ((this._Timestamp != value))
+				{
+					this.OnTimestampChanging(value);
+					this.SendPropertyChanging();
+					this._Timestamp = value;
+					this.SendPropertyChanged("Timestamp");
+					this.OnTimestampChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int")]
+		public System.Nullable<int> UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Segments")]
+	public partial class Segment : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _SID;
+		
+		private int _SegmentID;
+		
+		private string _BearingArray;
+		
+		private string _Polyline;
+		
+		private string _SegmentName;
+		
+		private string _latlng;
+		
+		private System.Nullable<System.DateTime> _Timestamp;
+		
+		private System.Nullable<int> _PrivateSeg;
+		
+		private string _Location;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSIDChanging(int value);
+    partial void OnSIDChanged();
+    partial void OnSegmentIDChanging(int value);
+    partial void OnSegmentIDChanged();
+    partial void OnBearingArrayChanging(string value);
+    partial void OnBearingArrayChanged();
+    partial void OnPolylineChanging(string value);
+    partial void OnPolylineChanged();
+    partial void OnSegmentNameChanging(string value);
+    partial void OnSegmentNameChanged();
+    partial void OnlatlngChanging(string value);
+    partial void OnlatlngChanged();
+    partial void OnTimestampChanging(System.Nullable<System.DateTime> value);
+    partial void OnTimestampChanged();
+    partial void OnPrivateSegChanging(System.Nullable<int> value);
+    partial void OnPrivateSegChanged();
+    partial void OnLocationChanging(string value);
+    partial void OnLocationChanged();
+    #endregion
+		
+		public Segment()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int SID
+		{
+			get
+			{
+				return this._SID;
+			}
+			set
+			{
+				if ((this._SID != value))
+				{
+					this.OnSIDChanging(value);
+					this.SendPropertyChanging();
+					this._SID = value;
+					this.SendPropertyChanged("SID");
+					this.OnSIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SegmentID", DbType="Int NOT NULL")]
+		public int SegmentID
+		{
+			get
+			{
+				return this._SegmentID;
+			}
+			set
+			{
+				if ((this._SegmentID != value))
+				{
+					this.OnSegmentIDChanging(value);
+					this.SendPropertyChanging();
+					this._SegmentID = value;
+					this.SendPropertyChanged("SegmentID");
+					this.OnSegmentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BearingArray", DbType="VarChar(50)")]
+		public string BearingArray
+		{
+			get
+			{
+				return this._BearingArray;
+			}
+			set
+			{
+				if ((this._BearingArray != value))
+				{
+					this.OnBearingArrayChanging(value);
+					this.SendPropertyChanging();
+					this._BearingArray = value;
+					this.SendPropertyChanged("BearingArray");
+					this.OnBearingArrayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Polyline", DbType="VarChar(MAX)")]
+		public string Polyline
+		{
+			get
+			{
+				return this._Polyline;
+			}
+			set
+			{
+				if ((this._Polyline != value))
+				{
+					this.OnPolylineChanging(value);
+					this.SendPropertyChanging();
+					this._Polyline = value;
+					this.SendPropertyChanged("Polyline");
+					this.OnPolylineChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SegmentName", DbType="VarChar(MAX)")]
+		public string SegmentName
+		{
+			get
+			{
+				return this._SegmentName;
+			}
+			set
+			{
+				if ((this._SegmentName != value))
+				{
+					this.OnSegmentNameChanging(value);
+					this.SendPropertyChanging();
+					this._SegmentName = value;
+					this.SendPropertyChanged("SegmentName");
+					this.OnSegmentNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_latlng", DbType="VarChar(50)")]
+		public string latlng
+		{
+			get
+			{
+				return this._latlng;
+			}
+			set
+			{
+				if ((this._latlng != value))
+				{
+					this.OnlatlngChanging(value);
+					this.SendPropertyChanging();
+					this._latlng = value;
+					this.SendPropertyChanged("latlng");
+					this.OnlatlngChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Timestamp", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Timestamp
+		{
+			get
+			{
+				return this._Timestamp;
+			}
+			set
+			{
+				if ((this._Timestamp != value))
+				{
+					this.OnTimestampChanging(value);
+					this.SendPropertyChanging();
+					this._Timestamp = value;
+					this.SendPropertyChanged("Timestamp");
+					this.OnTimestampChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrivateSeg", DbType="Int")]
+		public System.Nullable<int> PrivateSeg
+		{
+			get
+			{
+				return this._PrivateSeg;
+			}
+			set
+			{
+				if ((this._PrivateSeg != value))
+				{
+					this.OnPrivateSegChanging(value);
+					this.SendPropertyChanging();
+					this._PrivateSeg = value;
+					this.SendPropertyChanged("PrivateSeg");
+					this.OnPrivateSegChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="VarChar(MAX)")]
+		public string Location
+		{
+			get
+			{
+				return this._Location;
+			}
+			set
+			{
+				if ((this._Location != value))
+				{
+					this.OnLocationChanging(value);
+					this.SendPropertyChanging();
+					this._Location = value;
+					this.SendPropertyChanged("Location");
+					this.OnLocationChanged();
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -720,6 +961,10 @@ namespace kwtwsite.Models
 		
 		private string _latlng;
 		
+		private string _epoch;
+		
+		private string _TS_pretty;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -738,6 +983,10 @@ namespace kwtwsite.Models
     partial void OnTimestampChanged();
     partial void OnlatlngChanging(string value);
     partial void OnlatlngChanged();
+    partial void OnepochChanging(string value);
+    partial void OnepochChanged();
+    partial void OnTS_prettyChanging(string value);
+    partial void OnTS_prettyChanged();
     #endregion
 		
 		public TopWeather()
@@ -881,6 +1130,46 @@ namespace kwtwsite.Models
 					this._latlng = value;
 					this.SendPropertyChanged("latlng");
 					this.OnlatlngChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_epoch", DbType="VarChar(50)")]
+		public string epoch
+		{
+			get
+			{
+				return this._epoch;
+			}
+			set
+			{
+				if ((this._epoch != value))
+				{
+					this.OnepochChanging(value);
+					this.SendPropertyChanging();
+					this._epoch = value;
+					this.SendPropertyChanged("epoch");
+					this.OnepochChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS_pretty", DbType="VarChar(MAX)")]
+		public string TS_pretty
+		{
+			get
+			{
+				return this._TS_pretty;
+			}
+			set
+			{
+				if ((this._TS_pretty != value))
+				{
+					this.OnTS_prettyChanging(value);
+					this.SendPropertyChanging();
+					this._TS_pretty = value;
+					this.SendPropertyChanged("TS_pretty");
+					this.OnTS_prettyChanged();
 				}
 			}
 		}

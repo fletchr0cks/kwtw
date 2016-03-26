@@ -776,6 +776,7 @@ digiclock {
 .framemail .window .mail li .message strong {
     color: #999;
 }
+
 .framemail .window .mail li .actions {
     height: 20px;
     position: absolute;
@@ -784,6 +785,17 @@ digiclock {
     text-align: center;
     top: 0;
     color: Aqua;
+    font-size:14px
+}
+
+.framemail .window .mail li .actions_b {
+    height: 20px;
+    position: absolute;
+    right: 3px;
+    width: 230px;
+    text-align: right;
+    top: 17px;
+    font-size:12px
 }
 .framemail .window .mail li .actions img {
     background: none;

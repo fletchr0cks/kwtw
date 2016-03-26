@@ -41,14 +41,70 @@ namespace kwtwsite.Controllers
             return View("Beta", data);
         }
 
+        public JsonResult TopW()
+        {
+            var DataContext = new DataClasses1DataContext();
+            var allw = from e in DataContext.TopWeathers
+                            orderby e.Stars descending
+                            select new
+                            {
+                                UserID = (from u in DataContext.Users where e.UserID == u.StravaID select u.Firstname),
+                                Wspd = e.Windspeed,
+                                Name = (from u in DataContext.Segments where e.SegID == u.SegmentID select u.SegmentName),
+                                SegID = e.SegID,
+                                Stars = e.Stars,
+                                TS_pretty = e.TS_pretty,
+                                Location = (from u in DataContext.Segments where e.SegID == u.SegmentID select u.Location),
+                                Timest = Convert.ToDateTime(e.Timestamp).ToLongDateString()//.ToShortTimeString()
+                                
+                            };
+
+            return Json(new { topw = allw.Take(5) }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult AllSegs()
+        {
+            var DataContext = new DataClasses1DataContext();
+            var allw = from e in DataContext.Segments
+                       orderby e.SegmentName descending
+                       select new
+                       {
+                           SegID = e.SegmentID,
+                         //  Wspd = e.Windspeed,
+                           Name = e.SegmentName
+
+                       };
+
+            return Json(new { allsegs = allw }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult AllUsers()
+        {
+            var DataContext = new DataClasses1DataContext();
+            var allw = from e in DataContext.Users
+                       orderby e.FirstLogin descending
+                       select new
+                       {
+                           Name = e.Firstname + " " + e.Lastname,
+                           //  Wspd = e.Windspeed,
+                           Act = e.Activities,
+                           Seg = e.Segments
+
+                       };
+
+            return Json(new { allusers = allw }, JsonRequestBehavior.AllowGet);
+
+        }
 
         public void SaveUser(string firstname, string lastname, int StravaID, int NumAct, int NumSeg)
         {
-            
-            var DataContext = new DataClasses1DataContext();
-           
 
-        var userct = from u in DataContext.Users
+            var DataContext = new DataClasses1DataContext();
+
+
+            var userct = from u in DataContext.Users
                          where u.StravaID == StravaID
                          select u;
 
@@ -60,6 +116,7 @@ namespace kwtwsite.Controllers
 
                 sc.Activities = NumAct;
                 sc.Segments = NumSeg;
+           //     sc.LastRefresh = DateTime.Now;
                 db.SubmitChanges();
 
 
@@ -73,18 +130,57 @@ namespace kwtwsite.Controllers
                 unew.StravaID = StravaID;
                 unew.Activities = NumAct;
                 unew.Segments = NumSeg;
-
+                unew.FirstLogin = DateTime.Now;
                 datarepo.Add(unew);
                 datarepo.Save();
 
 
             }
-            
 
-           
+
+
         }
 
-        public void SaveSegment(string segname, int segID, string array, string polyline, string latlng)
+        public void SaveTopWeather(int UserID, int segID, int wspd, string loc, int stars, string epoch, string timestamp)
+        {
+
+            var DataContext = new DataClasses1DataContext();
+
+            var userct = from u in DataContext.TopWeathers
+                         where u.SegID == segID
+                         where u.epoch == epoch
+                         select u;
+
+            var priv = from u in DataContext.Segments
+                         where u.SegmentID == segID
+                         where u.PrivateSeg == 1
+                         select u;
+
+
+            if (userct.Count() == 0 && priv.Count() == 0)
+            {
+
+
+                TopWeather wnew = new Models.TopWeather();
+                wnew.UserID = UserID;
+                wnew.SegID = segID;
+                wnew.Stars = stars;
+                wnew.latlng = loc;
+                wnew.Windspeed = wspd;
+                wnew.epoch = epoch;
+                wnew.Timestamp = DateTime.Now;
+                wnew.TS_pretty = timestamp;
+                datarepo.Add(wnew);
+                datarepo.Save();
+
+
+
+            }
+
+
+        }
+
+        public void SaveSegment(string segname, int segID, string array, string polyline, string latlng, int priv, string location)
         {
 
             var DataContext = new DataClasses1DataContext();
@@ -96,8 +192,14 @@ namespace kwtwsite.Controllers
 
             if (segct.Count() > 0)
             {
-                //update
-              
+                var sc = db.Segments
+                 .Where(s => s.SegmentID == segID)
+                 .First();
+
+                sc.Location = location;
+                db.SubmitChanges();
+
+
             }
             else
             {
@@ -108,7 +210,7 @@ namespace kwtwsite.Controllers
                 segnew.BearingArray = array;
                 segnew.Polyline = polyline;
                 segnew.latlng = latlng;
-
+                segnew.PrivateSeg = priv;
                 datarepo.Add(segnew);
                 datarepo.Save();
 
