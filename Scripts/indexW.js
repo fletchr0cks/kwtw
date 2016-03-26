@@ -126,22 +126,7 @@ function getWindiest(daysago) {
     var wspd = 45;
     var timestamp = "4:27pm on Monday 25th March 2016";
     var loc = "London and some more, UK"
-    ctx2d.fillStyle = "#ffca4a";
-    drawStarsF(ctx2d, stars, posy, 10);
-    ctx2d.font = '16px Arial';
-    ctx2d.fillStyle = "#ffca4a";
-    ctx2d.fillText(wspd + "mph wind", 120, posy + 6);
-    //  ctx2d.font = '12px Arial';
-    ctx2d.font = '14px Arial';
-    ctx2d.fillStyle = "#fff";
-    ctx2d.fillText(loc, 5, posy + 22);
-    ctx2d.fillText(timestamp, 5, posy + 38);
-    ctx2d.fillStyle = "#2fb4c8";
-    ctx2d.fillText("Viewed by " + name, 5, posy + 56);
-    //cond
-    
-
-    
+  
     var html = "";
     var head = "";
     $.ajax({
@@ -159,15 +144,18 @@ function getWindiest(daysago) {
                 var wspd = wd.Wspd;
                 var timestamp = wd.TS_pretty;
                 var loc = wd.Location;
+                ctx2d.fillStyle = "#ffca4a";
+                drawStarsF(ctx2d, stars, posy, 10);
+                ctx2d.font = '16px Arial';
+                ctx2d.fillStyle = "#ffca4a";
+                ctx2d.fillText(wspd + "mph wind", 120, posy + 6);
+                //  ctx2d.font = '12px Arial';
                 ctx2d.font = '14px Arial';
                 ctx2d.fillStyle = "#fff";
-                //  ctx2d.font = '12px Arial';
-                ctx2d.fillText(loc, 20, posy);
-                ctx2d.fillText(timestamp, 20, posy + 20);
+                ctx2d.fillText(loc, 5, posy + 22);
+                ctx2d.fillText(timestamp, 5, posy + 38);
                 ctx2d.fillStyle = "#2fb4c8";
-                ctx2d.fillText("Viewed by " + name, 20, posy + 40);
-                //cond
-                drawStarsF(ctx2d, stars, posy + 30, 90);
+                ctx2d.fillText("Viewed by " + name, 5, posy + 56);
 
                html = html + "<div class=\"msg_sml\">" + wd.UserID + " " + wd.Wspd + " mph " + wd.Stars + " stars></div>";
             })
