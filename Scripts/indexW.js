@@ -79,7 +79,7 @@ function communityUsers() {
     $.ajax({
         type: "GET",
         url: "/Home/AllUsers",
-        data: "dayosag=" + daysago,
+       // data: "dayosag=" + daysago,
         dataType: "json",
         success: function (data) {
             var parsed_json = eval(data);
@@ -147,7 +147,7 @@ function getWindiest(daysago) {
     $.ajax({
         type: "GET",
         url: "/Home/TopW",
-        data: "dayosag=" + daysago,
+       // data: "dayosag=" + daysago,
         dataType: "json",
         success: function (data) {
             var parsed_json = eval(data);
