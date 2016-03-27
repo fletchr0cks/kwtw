@@ -20,10 +20,10 @@
         <elementListCompartment Id="645075e2-7b33-445b-bd90-606e69779a94" absoluteBounds="4.765, 1.335, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="38ca0dd1-9ef0-4ea5-9db0-e65abe38f53f" absoluteBounds="3.5, 1.25, 2, 2.5401025390625">
+    <classShape Id="38ca0dd1-9ef0-4ea5-9db0-e65abe38f53f" absoluteBounds="2.875, 0.875, 2, 2.5401025390625">
       <DataClassMoniker Name="/DataClasses1DataContext/TopWeather" />
       <nestedChildShapes>
-        <elementListCompartment Id="02f55341-dca3-4823-bebf-1065a8a4c57e" absoluteBounds="3.515, 1.71, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="02f55341-dca3-4823-bebf-1065a8a4c57e" absoluteBounds="2.89, 1.335, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

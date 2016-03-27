@@ -309,11 +309,22 @@ var timerd;
 function startmap() {
     clearTimeout(timera);
     //var position = getPosition();
-
+    var latlngsaved = localStorage.getItem("latmap");
     //var latlng = position.split(',');
-    var lat = "56.058168";
-    var lng = "-2.719811";
-    var map = new GoogleMap(lat, lng);
+    if (latlngsaved == null) {
+        var lat = "56.058168";
+        var lng = "-2.719811";
+    } else {
+       var lat = localStorage.getItem("latmap");
+       var lng = localStorage.getItem("lngmap");
+       var zoom = localStorage.getItem("zoommap");
+    }
+    console.log("zmap" + zoom);
+   // var lat = "56.058168";
+   // var lng = "-2.719811";
+    //latlngsaved = "16.78,96.157";
+ //   var map = new GoogleMap(latlngsaved);
+    var map = new GoogleMap(lat, lng, zoom);
     map.initialize();
     //google.maps.event.trigger(map, 'resize');
 
@@ -324,7 +335,20 @@ function showmap() {
     timera = setInterval(function () { startmap() }, 1500);
 }
 
-function GoogleMap(lat, lng) {
+function setZoom(map, lat,lng) {
+    var boundbox = new google.maps.LatLngBounds();
+    boundbox.extend(new google.maps.LatLng(lat, lng));
+    console.log("fit" + lat + " " + lng);
+    
+    map.setCenter(boundbox.getCenter());
+  //  map.setZoom(8);
+   // map.fitBounds(boundbox);
+
+
+
+}
+
+function GoogleMap(lat,lng, zoom1) {
     //   $("#map_overlay").fadeIn();
     //alert(lat + lng);
     this.initialize = function () {
@@ -335,13 +359,20 @@ function GoogleMap(lat, lng) {
     var showMap = function () {
 
         var mapOptions = {
-            zoom: 14,
+            zoom: parseInt(zoom1),
             center: new google.maps.LatLng(parseFloat(lat), parseFloat(lng)),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            //fitBounds: localStorage.getItem("BdsMap"),
         }
-        var map = new google.maps.Map(document.getElementById("map_canvas_nearby"), mapOptions)
+        var map = new google.maps.Map(document.getElementById("map_canvas_nearby"), mapOptions);
+        var bounds_saved = new google.maps.LatLngBounds();
+        bounds_saved = localStorage.getItem("BdsMap");
+        //map.fitBounds(bounds_saved);
+        //lat = "56.9";
+       // lng = "-2.8";
+        setZoom(map, lat, lng);
         var bounds;
-
+       
         google.maps.event.addListener(map, 'bounds_changed', (function () {
             bounds = map.getBounds();
             $("#map_msg").html("Map moved ...");
@@ -351,7 +382,17 @@ function GoogleMap(lat, lng) {
                 timer = setTimeout(function () {
 
                     bounds = map.getBounds();
+                    var zoom2 = map.getZoom();
+                    var latn = map.getCenter().lat();
+                    var lngn = map.getCenter().lng();
+                    console.log(zoom2)
+                    localStorage.setItem("zoommap", zoom2);
+                    localStorage.setItem("latmap", latn);
+                    localStorage.setItem("lngmap", lngn);
+                   // localStorage.setItem("BdsMap", bds);
                     $("#winfomap").html("Retrieving segments ...");
+                    removeMarkers(null);
+                    markers_array = [];
                     setMarkers(map, bounds, "0");
                 }, 2000);
             }
@@ -368,13 +409,15 @@ function GoogleMap(lat, lng) {
 
 }
 
-var markers = [];
 
-function removeMarkers() {
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
+
+function removeMarkers(map) {
+  
+    for (var i = 0; i < markers_array.length; i++) {
+        markers_array[i].setMap(map);
+        
     }
-    markers.length = 0;
+    markers_array.length = 0;
 
 }
 
@@ -392,7 +435,7 @@ function addPolyline(el) {
     return polyName;
 }
 
-
+var markers_array = [];
 
 var timer_m;
 
@@ -404,8 +447,8 @@ function setMarkers(map, bounds_map, PID) {
     var bds_fmt = format_bounds(bounds_map.toString());
     var marktxt = "";
     //alert(bds_fmt);
-    removeMarkers();
-    var markers_array = [];
+  
+    
     var seg_loc_data = {
         points: []
     };
@@ -463,6 +506,9 @@ function setMarkers(map, bounds_map, PID) {
             $('#tableback_map').height(ht);
             var jsonsegs = JSON.stringify(seg_loc_data);
             localStorage.setItem('seg_loc_data', jsonsegs);
+            console.log(seg_loc_data);
+            console.log(jsonsegs);
+
             var json_loc = { "points": [{ "lat": tlat, "longval": tlng, "name": "You are here!", "PID": "1"}] };
             $.each(seg_loc_data.points, function (i, markers) {
                 // console.log(json);
@@ -544,12 +590,18 @@ function setMarkers(map, bounds_map, PID) {
 
 
 function format_bounds(bds) {
-
+    //console.log(bds);
     var bds2 = bds.replace("((", "");
     var bds3 = bds2.replace("))", "");
     var bds4 = bds3.replace("), (", ",");
     var bds5 = bds4.replace(" ", "");
     var bds6 = bds5.replace(" ", "");
+   
+    var bdsar = bds6.split(',');
+    var lat = (parseFloat(bdsar[2] - bdsar[0])) + parseFloat(bdsar[0]);
+    var lng = (parseFloat(bdsar[3] - bdsar[1])) + parseFloat(bdsar[1]);
+    
+    //console.log("lat=" + lat + "lng=" + lng);
     return (bds6);
 }
 
@@ -2298,8 +2350,8 @@ function checkWeather(latlng, ct, ID,type) {
                 if (ct <= 0) {
               //  alert("return" + callW + ID);
                 
-                    if ((callW == true) || (fromJsonAct == null) || (fromJsonMap == null))  { //no match
-                        console.log("null check, callW=" + callW + fromJsonAct + " " + fromJsonMap)
+                    if ((callW == true) || ((fromJsonAct == null) && (fromJsonMap == null)))  { //no match
+                        console.log("null check, callW=" + callW)
                     console.log("Getting weather for " + ID + "</br>");
                     callWeather(latlng,ID,type);
                   //  alert("ct="+ct);
@@ -2548,7 +2600,7 @@ function callWeather(latlng,ID,type)  {
         //56.052,-2.732
         //url: "json.txt",
         //dataType: "html",
-        timeout: 2000,
+        timeout: 4000,
         dataType: "jsonp",
         success: function (json) {
             //var jsontxt = eval('(' + json + ')');

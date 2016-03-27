@@ -48,9 +48,11 @@ namespace kwtwsite.Controllers
                             orderby e.Stars descending
                             select new
                             {
-                                UserID = (from u in DataContext.Users where e.UserID == u.StravaID select u.Firstname),
+                                UserID = (from u in DataContext.Users where e.UserID == u.StravaID select u.Firstname.Substring(0, 1).ToLower()),
                                 Wspd = e.Windspeed,
                                 Name = (from u in DataContext.Segments where e.SegID == u.SegmentID select u.SegmentName),
+                                Latlng = (from u in DataContext.Segments where e.SegID == u.SegmentID select u.latlng),
+                                Points = (from u in DataContext.Segments where e.SegID == u.SegmentID select u.Polyline),
                                 SegID = e.SegID,
                                 Stars = e.Stars,
                                 TS_pretty = e.TS_pretty,
