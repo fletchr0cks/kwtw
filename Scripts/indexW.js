@@ -588,9 +588,13 @@ function showRem() {
 }
 
 function noActsmsg() {
-    console.log("no ")
+    $('#status_msgs').hide();
+    $('#status_area').hide();
+    $('#stConnimg').hide();
     $('#winfo').hide();
     $('#Hrsdd').hide();
+    $('#menu_buttons').show();
+    $('#status_msgs').hide();
     $('#refreshBtn').hide();
     $('#my_activities').show();
     $('#act_table2').show();
@@ -1960,15 +1964,21 @@ function stConn2() {
             localStorage.setItem('fulluserdata', JSON.stringify(result));
             localStorage.setItem('Hrs', "3");
             saveUser(data.firstname, data.lastname, data.id, 0, 0);
+            if (data.profile == "avatar/athlete/large.png") {
+            pic = "<img style=\"width:80px;height:auto\" src=\"/Content/blank_avatar.jpg\">";
+            pic_header = "<img class=\"circular_pfl\" src=\"/Content/blank_avatar.jpg\">";
+        } else {
             pic = "<img style=\"width:80px;height:auto\" src=\"" + data.profile + "\">";
             pic_header = "<img class=\"circular_pfl\" src=\"" + data.profile + "\">";
+        }
+            
             var name = data.firstname + ", " + data.lastname;
            
             var loc = data.city + ", " + data.country;
             
                 
-            $('#pic_header').hide();
-            $('#logo_header').hide();
+            $('#pic_header').show();
+            $('#logo_header').show();
             $('#user_details').html("<h1>" + name + "</h1><h3>" + loc + "</h3>");
             $('#userimg').html(pic);
             $('#pic_header').html(pic_header);
@@ -2007,7 +2017,7 @@ function stConn2() {
             }
             $('#status_msgs').append("</br >Retrieving Activities and Segments for </br>" + data.firstname + " " + data.lastname + "</br >");
             
-            getFavs();
+          //  getFavs();
            stAct();
             // do some stuff with result
         });
@@ -2316,6 +2326,7 @@ function stAct() {
                     analyseSegs();
                 }
             } else {
+                $('#UnAuthApp').hide();
                 noActsmsg();
             }
              //myFunction();
