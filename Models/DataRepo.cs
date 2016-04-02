@@ -18,8 +18,17 @@ namespace kwtwsite.Models
 
         public void Add(Segment newseg)
         {
-            db.Segments.InsertOnSubmit(newseg);
-           
+            db.Segments.InsertOnSubmit(newseg);        
+        }
+
+        public void Add(View vnew)
+        {
+            db.Views.InsertOnSubmit(vnew);
+        }
+
+        public void Delete(View view)
+        {
+            db.Views.DeleteOnSubmit(view);
         }
 
         public void Add(TopWeather wnew)

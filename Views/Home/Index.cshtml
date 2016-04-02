@@ -8,7 +8,9 @@
             <img style="width:auto;height:80px;" src="~/Content/kom_logo_db.png" />
 
             <div style="height:50px"></div>
-            <img src="~/Content/ConnectWithStrava@2x.png" onclick="stConn2()" onmouseover="" style="cursor: pointer;" />
+            <div id="stConnimg">
+                <img src="~/Content/ConnectWithStrava@2x.png" onclick="stConn2()" onmouseover="" style="cursor: pointer;" />
+            </div>
             <div class="text-center" style="padding-top:20px" id="status_area">
                 &nbsp;
                 <div style="height:53px;width:60px;text-align:center;color:#00AF96" class="fa fa-4x fa-cog fa-spin"></div>
@@ -17,14 +19,15 @@
         </div>
     </div>
     <div style="height:50px"></div>
-    <div class="menubtns" id="menu_buttons">
+    <div class="menubtns" id="menu_buttons" style="display:none">
         <div class="btn-group">
             <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 My Activities and Segments<span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#" onclick="getAct()">My Activities and Segments</a></li>
+                <li><a href="#" onclick="getAct('act')">My Activities and Segments</a></li>
                 <li><a href="#" onclick="getNearby()">Segments Nearby</a></li>
+                <li><a href="#" onclick="getAct('fav')">Favourites</a></li>
                 <li><a href="#" onclick="Settings()">Settings</a></li>
                 <li><a href="#" onclick="showCmty()">Community</a></li>
             </ul>
@@ -34,7 +37,7 @@
     </div>
 
 
-    <div id="pic_header" class="profile"></div>
+    <div id="pic_header" class="profile" style="display:none"></div>
     <div id="logo_header" class="logoimg"><img style="width:auto;height: 42px;" src="~/Content/kom_logo_db.png" /></div>
 
     <div id="seg_nearby" style="display:none">
@@ -44,7 +47,7 @@
 
             <div class="row">
 
-                <div class="col-xs-12 col-sm-12 col-lg-12">
+                <div class="col-xs-12 col-sm-6 col-lg-6">
                     <div class="dash-unit" id="tableback_map">
 
                         <div class="timebtns">
@@ -132,7 +135,7 @@
             </div>
         </div>
     </div>
-    <div id="info">
+    <div id="info" style="display:none">
 
         <div class="row">
 
@@ -151,8 +154,8 @@
         <div class="row">
 
             <!-- USER PROFILE BLOCK -->
-            <div class="col-sm-3 col-lg-3">
-                <div class="dash-unit" style="height:240px">
+            <div class="col-sm-6 col-lg-6">
+                <div class="dash-unit" style="height:255px">
                     <br>
                     <div id="user_details"></div>
 
@@ -167,8 +170,8 @@
             </div>
 
             <!-- DONUT CHART BLOCK -->
-            <div class="col-sm-3 col-lg-3" style="display:none">
-                <div class="dash-unit">
+            <div class="col-sm-6 col-lg-6" style="display:none">
+                <div class="dash-unit" style="height:255px">
                     <dtitle>Weather Credits</dtitle>
                     <hr>
                     <div class="text-center">
@@ -192,8 +195,8 @@
 
                 </div>
             </div>
-            <div class="col-sm-3 col-lg-3">
-                <div class="dash-unit">
+            <div class="col-sm-6 col-lg-6">
+                <div class="dash-unit" style="height:255px">
                     <dtitle>Settngs</dtitle>
                     <hr>
                     <div class="text-center">
@@ -237,7 +240,7 @@
         <div class="row">
 
             <!-- USER PROFILE BLOCK -->
-            <div class="col-sm-3 col-lg-6">
+            <div class="col-xs-12 col-sm-12 col-lg-6">
                 <div class="dash-unit" style="height:1200px">
                     <dtitle>Community</dtitle>
                     <hr>
@@ -249,14 +252,15 @@
                             <button type="button" class="btn btn-success btn-sm" id="ctemppill" onclick="communityToptemp('c')">Coldest</button>
                         </div>
                     </div>
-                    <div style="height:35px">&nbsp;</div>
+                    <div style="height:25px">&nbsp;</div>
                     <div id="comHead"></div>
                     <div class="text-center">
                         <div id="comspin" style="height:53px;width:60px;text-align:center;color:#00AF96" class="fa fa-4x fa-cog fa-spin"></div>
                     </div>
+                    <div style="height:25px">&nbsp;</div>
                     <div id="com_table">
                     </div>
-                        <div id="comStarcanvas">
+                        <div id="comcanvas">
                             <canvas id="top_canvas" width="320px" height="800px" />
                         </div>
                     </div>
@@ -267,7 +271,7 @@
     
 
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-lg-6">
+                <div class="col-xs-12 col-sm-6 col-lg-6">
                     <!-- Activities BLOCK -->
                     <div id="my_activities" style="display:none">
 
@@ -320,7 +324,7 @@
                 </div><!-- /span3 -->
                 <!-- Dist and Gain HIDE -->
 
-                <div class="col-xs-12 col-sm-12 col-lg-6" id="deets_tile">
+                <div class="col-xs-12 col-sm-6 col-lg-6" id="deets_tile" style="display:none">
                     <div>
                         <!--hide this-->
                         <div class="half-unit">
@@ -357,11 +361,11 @@
                 <!-- Buttons -->
 
             </div>
-            <!-- THIRD ROW OF BLOCKS -->
+            
             <div class="row" id="pills_row" style="display:none">
-                <div class="col-xs-12 col-sm-12 col-lg-6">
+                <div class="col-xs-12 col-sm-6 col-lg-6">
 
-                    <div class="dash-unit" style="height:60px">
+                    <div class="dash-unit" style="height:90px">
                         <div class="cont">
                             <div id="data_pills" style="display:none"></div>
                         </div>
@@ -371,7 +375,7 @@
 
             <div id="seg_weather" style="display:none">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-lg-6">
+                    <div class="col-xs-12 col-sm-6 col-lg-6">
                         <!-- LOCAL TIME BLOCK -->
                         <div class="dash-unit" style="height:1920px">
                             <dtitle>Weather</dtitle>
@@ -397,7 +401,7 @@
             </div>
             <div id="seg_leaderboard" style="display:none">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-lg-6">
+                    <div class="col-xs-12 col-sm-6 col-lg-6">
                         <!-- LOCAL TIME BLOCK -->
                         <div class="dash-unit" id="leaderback">
                             <dtitle>Leaderboard</dtitle>
@@ -431,7 +435,7 @@
 
             <div id="seg_efforts" style="display:none">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-lg-6">
+                    <div class="col-xs-12 col-sm-6 col-lg-6">
                         <!-- LOCAL TIME BLOCK -->
                         <div class="dash-unit" id="effortback">
                             <dtitle>Segment Efforts</dtitle>

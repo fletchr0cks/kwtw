@@ -45,7 +45,7 @@ namespace kwtwsite.Controllers
         {
             var DataContext = new DataClasses1DataContext();
             var allw = from e in DataContext.TopWeathers
-                            orderby e.Stars descending
+                            orderby e.Stars descending, e.Timestamp descending
                             select new
                             {
                                 UserID = (from u in DataContext.Users where e.UserID == u.StravaID select u.Firstname.Substring(0, 1).ToLower()),
@@ -56,12 +56,12 @@ namespace kwtwsite.Controllers
                                 SegID = e.SegID,
                                 Stars = e.Stars,
                                 TS_pretty = e.TS_pretty,
-                                Location = (from u in DataContext.Segments where e.SegID == u.SegmentID select u.Location),
+                                Location = e.latlng,
                                 Timest = Convert.ToDateTime(e.Timestamp).ToLongDateString()//.ToShortTimeString()
                                 
                             };
 
-            return Json(new { topw = allw.Take(5) }, JsonRequestBehavior.AllowGet);
+            return Json(new { topw = allw.Take(10) }, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -97,6 +97,24 @@ namespace kwtwsite.Controllers
                        };
 
             return Json(new { allusers = allw }, JsonRequestBehavior.AllowGet);
+
+        }
+
+
+        public JsonResult GetFavs(int ID)
+        {
+            var DataContext = new DataClasses1DataContext();
+            var favs = from e in DataContext.Views
+                       where e.UserID == ID
+                       orderby e.Timestamp descending
+                       select new
+                       {
+                           name = (from u in DataContext.Segments where e.SegID == u.SegmentID select u.SegmentName),
+                           ID = e.SegID,
+                           dist = "400m"
+                       };
+
+            return Json(new { segs = favs }, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -182,7 +200,47 @@ namespace kwtwsite.Controllers
 
         }
 
-        public void SaveSegment(string segname, int segID, string array, string polyline, string latlng, int priv, string location)
+        public void SaveFav(int UserID, int segID)
+        {
+
+            var DataContext = new DataClasses1DataContext();
+
+
+            var segct = from u in DataContext.Views
+                        where u.UserID == UserID
+                        where u.SegID == segID
+                        select u;
+
+            if (segct.Count() > 0)
+            {
+                var sc = db.Views
+                 .Where(s => s.SegID == segID)
+                 .First();
+
+                datarepo.Delete(sc);
+               
+
+            }
+            else
+            {
+                //save new
+                View vnew = new Models.View();
+                vnew.SegID = segID;
+                vnew.UserID = UserID;
+               // vnew.Timestamp = DateTime.Now
+                datarepo.Add(vnew);
+                datarepo.Save();
+
+
+            }
+
+
+
+        
+
+    }
+
+    public void SaveSegment(string segname, int segID, string array, string polyline, string latlng, int priv, string location)
         {
 
             var DataContext = new DataClasses1DataContext();
@@ -192,7 +250,7 @@ namespace kwtwsite.Controllers
                          where u.SegmentID == segID
                          select u;
 
-            if (segct.Count() > 0)
+            if (segct.Count() > 0 && priv != 1)
             {
                 var sc = db.Segments
                  .Where(s => s.SegmentID == segID)

@@ -773,6 +773,16 @@ digiclock {
     white-space: nowrap;
     font-size: 14px
 }
+
+    .framemail .window .mail li .message_2 {
+        color: #39c46e;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        top: 38px;
+        white-space: nowrap;
+        font-size: 14px;
+    }
+
 .framemail .window .mail li .message strong {
     color: #999;
 }
@@ -797,6 +807,20 @@ digiclock {
     top: 17px;
     font-size:12px
 }
+
+
+.framemail .window .mail li .actions_c {
+    height: 20px;
+    position: absolute;
+    right: 6px;
+    width: 230px;
+    text-align: right;
+    top: 17px;
+    font-size:12px;
+    padding-top: 7px;
+    color:#8bc7eb;
+}
+
 .framemail .window .mail li .actions img {
     background: none;
     display: inline-block;
@@ -1154,7 +1178,12 @@ a:hover {
 	}
 
 
-/**********Media Styles**********/   
+/**********Media Styles**********/
+
+@media (min-width: 767px) {
+#backBtn {
+  		display:none;
+}
 
 @media (max-width: 360px){
 /*Calendar Adsjustments*/
@@ -1168,6 +1197,7 @@ a:hover {
   		margin-left:10px;
   		float:left;
 }
+
 
 #load {
 	margin-left:5px;

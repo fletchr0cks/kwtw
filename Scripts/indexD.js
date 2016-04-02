@@ -306,33 +306,38 @@ var timerb;
 var timerc;
 var timerd;
 
-function startmap() {
+function startmap(ID,lat,lng) {
     clearTimeout(timera);
     //var position = getPosition();
-    var latlngsaved = localStorage.getItem("latmap");
-    //var latlng = position.split(',');
-    if (latlngsaved == null) {
-        var lat = "56.058168";
-        var lng = "-2.719811";
-    } else {
-       var lat = localStorage.getItem("latmap");
-       var lng = localStorage.getItem("lngmap");
-       var zoom = localStorage.getItem("zoommap");
-    }
-    console.log("zmap" + zoom);
+  //  if (ID != null) {
+        var latlngsaved = localStorage.getItem("latmap");
+        //var latlng = position.split(',');
+        if (latlngsaved == null) {
+            var lat = "56.058168";
+            var lng = "-2.719811";
+        } else {
+            var lat = localStorage.getItem("latmap");
+            var lng = localStorage.getItem("lngmap");
+            var zoom = localStorage.getItem("zoommap");
+        }
+    //}
+   
+    console.log("latlngmap" + lat + " ... " + lng);
    // var lat = "56.058168";
    // var lng = "-2.719811";
     //latlngsaved = "16.78,96.157";
  //   var map = new GoogleMap(latlngsaved);
-    var map = new GoogleMap(lat, lng, zoom);
+    var map = new GoogleMap(ID, lat, lng, 12);
     map.initialize();
     //google.maps.event.trigger(map, 'resize');
 
 }
 
-function showmap() {
+function showmap(ID, lat, lng) {
+   // if (ID != null) {
     $('#map_canvas_nearby').show();
-    timera = setInterval(function () { startmap() }, 1500);
+    //}
+  timera = setInterval(function () { startmap(ID,lat,lng) }, 1500);
 }
 
 function setZoom(map, lat,lng) {
@@ -348,13 +353,9 @@ function setZoom(map, lat,lng) {
 
 }
 
-function GoogleMap(lat,lng, zoom1) {
-    //   $("#map_overlay").fadeIn();
-    //alert(lat + lng);
+function GoogleMap(ID, lat,lng, zoom1) {
     this.initialize = function () {
-
         var map = showMap();
-
     }
     var showMap = function () {
 
@@ -362,17 +363,12 @@ function GoogleMap(lat,lng, zoom1) {
             zoom: parseInt(zoom1),
             center: new google.maps.LatLng(parseFloat(lat), parseFloat(lng)),
             mapTypeId: google.maps.MapTypeId.ROADMAP,
-            //fitBounds: localStorage.getItem("BdsMap"),
         }
         var map = new google.maps.Map(document.getElementById("map_canvas_nearby"), mapOptions);
         var bounds_saved = new google.maps.LatLngBounds();
         bounds_saved = localStorage.getItem("BdsMap");
-        //map.fitBounds(bounds_saved);
-        //lat = "56.9";
-       // lng = "-2.8";
-        setZoom(map, lat, lng);
+      //  setZoom(map, lat, lng);
         var bounds;
-       
         google.maps.event.addListener(map, 'bounds_changed', (function () {
             bounds = map.getBounds();
             $("#map_msg").html("Map moved ...");
@@ -389,11 +385,16 @@ function GoogleMap(lat,lng, zoom1) {
                     localStorage.setItem("zoommap", zoom2);
                     localStorage.setItem("latmap", latn);
                     localStorage.setItem("lngmap", lngn);
-                   // localStorage.setItem("BdsMap", bds);
                     $("#winfomap").html("Retrieving segments ...");
                     removeMarkers(null);
                     markers_array = [];
-                    setMarkers(map, bounds, "0");
+                    $('#deets_tile').hide();
+                    
+                    $('#pills_row').hide();
+                   
+                    $('#seg_weather').hide();
+                    $('#seg_leaderboard').hide();
+                    setMarkers(map, bounds, ID);
                 }, 2000);
             }
         } ()));
@@ -443,19 +444,13 @@ function setMarkers(map, bounds_map, PID) {
     $('#map_table').show();
      var midhtml = "";
     clearTimeout(timer_m);
-    //var bds_fmt = "50,-4,60,4";
     var bds_fmt = format_bounds(bounds_map.toString());
     var marktxt = "";
-    //alert(bds_fmt);
-  
-    
     var seg_loc_data = {
         points: []
     };
-
     var ct = 0;
-    if (parseInt(PID) > 0) {
-        //        var infoWindowLive = new google.maps.InfoWindow({ content: 'This one: ' + PID });
+    if (PID == null) {
     }
     //var timage = 'marker_search.png';
     //var position = getPosition();
@@ -497,17 +492,20 @@ function setMarkers(map, bounds_map, PID) {
                 midhtml = midhtml + "<li onclick=\"poly_map(" + seg.id + "," + i + ",'" + segname + "')\"><i class=\"read\"></i><p id=\"trow_" + seg.id + "\" class=\"un_sel\">" + segname + "</p><p class=\"message\">" + seg.distance + "m</p>" +
         "<div class=\"actions\" id=\"stars_" + seg.id + "\"></div></li>";
  
-                saveSegment(segname, seg.id, seg.points, "array map", latlng, 0, null);
+               
                 ct++;
             });
-            $('#refreshBtnmap').html("<a class=\"btn btn-primary btn-sm\" href=\"#tableback\" onclick=\"refreshWeather('map'," + ct + ")\" id=\"refreshStarsbtn\">Get weather for " + ct + " Segments</a>");
+            if (ct > 0) {
+                $('#refreshBtnmap').html("<a class=\"btn btn-primary btn-sm\" href=\"#tableback\" onclick=\"refreshWeather('map'," + ct + ")\" id=\"refreshStarsbtn\">Get weather for " + ct + " Segments</a>");
+            } else {
+                $('#refreshBtnmap').html("");
 
+            }
             var ht = parseInt((ct * 48) + 95);
             $('#tableback_map').height(ht);
             var jsonsegs = JSON.stringify(seg_loc_data);
             localStorage.setItem('seg_loc_data', jsonsegs);
-            console.log(seg_loc_data);
-            console.log(jsonsegs);
+            
 
             var json_loc = { "points": [{ "lat": tlat, "longval": tlng, "name": "You are here!", "PID": "1"}] };
             $.each(seg_loc_data.points, function (i, markers) {
@@ -567,8 +565,14 @@ function setMarkers(map, bounds_map, PID) {
             $("#winfomap").html("Found " + ct + " segments");
             displayStarsmap(3);
             parse("map");
+           
+            var timer1 = setTimeout(function () { startDecode() }, 8000);
 
+            function startDecode() {
+                clearTimeout(timer1);
+                saveSegmentsDB("map");
 
+            }
 
         }).fail(function (err) {
             //alert("fail");
@@ -576,14 +580,7 @@ function setMarkers(map, bounds_map, PID) {
 
     });
 
-  //  var timer1 = setInterval(function () { startDecode() }, 3000);
-         
- //   function startDecode() {
- //       console.log("stars map 3")
- //       clearInterval(timer1);
- //       displayStarsmap(3);
-
-  //  }
+  
 }
 
 
@@ -672,7 +669,6 @@ function showEfforts(ID) {
     
 }
 
-
 function poly_map(ID, i, name) {
   //  $('#map_table').hide();
     $('#seg_data').show();
@@ -715,7 +711,11 @@ function poly_map(ID, i, name) {
 "<button type=\"button\" class=\"btn btn-success btn-sm\" id=\"lpill\" onclick=\"showLeader(" + ID + ",'" + type + "')\">Leaderboard</button>" +
 "</div></div>");
     } else {
-        $('#data_pills').html("<div class=\"btn-group btn-group-s\" role=\"group\">" +
+        $('#data_pills').html("<div><div style=\"padding-bottom:15px\"><button type=\"button\" class=\"btn btn-primary btn-sm\" id=\"lpill\" onclick=\"saveFav(" + ID + ")\">" +
+"Add to Favorites</button><div id=\"fav_msg\" class=\"msg_sml\" style=\"display:inline-block;padding-left:20px\"></div></div>" +
+//"</div>" +
+
+     "<div class=\"btn-group btn-group-s\" role=\"group\">" +
 "<button type=\"button\" class=\"btn btn-success btn-sm\" id=\"wpill\" autofocus=\"true\" onclick=\"drawWeather(" + ID + ",'map')\">Weather</button>" +
 "<button type=\"button\" class=\"btn btn-success btn-sm\" id=\"ewpill\" onclick=\"showEfforts(" + ID + ")\">Efforts</button>" +
 "<button type=\"button\" class=\"btn btn-success btn-sm\" id=\"lpill\" onclick=\"showLeader(" + ID + ",'" + type + "')\">Leaderboard</button>" +
@@ -796,13 +796,15 @@ function poly2(ID, i, name, scroll) {
     var dist = j2.segs[i].dist;
     var egain = j2.segs[i].egain;
     //var Lbbtn ="<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"showLeader(" + ID +")\">Leaderboard</button>";
-    var Backbtn ="<button type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"backAct()\">Back</button>";
+    var Backbtn = "<button type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"backAct()\">Back</button>";
+    var favbtn = "<button type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"addFav(" + ID + ")\">Back</button>";
     $('#seg_title').html("<h1>" + name + "</h1>");
     $('#seg_dist').html("<p><bold>" + dist + "</bold></p>");
     $('#seg_egain').html("<p><bold>" + egain + "</bold></p>");
     //$('#leaderboardBtn').html(Lbbtn);
     $('#backBtn').html(Backbtn);
-     //$('#seg_details').html(top_html + side_html);
+    $('#favBtn').html(favbtn);
+    //$('#seg_details').html(top_html + side_html);
     var pl = j2.segs[i].poly;
     drawMap(pl);
    drawChart(ID);
@@ -875,11 +877,15 @@ function polySegs(ID, i, name) {
     //var pl = j2.segs[i].poly;
     var type = "segs";
     if (priv == false) {
-        $('#data_pills').html("<div class=\"btn-group btn-group-s\" role=\"group\">" +
+        $('#data_pills').html("<div style=\"padding-bottom:15px\"><button type=\"button\" class=\"btn btn-primary btn-sm\" id=\"lpill\" onclick=\"saveFav(" + ID + ")\">" +
+      "Save to Favorites</button><div id=\"fav_msg\" class=\"msg_sml\" style=\"display:inline-block;padding-left:20px\"></div></div>" +
+     //"</div>" +
+      "<div class=\"btn-group btn-group-s\" role=\"group\">" +
       "<button type=\"button\" class=\"btn btn-success btn-sm\" id=\"wpill\" autofocus=\"true\" onclick=\"drawWeather(" + ID + ",'act')\">Weather</button>" +
       "<button type=\"button\" class=\"btn btn-success btn-sm\" id=\"ewpill\" onclick=\"showEfforts(" + ID + ")\">Efforts</button>" +
       "<button type=\"button\" class=\"btn btn-success btn-sm\" id=\"lpill\" onclick=\"showLeader(" + ID + ",'" + type + "')\">Leaderboard</button>" +
-      "</div></div>");
+      "<button type=\"button\" class=\"btn btn-success btn-sm\" id=\"lpill\" onclick=\"showPhotos(" + ID + ")\">Photos</button>" +
+      "</div>");
 
     } else {
         $('#data_pills').html("<div class=\"btn-group btn-group-s\" role=\"group\">" +
@@ -912,6 +918,11 @@ function polySegs(ID, i, name) {
 //    $('#title').html(name);
     //decodepoly(pl, ID);
     
+
+}
+
+function saveFav(ID) {
+    $('#fav_msg').html("Saving ..");
 
 }
 
@@ -1737,7 +1748,7 @@ var starvals = {
         var parsed_json = eval('(' + jsondata + ')');
         //alert(parsed_json);
         var cutoff = parseInt("16");
-        var country = parsed_json['location']['country'];
+        var country = parsed_json['location']['country_name'];
         var location = parsed_json['location']['city'];
         //alert(location);
         var locstr = location + ", " + country
@@ -2015,7 +2026,13 @@ var starvals = {
              
         });
         //  console.log(starvals.stardata
-        saveSegment(null,ID,null,null,null,null,locstr)
+        var locupdate = localStorage.getItem("locupdate");
+        if (locupdate == false) {
+            saveSegment(null, ID, null, null, null, null, locstr);
+            localStorage.setItem("locupdate", true);
+        } else {
+            
+        }
         var maxPpg = getMax(starvals.stardata, "Stars");
         var loc = location + ", " + country
         console.log(maxPpg.SegID + " - " + maxPpg.wspd);
@@ -2097,7 +2114,7 @@ var bearing_store = ID+"_array";
             var end = parseInt(hrs);
         }
         
-        //    alert(start + " bb " + end)
+        console.log(start + " ID " + ID)
         while (start < end) {
             var winddeg = parsed_json.hourly_forecast[start].wdir.degrees;
             //  alert(wdeg);
@@ -2193,7 +2210,7 @@ var bearing_store = ID+"_array";
     }
 
 function showStars(ID,numstars){
-    console.log("End for " + ID + "  " + numstars + "</br>");
+    //console.log("End for " + ID + "  " + numstars + "</br>");
     var starhtml = "";
     var starblankhtml= "";
     var i = numstars;
@@ -2320,8 +2337,8 @@ function checkWeather(latlng, ct, ID,type) {
     var lat = latlng[0];
     var lng = latlng[1];
     var lng = latlng[1];
-    var latx = lat - 0.3;
-    var latxx = lat + 0.3;
+    var latx = lat - 0.1;
+    var latxx = lat + 0.1;
     var lngx = lng - 1;
     var epoch = Math.round(new Date().getTime() / 1000);
     //Nb = 56.05,-2.7
