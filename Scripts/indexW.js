@@ -558,7 +558,7 @@ function getNearby(ID,lat,lng) {
     console.log(ID);
     //rem seg weather table
     if (ID == null) {
-        checkLoc();
+       // checkLoc();
         $('#profile_tile').hide();
         $('#deets_tile').hide();
         $('#seg_leaderboard').hide();
