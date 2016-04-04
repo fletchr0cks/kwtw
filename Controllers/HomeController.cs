@@ -136,7 +136,7 @@ namespace kwtwsite.Controllers
 
                 sc.Activities = NumAct;
                 sc.Segments = NumSeg;
-           //     sc.LastRefresh = DateTime.Now;
+                sc.LastRefresh = Convert.ToDateTime(DateTime.Now).ToShortDateString();
                 db.SubmitChanges();
 
 

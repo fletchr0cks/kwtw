@@ -489,7 +489,7 @@ function setMarkers(map, bounds_map, PID) {
                 var segname = seg.name;
                // segname = segname.replace(/[^a-z0-9 ,.?!]/ig, '');
                 segname = segname.replace("'", "");
-                midhtml = midhtml + "<li onclick=\"poly_map(" + seg.id + "," + i + ",'" + segname + "')\"><i class=\"read\"></i><p id=\"trow_" + seg.id + "\" class=\"un_sel\">" + segname + "</p><p class=\"message\">" + seg.distance + "m</p>" +
+                midhtml = midhtml + "<li onclick=\"poly_map(" + seg.id + "," + i + ")\"><i class=\"read\"></i><p id=\"trow_" + seg.id + "\" class=\"un_sel\">" + segname + "</p><p class=\"message\">" + seg.distance + "m</p>" +
         "<div class=\"actions\" id=\"stars_" + seg.id + "\"></div></li>";
  
                
@@ -669,7 +669,7 @@ function showEfforts(ID) {
     
 }
 
-function poly_map(ID, i, name) {
+function poly_map(ID, i) {
   //  $('#map_table').hide();
     $('#seg_data').show();
     $('#seg_weather').show();
@@ -689,6 +689,7 @@ function poly_map(ID, i, name) {
     //alert(json);
     var dist = j2.points[i].dist;
     var egain = j2.points[i].gain;
+    var name = j2.points[i].name;
     var favbtn = "<a class=\"btn btn-large btn-primary\" href=\"#\" onclick=\"addFav(" + ID + ")\"><i class=\"fa fa-star-o icon-2x pull-left\"></i>Add<br>To Fvourites</a>";
     var Backbtn ="<button type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"backMap()\">Back</button>";
     $('#seg_title').html("<h1>" + name + "</h1>");
@@ -752,7 +753,7 @@ function poly_map(ID, i, name) {
 
 
 
-function poly2(ID, i, name, scroll) {
+function poly2(ID, i, scroll) {
     $('#deets_tile').show();
     //$('#table_calc_area2').hide();
     //$('#my_activities').hide();
@@ -795,6 +796,7 @@ function poly2(ID, i, name, scroll) {
     var j2 = eval('(' + json + ')');
     var dist = j2.segs[i].dist;
     var egain = j2.segs[i].egain;
+    var name = j2.segs[i].name;
     //var Lbbtn ="<button type=\"button\" class=\"btn btn-primary btn-xs\" onclick=\"showLeader(" + ID +")\">Leaderboard</button>";
     var Backbtn = "<button type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"backAct()\">Back</button>";
     var favbtn = "<button type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"addFav(" + ID + ")\">Back</button>";

@@ -5,18 +5,19 @@
 <div class="container">
     <div id="UnAuthApp" style="display:none">
         <div class="cont">
-            <img style="width:auto;height:80px;" src="~/Content/kom_logo_db.png" />
-
-            <div style="height:50px"></div>
-            <div id="stConnimg">
-                <img src="~/Content/ConnectWithStrava@2x.png" onclick="stConn2()" onmouseover="" style="cursor: pointer;" />
+            <div id="bigLogoimg">
+                <img style="width:auto;height:80px;" src="~/Content/kom_logo_db.png" />
             </div>
-            <div class="text-center" style="padding-top:20px" id="status_area">
-                &nbsp;
-                <div style="height:53px;width:60px;text-align:center;color:#00AF96" class="fa fa-4x fa-cog fa-spin"></div>
-                <div id="status_msgs" style="display:none;text-align:center;color:#00AF96"></div>
+                <div style="height:50px"></div>
+                <div id="stConnimg">
+                    <img src="~/Content/ConnectWithStrava@2x.png" onclick="stConn2()" onmouseover="" style="cursor: pointer;" />
+                </div>
+                <div class="text-center" style="padding-top:20px" id="status_area">
+                    &nbsp;
+                    <div style="height:53px;width:60px;text-align:center;color:#00AF96" class="fa fa-4x fa-cog fa-spin"></div>
+                    <div id="status_msgs" style="display:none;text-align:center;color:#00AF96"></div>
+                </div>
             </div>
-        </div>
     </div>
     <div style="height:50px"></div>
     <div class="menubtns" id="menu_buttons" style="display:none">
@@ -26,6 +27,7 @@
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#" onclick="getAct('act')">My Activities and Segments</a></li>
+                <li><a href="#" onclick="getAct('kom')">My KOMs</a></li>
                 <li><a href="#" onclick="getNearby()">Segments Nearby</a></li>
                 <li><a href="#" onclick="getAct('fav')">Favourites</a></li>
                 <li><a href="#" onclick="Settings()">Settings</a></li>
@@ -329,15 +331,15 @@
                         <!--hide this-->
                         <div class="half-unit">
 
-                            <div style="position:absolute;left:10px;top:5px" id="seg_title"></div>
-                            <div style="position:absolute;right:10px;top:5px" id="backBtn"><div id="favBtn"></div></div>
+                            <div style="position:absolute;left:10px;top:5px;width:240px" id="seg_title"></div>
+                            <div style="position:absolute;right:10px;top:12px" id="backBtn"><div id="favBtn"></div></div>
 
-                            <div style="position:absolute;left:50px;top:67px;text-align:center">
+                            <div style="position:absolute;left:32px;top:67px;text-align:center">
                                 <div id="seg_dist"></div>
                                 <div>Total Distance</div>
                             </div>
 
-                            <div style="position:absolute;right:50px;top:67px;text-align:center" ">
+                            <div style="position:absolute;right:30px;top:67px;text-align:center" ">
                                 <div id="seg_egain"></div>
                                 <div>Elevation Gain</div>
                             </div>
@@ -348,9 +350,9 @@
                                 <div style="padding-top:5px">Route map</div>
 
                             </div>
-                            <div style="position:absolute;right:10px;top:148px;text-align:center" ">
+                            <div style="position:absolute;right:4px;top:148px;text-align:center" ">
                                 <div id="canvas-holder" style="text-align:center">
-                                    <canvas id="chart-area" width="160px" height="160px" />
+                                    <canvas id="chart-area" width="150px" height="150px" />
                                 </div>
                                 <div>Route Headings</div>
                             </div>

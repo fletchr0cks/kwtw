@@ -55,7 +55,7 @@ h5 {
 .msg_sml {
 	font-family: 'Open Sans', sans-serif;
     color:#8bc7eb;
-    font-size:14px;
+    font-size:12px;
 }
 
 .gauge {
@@ -112,14 +112,14 @@ td.alnright { text-align: right; }
 
       
 .circular {
-	width: 150px;
-	height: 150px;
+	width: 135px;
+	height: 135px;
 	border-radius: 50%;
 	overflow: hidden;
     -webkit-border-radius: 150px;
 	-moz-border-radius: 150px;
 	border: 1px solid #2fb4c8;
-	margin-left:10px;
+	margin-left:2px;
 }
 
 .whitec {
@@ -354,7 +354,7 @@ td.alnright { text-align: right; }
 	font-family: 'Raleway', sans-serif;
     text-transform:uppercase;
 	font-weight:300;
-	font-size: 20px;
+	font-size: 18px;
 	line-height: 1;
 	letter-spacing: 0px;
 	color: #ffffff;
