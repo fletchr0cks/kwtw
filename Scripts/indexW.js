@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         min: 0,
         max: 5,
        // donut: true,
-        gaugeWidthScale: 1.3,
+        gaugeWidthScale: 1.1,
         counter: true,
         hideInnerShadow: true,
         titlePosition: "above",
@@ -135,7 +135,7 @@ function getWindiest(daysago) {
    
     
     var seg_loc_data = {
-        points: []
+        points: []        
     };
 
     $.ajax({
@@ -531,6 +531,7 @@ var json = localStorage.getItem('all_seg_efforts');
 
 function dispStarsChk() {
     var hrs = localStorage.getItem("Hrs");
+    hrs = 24;
     if (hrs == null) {
         $('#refreshStarsbtn').html("Show Stars");
     } else {
@@ -603,7 +604,7 @@ function getAct(type) {
             var timer = setInterval(function () { startDecode() }, 1000);
             function startDecode() {
                 clearInterval(timer);
-                //dispStarsChk(type);
+                dispStarsChk(type);
             }
         }
     }
@@ -837,7 +838,7 @@ function drawTable(type) {
     var timer = setInterval(function () { startDecode() }, 1000);     
     function startDecode() {
     clearInterval(timer);
-    getSegs();
+  //  getSegs();
     $('#menubtns').show();
           // displayStars();
     }
@@ -908,21 +909,25 @@ function formatTime(time) {
 }
 
 function drawLeaderboard(ID, type) {
-    
-    
     $('#seg_leaderboard').show();
     $('#lb_table').show();
     $('#eff_table').hide();
     $('#seg_weather').hide();
     $('#seg_efforts').hide();
     $('#komability').html("");
-    var lbhistchk = localStorage.getItem(ID + '_0_hist');
+    $('#refreshBtnLB').show();
+    $('#komimg').show();
+    
+    var lbhistchk0 = localStorage.getItem(ID + '_0_hist');
+    var lbhistchk1 = localStorage.getItem(ID + '_1_hist');
 
-    if (lbhistchk != null) {
+    if ((lbhistchk0 != null) && (lbhistchk1 == null))  {
         //have historical data, just show
-        $('#g1').show()
+        $('#g1').show();
+        $('#lbBtn').show();
+        $('#lbBtn').html("&nbsp;");
+      //  $('#lbBtn').hide();
         g1.refresh(0);
-
         var btnhtml = ""; //"<div id=\"cont\"><a class=\"btn btn-success btn-sm\" href=\"#leaderback\" onclick=\"refHistweather(" + ID + ",'" + type + "')\">" +
                        //"Refresh historical wind conditions</i></a></div>";
         var hdata = localStorage.getItem(ID + '_0_hist');
@@ -935,19 +940,39 @@ function drawLeaderboard(ID, type) {
         var komf;
         var bdata = localStorage.getItem(bearing_store);
        
-//var komf = Math.floor(1 / (numstars / 5));
-       // $('#komability').html("KOMabilty Factor: " + komf);
-
-     
-    } else {
-        $('#lbBtn').show();
-        var btnhtml = "<div id=\"cont\"><a class=\"btn btn-success btn-sm\" href=\"#leaderback\" onclick=\"showHistweather(" + ID + ",'" + type + "',true,'all')\">" +
-                       "Show all historical wind conditions</i></a></div>";
-        $('#g1').hide();
-        
     }
+
+    if ((lbhistchk0 != null) && (lbhistchk1 != null)) {
+        //have historical data, just show
+        $('#g1').show()
+        $('#lbBtn').html("&nbsp;");
+        g1.refresh(0);
+        var btnhtml = ""; //"<div id=\"cont\"><a class=\"btn btn-success btn-sm\" href=\"#leaderback\" onclick=\"refHistweather(" + ID + ",'" + type + "')\">" +
+        //"Refresh historical wind conditions</i></a></div>";
+        var hdata = localStorage.getItem(ID + '_0_hist');
+        var bearing_store = ID + "_array";
+        var j3 = eval('(' + hdata + ')');
+        var komwspd = j3.hdata[0].wspeed;
+        var kombrg = j3.hdata[0].wbrg;
+        var hist = true;
+        var brg = kombrg;
+        var komf;
+        var bdata = localStorage.getItem(bearing_store);
+
+    }
+        if (lbhistchk1 == null) {
+            var btnhtml = "<div id=\"cont\"><a class=\"btn btn-success btn-sm\" href=\"#leaderback\" onclick=\"showHistweather(" + ID + ",'" + type + "',true,'all')\">" +
+                           "Show all historical wind data</i></a></div>";
+            $('#lbBtn').show();
+            $('#lbBtn').html(btnhtml);
+            $('#g1').hide();
+        }
+    
+
+
+
     //style=\"position:absolute;right:18px;top:40px;z-index:400\"
-    $('#lbBtn').html(btnhtml);
+    
     var top = "<div class=\"framemail\"><div class=\"window\"><ul class=\"mail\">";
     var json = localStorage.getItem('lb_data_' + ID);
     var j2 = eval('(' + json + ')');
@@ -956,7 +981,7 @@ function drawLeaderboard(ID, type) {
     var kompic = j2.segs[0].profile;
     var komname = j2.segs[0].name;
     var komtime = j2.segs[0].mov_time;
-    var komimg = "<img style=\"width:80px;height:auto\" src=\"" + kompic + "\">";
+    var komimg = "<img style=\"width:35px;height:auto\" src=\"" + kompic + "\">";
     $('#lbdata').html(refstr);
     $('#komimg').html(komimg);
     $('#komdata').html("<div style=\"font-size:18px\">" + komname + "</div><div style=\"text-align:left\">" + komtime + " seconds</div>");
@@ -997,17 +1022,17 @@ function drawLeaderboard(ID, type) {
         // var ampm = zone.FCTTIME.ampm;
 
         //moving time
-        ctx2d.font = '14px Arial';
+        ctx2d.font = '12px Arial';
         ctx2d.fillStyle = '#8bc7eb';
         ctx2d.fillText(timef, 5, posyt);
         ctx2d.fillStyle = '#FFF';
         ctx2d.fillText(seg.name, 5, posyt + 16);
-       
+        ctx2d.font = '14px Arial';
         ctx2d.fillText(mov_time, 5, posyt + 32);
         
-        ctx2d.font = '14px Arial';
+       
         var wspd = 0;
-        if (hist == true) {
+        if (hist == true && lbhistchk1 != null) {
             var hdata = localStorage.getItem(ID + '_' + i + '_hist');
             var j3 = eval('(' + hdata + ')');
             var brg2 = j3.hdata[0].wbrg;
@@ -1015,17 +1040,17 @@ function drawLeaderboard(ID, type) {
             var brg = brg2;
            
             ctx2d.fillStyle = "#2fb4c8";
-            ctx2d.fillRect(165, posy + 18, wspd2 + 25, 22);
+            ctx2d.fillRect(160, posy + 22, wspd2 + 25, 22);
 
             ctx2d.font = '14px Arial';
             ctx2d.fillStyle = "#fff";
             ctx2d.font = '12px Arial';
-            ctx2d.fillText("mph", 179, posyt + 22);
-            ctx2d.fillText(Math.round(wspd2), 166, posyt + 22);
+            ctx2d.fillText("mph", 174, posyt + 26);
+            ctx2d.fillText(Math.round(wspd2), 161, posyt + 26);
 
             ctx2d.save();
             ctx2d.strokeStyle = "#2fb4c8";
-            ctx2d.translate(150, posy + 30);
+            ctx2d.translate(145, posy + 34);
             ctx2d.rotate(90 * Math.PI / 180);
             //ctx2d.save();
 
@@ -1086,34 +1111,111 @@ function drawLeaderboard(ID, type) {
             var head_wind_val = parseInt(brgh0) + parseInt(brgh1) + parseInt(brgh2);
             var starval = 500 + (parseInt(foll_wind_val) - parseInt(head_wind_val));
             var numstars = 0;
-           // var canvas = document.getElementById('komcanvas');
-          //  canvas.width = 300;
-          //  canvas.height = 25;
-          //  canvas.style.width = '300px';
-          //  canvas.style.height = '25px';
-        //    var ctx2d = canvas.getContext('2d');
-        //    ctx2d.clearRect(0, 0, ctx2d.canvas.width, ctx2d.canvas.height);
-            ctx2d.fillStyle = "#ffca4a";
 
-          
-          
-            //numstars = 5
-            //    $('#hkomdata').html("<h3>" + wspd + " " + starval + "  " + numstars + "</h3>");
-           
-           
-                //komstarsn = numstars;
-                if (starval <= 0) {
-                    drawStarsO(ctx2d, 5, posy + 20, 240);
+            ctx2d.fillStyle = "#ffca4a";
+             if (starval <= 0) {
+                    drawStarsO(ctx2d, 5, posy + 10, 200);
                 } else {
                     numstars = calcStars(starval);
-                    drawStarsF(ctx2d, numstars, posy + 20, 240);
+                    drawStarsF(ctx2d, numstars, posy + 10, 200);
                 }
                 komf = Math.floor(6 - (numstars + 1));
-                console.log(komf);
+          
             
             
-        }
+        } else if (hist == true && lbhistchk1 == null) {
+            if (i == 0) {
+                console.log("1 weather")
+                var hdata = localStorage.getItem(ID + '_' + i + '_hist');
+                var j3 = eval('(' + hdata + ')');
+                var brg2 = j3.hdata[0].wbrg;
+                var wspd2 = j3.hdata[0].wspeed;
+                var brg = brg2;
 
+                ctx2d.fillStyle = "#2fb4c8";
+                ctx2d.fillRect(160, posy + 22, wspd2 + 25, 22);
+
+                ctx2d.font = '14px Arial';
+                ctx2d.fillStyle = "#fff";
+                ctx2d.font = '12px Arial';
+                ctx2d.fillText("mph", 174, posyt + 26);
+                ctx2d.fillText(Math.round(wspd2), 161, posyt + 26);
+
+                ctx2d.save();
+                ctx2d.strokeStyle = "#2fb4c8";
+                ctx2d.translate(145, posy + 34);
+                ctx2d.rotate(90 * Math.PI / 180);
+                //ctx2d.save();
+
+                ctx2d.rotate(brg2 * Math.PI / 180);
+
+                ctx2d.lineWidth = 1;
+                ctx2d.fillStyle = "#2fb4c8";
+                //ctx2d.moveTo(60, -15);
+                ctx2d.fillRect(-5, -5, 10, 10);
+                ctx2d.beginPath();
+
+
+                ctx2d.lineTo(0, -5);
+                ctx2d.lineTo(0, -10);
+                ctx2d.lineTo(10, 0);
+                ctx2d.lineTo(0, 10);
+                ctx2d.lineTo(0, 5);
+                ctx2d.lineTo(-10, 5);
+                ctx2d.lineTo(-10, -5);
+
+                ctx2d.closePath();
+                ctx2d.fill();
+                ctx2d.stroke();
+                ctx2d.restore();
+
+                var pval0f = getP_foll(brg);
+                var pval1f = getP_foll(brg - 30);
+                var pval2f = getP_foll(brg + 30);
+                var pval0h = getP_head(brg);
+                var pval1h = getP_head(brg - 30);
+                var pval2h = getP_head(brg + 30);
+                var pArray = bdata.split(',');
+                var arval1f = parseInt(pArray[pval0f - 1]); //brg
+                var arval2f = parseInt(pArray[pval1f - 1]);
+                var arval3f = parseInt(pArray[pval2f - 1]);
+                var arval1h = parseInt(pArray[pval0h - 1]);  //brg
+                var arval2h = parseInt(pArray[pval1h - 1]);
+                var arval3h = parseInt(pArray[pval2h - 1]);
+                //alert(arval3h);
+                var windspeed = wspd2;
+                //windspeed = 20;
+                arval1f = cleanPval(arval1f);
+                arval2f = cleanPval(arval2f);
+                arval3f = cleanPval(arval3f);
+                arval1h = cleanPval(arval1h);
+                arval2h = cleanPval(arval2h);
+                arval3h = cleanPval(arval3h);
+
+                var brgf0 = arval1f * windspeed;
+                // alert(brgf0);
+                var brgf1 = parseInt(arval2f * windspeed) * 0.75;
+                var brgf2 = parseInt(arval3f * windspeed) * 0.75;
+                var brgh0 = parseInt(arval1h * windspeed);  //fine 2h //not 1h
+                var brgh1 = parseInt(arval2h * windspeed) * 0.75;
+                var brgh2 = parseInt(arval3h * windspeed) * 0.75;
+
+                var foll_wind_val = parseInt(brgf0) + parseInt(brgf1) + parseInt(brgf2);  //1000; // ((arval1f * windspeed) + ((arval2f * windspeed) / 0.5) + ((arval3f * windspeed) / 0.5));
+                var head_wind_val = parseInt(brgh0) + parseInt(brgh1) + parseInt(brgh2);
+                var starval = 500 + (parseInt(foll_wind_val) - parseInt(head_wind_val));
+                var numstars = 0;
+
+                ctx2d.fillStyle = "#ffca4a";
+                if (starval <= 0) {
+                    drawStarsO(ctx2d, 5, posy + 10, 200);
+                } else {
+                    numstars = calcStars(starval);
+                    drawStarsF(ctx2d, numstars, posy + 10, 200);
+                }
+                komf = Math.floor(6 - (numstars + 1));
+
+            }
+        }
         posy = posy + 60
         posyt = posyt + 60
         i++;
@@ -1129,6 +1231,7 @@ function drawLeaderboard(ID, type) {
     timerG = setTimeout(function () { drawG() }, 1000);
 
     function drawG() {
+        $('#g1').show();
         clearTimeout(timerG);
         g1.refresh(komf);
 
@@ -1336,27 +1439,35 @@ function drawLeaderboard_hist(ID,type) {
    
 }
 
-function drawSegEffort(ID, type2) {
+function drawSegEffort(ID, frID) {
 
     $('#seg_leaderboard').hide();
     $('#lb_table').hide();
     $('#eff_table').show();
      $('#seg_weather').hide();
      $('#seg_efforts').show();
-    console.log("efforts " + ID);
-    var type = 'segs';
-    var lbhistchk = localStorage.getItem(ID + '_0_hist_user');
+    console.log("efforts " + ID + " " + frID);
+    var type = 'map';
+    if (frID != null) {
+        var lbhistchk0 = localStorage.getItem(ID + '_' + frID + '_0_hist_user');
+        var lbhistchk1 = localStorage.getItem(ID + '_' + frID + '_1_hist_user');
+        type = "kom";
+    } else {
+        var lbhistchk0 = localStorage.getItem(ID + '_0_hist_user');
+        var lbhistchk1 = localStorage.getItem(ID + '_1_hist_user');
+    }
+    console.log(lbhistchk0 + " " + lbhistchk1)
     //type2 = hist
-    if (lbhistchk != null) {
+    if (lbhistchk1 != null) {
         //have historical data, just show
 
-
+        $('#sgBtn').html("");
         var btnhtml2 = "<button style=\"position:absolute;right:10px;top:29px\" type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"stEffort(" + ID + ")\">Refresh</button>";
         $('#refreshBtneffs').html(btnhtml2)
         //"Refresh historical wind conditions</i></a></div>";
-        var hdata = localStorage.getItem(ID + '_0_hist_user');
+       
         var bearing_store = ID + "_array";
-        var j3 = eval('(' + hdata + ')');
+        var j3 = eval('(' + lbhistchk1 + ')');
         var komwspd = j3.hdata[0].wspeed;
         var kombrg = j3.hdata[0].wbrg;
         var hist = true;
@@ -1366,16 +1477,41 @@ function drawSegEffort(ID, type2) {
 
         //var komf = Math.floor(1 / (numstars / 5));
         // $('#komability').html("KOMabilty Factor: " + komf);
+    } else if (lbhistchk0 != null) {
+        //have historical data, just show
 
+        $('#sgBtn').html("");
+        var btnhtml2 = "<button style=\"position:absolute;right:10px;top:29px\" type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"stEffort(" + ID + ")\">Refresh</button>";
+        $('#refreshBtneffs').html(btnhtml2)
+        //"Refresh historical wind conditions</i></a></div>";
+       
+        var bearing_store = ID + "_array";
+        var j3 = eval('(' + lbhistchk0 + ')');
+        var komwspd = j3.hdata[0].wspeed;
+        var kombrg = j3.hdata[0].wbrg;
+        var hist = true;
+        var brg = kombrg;
+        var komf;
+        var bdata = localStorage.getItem(bearing_store);
+    }
 
-    } else {
-        var btnhtml = "<div id=\"cont\"><a class=\"btn btn-success btn-sm\" href=\"#leaderback\" onclick=\"showHistweather(" + ID + ",'" + type + "',false)\">" +
-                       "Show historical wind conditions</i></a></div>";
+   if ((lbhistchk0 != null && lbhistchk1 == null) || (lbhistchk0 == null && lbhistchk1 == null)) {
+        var btnhtml = "<div style=\"padding-left:5px\"><a class=\"btn btn-success btn-sm\" href=\"#leaderback\" onclick=\"showHistweather(" + ID + ",'" + type + "',false,'all'," + frID + ")\">" +
+                       "Show all historical wind conditions</i></a></div>";
+        $('#effortPadding').show();
+        console.log(btnhtml)
+    $('#sgBtn').show();
+    $('#sgBtn').html(btnhtml);
     }
     //style=\"position:absolute;right:18px;top:40px;z-index:400\"
-    $('#sgBtn').html(btnhtml);
-  //  var json = localStorage.getItem('eff_data_' + ID);
-    var json = localStorage.getItem('eff_data_' + ID);
+    
+    //  var json = localStorage.getItem('eff_data_' + ID);
+    if (frID != null) {
+        var json = localStorage.getItem('eff_data_' + ID + '_' + frID);
+    } else {
+        var json = localStorage.getItem('eff_data_' + ID);
+    }
+   
     var j2 = eval('(' + json + ')');
     var timestr = j2.timestamp[0].now;
     var refstr = "Data as of " + timestr;
@@ -1413,11 +1549,11 @@ function drawSegEffort(ID, type2) {
         //moving time
         ctx2d.font = '14px Arial';
         ctx2d.fillStyle = '#8bc7eb';
-        ctx2d.fillText(timef, 5, posyt);
+        ctx2d.fillText(timef, 10, posyt);
         ctx2d.fillStyle = '#FFF';
-        ctx2d.font = '16px Arial';
+        ctx2d.font = '14px Arial';
         //ctx2d.fillText(seg.name, 5, posyt + 16);
-        ctx2d.fillText(mov_time, 5, posyt + 20);
+        ctx2d.fillText(mov_time, 10, posyt + 25);
         //alert(hour);
 
         ctx2d.font = '14px Arial';
@@ -1431,25 +1567,31 @@ function drawSegEffort(ID, type2) {
         //   ctx2d.fillRect(0, posy - 5, 350, 1);
 
         var wspd = 0;
-        if (hist == true) {
-            var hdata = localStorage.getItem(ID + '_' + i + '_hist_user');
+        if (hist == true && lbhistchk1 != null) {
+            if (frID != null) {
+                var hdata = localStorage.getItem(ID + '_' + frID + '_' + i + '_hist_user');
+               
+            } else {
+                var hdata = localStorage.getItem(ID + '_' + i + '_hist_user');
+
+            }
             var j3 = eval('(' + hdata + ')');
             var brg2 = j3.hdata[0].wbrg;
             var wspd2 = j3.hdata[0].wspeed;
             var brg = brg2;
 
             ctx2d.fillStyle = "#2fb4c8";
-            ctx2d.fillRect(165, posy + 18, wspd2 + 25, 22);
+            ctx2d.fillRect(90, posy + 20, wspd2 + 25, 22);
 
             ctx2d.font = '14px Arial';
             ctx2d.fillStyle = "#fff";
             ctx2d.font = '12px Arial';
-            ctx2d.fillText("mph", 179, posyt + 22);
-            ctx2d.fillText(Math.round(wspd2), 166, posyt + 22);
+            ctx2d.fillText("mph", 106, posyt + 24);
+            ctx2d.fillText(Math.round(wspd2), 95, posyt + 24);
 
             ctx2d.save();
             ctx2d.strokeStyle = "#2fb4c8";
-            ctx2d.translate(150, posy + 30);
+            ctx2d.translate(75, posy + 30);
             ctx2d.rotate(90 * Math.PI / 180);
             //ctx2d.save();
 
@@ -1510,32 +1652,118 @@ function drawSegEffort(ID, type2) {
             var head_wind_val = parseInt(brgh0) + parseInt(brgh1) + parseInt(brgh2);
             var starval = 500 + (parseInt(foll_wind_val) - parseInt(head_wind_val));
             var numstars = 0;
-            // var canvas = document.getElementById('komcanvas');
-            //  canvas.width = 300;
-            //  canvas.height = 25;
-            //  canvas.style.width = '300px';
-            //  canvas.style.height = '25px';
-            //    var ctx2d = canvas.getContext('2d');
-            //    ctx2d.clearRect(0, 0, ctx2d.canvas.width, ctx2d.canvas.height);
+           
             ctx2d.fillStyle = "#ffca4a";
 
-
-
-            //numstars = 5
-            //    $('#hkomdata').html("<h3>" + wspd + " " + starval + "  " + numstars + "</h3>");
-
-         //   if (i == 0) {
-                //komstarsn = numstars;
-                if (starval <= 0) {
-                    drawStarsO(ctx2d, 5, posy + 20, 240);
+            if (starval <= 0) {
+                    drawStarsO(ctx2d, 5, posy + 28, 200);
                 } else {
                     numstars = calcStars(starval);
-                    drawStarsF(ctx2d, numstars, posy + 20, 240);
+                    drawStarsF(ctx2d, numstars, posy + 28, 200);
                 }
                 komf = Math.floor(6 - (numstars + 1));
                 console.log(komf);
        //     }
 
+        } else if (hist == true && lbhistchk1 == null) {
+            if (i == 0) {
+                console.log("1 weather")
+                if (frID != null) {
+                    var hdata = localStorage.getItem(ID + '_' + frID + '_0_hist_user');
+
+                } else {
+                    var hdata = localStorage.getItem(ID + '_0_hist_user');
+
+                }
+                var j3 = eval('(' + hdata + ')');
+                var brg2 = j3.hdata[0].wbrg;
+                var wspd2 = j3.hdata[0].wspeed;
+                var brg = brg2;
+
+                ctx2d.fillStyle = "#2fb4c8";
+                ctx2d.fillRect(90, posy + 20, wspd2 + 25, 22);
+
+                ctx2d.font = '14px Arial';
+                ctx2d.fillStyle = "#fff";
+                ctx2d.font = '12px Arial';
+                ctx2d.fillText("mph", 106, posyt + 24);
+                ctx2d.fillText(Math.round(wspd2), 95, posyt + 24);
+
+                ctx2d.save();
+                ctx2d.strokeStyle = "#2fb4c8";
+                ctx2d.translate(75, posy + 30);
+                ctx2d.rotate(90 * Math.PI / 180);
+                //ctx2d.save();
+
+                ctx2d.rotate(brg2 * Math.PI / 180);
+
+                ctx2d.lineWidth = 1;
+                ctx2d.fillStyle = "#2fb4c8";
+                //ctx2d.moveTo(60, -15);
+                ctx2d.fillRect(-5, -5, 10, 10);
+                ctx2d.beginPath();
+
+
+                ctx2d.lineTo(0, -5);
+                ctx2d.lineTo(0, -10);
+                ctx2d.lineTo(10, 0);
+                ctx2d.lineTo(0, 10);
+                ctx2d.lineTo(0, 5);
+                ctx2d.lineTo(-10, 5);
+                ctx2d.lineTo(-10, -5);
+
+                ctx2d.closePath();
+                ctx2d.fill();
+                ctx2d.stroke();
+                ctx2d.restore();
+
+                var pval0f = getP_foll(brg);
+                var pval1f = getP_foll(brg - 30);
+                var pval2f = getP_foll(brg + 30);
+                var pval0h = getP_head(brg);
+                var pval1h = getP_head(brg - 30);
+                var pval2h = getP_head(brg + 30);
+                var pArray = bdata.split(',');
+                var arval1f = parseInt(pArray[pval0f - 1]); //brg
+                var arval2f = parseInt(pArray[pval1f - 1]);
+                var arval3f = parseInt(pArray[pval2f - 1]);
+                var arval1h = parseInt(pArray[pval0h - 1]);  //brg
+                var arval2h = parseInt(pArray[pval1h - 1]);
+                var arval3h = parseInt(pArray[pval2h - 1]);
+                //alert(arval3h);
+                var windspeed = wspd2;
+                //windspeed = 20;
+                arval1f = cleanPval(arval1f);
+                arval2f = cleanPval(arval2f);
+                arval3f = cleanPval(arval3f);
+                arval1h = cleanPval(arval1h);
+                arval2h = cleanPval(arval2h);
+                arval3h = cleanPval(arval3h);
+
+                var brgf0 = arval1f * windspeed;
+                // alert(brgf0);
+                var brgf1 = parseInt(arval2f * windspeed) * 0.75;
+                var brgf2 = parseInt(arval3f * windspeed) * 0.75;
+                var brgh0 = parseInt(arval1h * windspeed);  //fine 2h //not 1h
+                var brgh1 = parseInt(arval2h * windspeed) * 0.75;
+                var brgh2 = parseInt(arval3h * windspeed) * 0.75;
+
+                var foll_wind_val = parseInt(brgf0) + parseInt(brgf1) + parseInt(brgf2);  //1000; // ((arval1f * windspeed) + ((arval2f * windspeed) / 0.5) + ((arval3f * windspeed) / 0.5));
+                var head_wind_val = parseInt(brgh0) + parseInt(brgh1) + parseInt(brgh2);
+                var starval = 500 + (parseInt(foll_wind_val) - parseInt(head_wind_val));
+                var numstars = 0;
+
+                ctx2d.fillStyle = "#ffca4a";
+
+                if (starval <= 0) {
+                    drawStarsO(ctx2d, 5, posy + 28, 200);
+                } else {
+                    numstars = calcStars(starval);
+                    drawStarsF(ctx2d, numstars, posy + 28, 200);
+                }
+                komf = Math.floor(6 - (numstars + 1));
+                console.log(komf);
+            }
         }
 
         posy = posy + 60
@@ -1551,41 +1779,56 @@ function drawSegEffort(ID, type2) {
 }
 var hc = -1;;
 
-function showHistweather(SegID,type,lb,num) {
+function showHistweather(SegID,type,lb,num,frID) {
     //make an array of the first three
     //find out if seg is private or not
     $('#sgdata').html("Retrieving historical data ...");
-    $('#lbBtn').hide();
+    $('#effortPadding').hide();
+    $('#sgBtn').hide();
     $('#lbdata').html("Retrieving historical data ...");
-    var lbhistchk = "";
+    $('#lbBtn').html("&nbsp;");
+    var lbhistchk1 = "";
     var count = null;
+    console.log(SegID);
     if (lb == true) {
         var json = localStorage.getItem('lb_data_' + SegID);
         var j2 = eval('(' + json + ')');
         count = (j2.count[0].num - 1);
-        lbhistchk = localStorage.getItem(SegID + '_0_hist');
+        console.log(count + " " + j2.segs[0].time)
+        lbhistchk1 = localStorage.getItem(SegID + '_1_hist');
     } else {
-        var json = localStorage.getItem('eff_data_' + SegID);
-        var j2 = eval('(' + json + ')');
-        count = (j2.count[0].num - 1);
-        lbhistchk = localStorage.getItem(SegID + '_0_hist_user');
+        if (frID != null) {
+            var json = localStorage.getItem('eff_data_' + SegID + "_" + frID);
+            var j2 = eval('(' + json + ')');
+            lbhistchk1 = localStorage.getItem(SegID + "_" + frID + '_1_hist_user');
+        } else {
+            var json = localStorage.getItem('eff_data_' + SegID);
+            var j2 = eval('(' + json + ')');
+            lbhistchk1 = localStorage.getItem(SegID + '_1_hist_user');
+        }
+        
+    
+       
     }
     //alert(type);
-    console.log("count" + count);
+    console.log("count" + num);
     //count = 4;
     
    //use this
 
-    if (lbhistchk != null) {
+    if (lbhistchk1 != null) {
         //have historical data, just show
         if (lb == true) {
             drawLeaderboard(SegID, "hist");
         } else {
-            drawSegEffort(SegID, "hist");
+            drawSegEffort(SegID, frID, "hist");
         }
     
     } else {
-        if (num = "all") {
+        if (num == "all") {
+
+            count = (j2.count[0].num - 1);
+            $('#sgBtn').html("");
             var done = false;
             var latlng = getLatlng(SegID, type);
             console.log("latlng" + latlng);
@@ -1594,7 +1837,7 @@ function showHistweather(SegID,type,lb,num) {
                 var date = j2.segs[i].time;
                 setTimeout(function () {
                     //alert('paused');
-                    CallHistWeather(latlng, date, SegID, i, type, lb);
+                    CallHistWeather(latlng, date, SegID, i, type, lb,frID);
                     if (i == count) {
                         var timerAA = setTimeout(function () { showdata() }, 4000);
                         function showdata() {
@@ -1604,7 +1847,7 @@ function showHistweather(SegID,type,lb,num) {
                                 drawLeaderboard(SegID, "segs");
                             } else {
                                 console.log("finished" + count + " " + i);
-                                showEfforts(SegID, type);
+                                showEfforts(SegID, type, frID);
                             }
                         }
                     }
@@ -1616,24 +1859,24 @@ function showHistweather(SegID,type,lb,num) {
             var done = false;
             var latlng = getLatlng(SegID, type);
             var date = j2.segs[0].time;
-           
-            CallHistWeather(latlng, date, SegID, i, type, lb);
+            
+            CallHistWeather(latlng, date, SegID, 0, type, lb,frID);
             var timerAB = setTimeout(function () { showdata() }, 4000);
             function showdata() {
-                clearTimeout(timerAA);
+                clearTimeout(timerAB);
                 if (lb == true) {
-                    console.log("finished" + count + " " + i);
+                    console.log("finished" + count + " " + 0);
                     drawLeaderboard(SegID, "segs");
                 } else {
-                    console.log("finished" + count + " " + i);
-                    showEfforts(SegID, type);
+                    console.log("finished" + count + " " + 0);
+                    showEfforts(SegID, type, frID);
                 }
             }
         }
     }
 }
 
-function CallHistWeather(latlng,date,SegID,i,type,lb) {
+function CallHistWeather(latlng,date,SegID,i,type,lb,frID) {
     var hist_deets = {
         hdata: []
     };
@@ -1661,13 +1904,24 @@ function CallHistWeather(latlng,date,SegID,i,type,lb) {
             })
             console.log("Got hist data for " + SegID + " " + i + " " + hc);
             console.log(json.currently.windSpeed);
-            $('#lbdata').html("Retrieving historical data ..." + j);
+            if (lb == true) {
+                $('#lbdata').html("Retrieving historical data ..." + j);
+            } else {
+                $('#sgdata').html("Retrieving historical data ..." + j);
+            }
             var hist_deets_json = JSON.stringify(hist_deets);
             if (lb == true) {
-                localStorage.setItem(SegID + "_" + i + "_hist", hist_deets_json);
+               
+                    localStorage.setItem(SegID + "_" + i + "_hist", hist_deets_json);
+               
                
             } else {
-                localStorage.setItem(SegID + "_" + i + "_hist_user", hist_deets_json);
+                if (frID != null) {
+                    localStorage.setItem(SegID + "_" + frID + "_" + i + "_hist_user", hist_deets_json);
+                } else {
+                    localStorage.setItem(SegID + "_" + i + "_hist_user", hist_deets_json);
+                }
+
               
             }
             //currently.windSpeed
@@ -1958,6 +2212,7 @@ function displayStarsmap(hrs) { //get seg weather
     var wdataj = eval('(' + wdata + ')');
     var jsonact = localStorage.getItem('seg_loc_data');
     var j2s = eval('(' + jsonact + ')');
+    var segct = j2s.count[0].num;
     console.log("l=" + jsonact.length);
     if (jsonact.length > 20) {
         var ID = j2s.points[0].PID;      //"469475975";
@@ -1982,6 +2237,7 @@ function displayStarsmap(hrs) { //get seg weather
                                 "<li><a href=\"#\" onclick=\"displayStarsmap(12)\">10 - 12 Hrs</a></li></ul></div>";
 
         $('#Hrsddmap').html(ddtext);
+        $('#HrsddMap').show();
         if (parsed_json != null) {
             var firsthour = parsed_json.hourly_forecast[fh].FCTTIME.civil;
             var lasthour = parsed_json.hourly_forecast[lh].FCTTIME.civil;
@@ -1990,16 +2246,27 @@ function displayStarsmap(hrs) { //get seg weather
             var timeago = getTimeW(ID); //moment(getTimeW(ID)).fromNow;
             $('#winfomap').html("Showing star ratings from " + firsthour + " to " + lasthour + "</br>Weather data retrieved: " + timeago);
         }
+        var noW = 0;
         $.each(j2s.points, function (i, seg) {
+            var wdata = localStorage.getItem(seg.PID + "_weather_map");
+            if (wdata == null) {
+            noW++
+                }
             $('#stars_' + seg.PID).html("<p>Not yet retrieved</p>");
             calcStarsInline(seg.PID, hrs, 'map');
         });
+        console.log(noW + " " + segct)
+        if (noW == segct) {
+            $('#HrsddMap').hide();
+        }
 
     }
     //save hrs val and also info that stars are showing
 }
 
-
+function changeGender(g) {
+    localStorage.setItem("gender", g);
+}
 
 
 function tryMapWeatherStars(SegID) {
@@ -2018,23 +2285,24 @@ function displayStars(hrs,type) { //get seg weather
     //1-3 = 3
     //4-6 = 6
     var wdata = localStorage.getItem("weatherdata");
-    if (wdata == null) {
-        weatherAct();
-    } else {
-        var wdataj = eval('(' + wdata + ')');
-        var ID = wdataj.wdata[0].ID;      //"469475975";
+  //  if (wdata == null) {
+        //  weatherAct();
+        console.log("no weather");
+  //  } else {
+     //   var wdataj = eval('(' + wdata + ')');
+     //   var ID = wdataj.wdata[0].ID;      //"469475975";
         var jsonact = localStorage.getItem('starsdata');
        // var jsonseg = localStorage.getItem('all_seg_efforts');
-        var jsondata = localStorage.getItem(ID + "_weather_act");
-        if (jsondata == null) {
-            console.log(ID + " weather null");
-        } else {
+     //   var jsondata = localStorage.getItem(ID + "_weather_act");
+       // //if (jsondata == null) {
+          //  console.log(ID + " weather null");
+       // } else {
             //   $('#refreshStarsbtn').html("Refresh Stars Ratings");
             //  var Hrs = localStorage.getItem("Hrs");
             localStorage.setItem("Hrs", hrs);
 
-            var parsed_json = eval('(' + jsondata + ')');
-
+       //     var parsed_json = eval('(' + jsondata + ')');
+        hrs = 24
             //var j2s = eval('(' + jsonseg + ')');
             var j2a = eval('(' + jsonact + ')');
             var fh = hrs - 2;
@@ -2056,33 +2324,27 @@ function displayStars(hrs,type) { //get seg weather
                                     "<li><a href=\"#\" onclick=\"displayStars(12)\">10 - 12 Hrs</a></li>" +
                                     "<li><a href=\"#\" onclick=\"displayStars(24)\">Best (24 Hrs)</a></li></ul></div>";
 
-            $('#Hrsdd').html(ddtext);
+         //   $('#Hrsdd').html(ddtext);
 
 
-            var firsthour = parsed_json.hourly_forecast[fh].FCTTIME.civil;
-            var lasthour = parsed_json.hourly_forecast[lh].FCTTIME.civil;
+           // var firsthour = parsed_json.hourly_forecast[fh].FCTTIME.civil;
+          //  var lasthour = parsed_json.hourly_forecast[lh].FCTTIME.civil;
             $('#location').append("Calculating activity ratings for selected wind conditions");
-            var timediff = getTimediff(ID);
-            var timeago = prettify(timediff);
+         //   var timediff = getTimediff(ID);
+         //   var timeago = prettify(timediff);
             if (hrs == 24) {
                 $('#winfo').html("Showing the best star ratings for the next 24 hours of retrieved weather");
             } else {
 
             }
-            $('#winfo').html("Showing star ratings from " + firsthour + " to " + lasthour + "</br>Weather data retrieved: " + timeago).fadeIn('slow');
-            //$.each(j2s.segs, function (i, seg) {
-            //    $('#stars_' + seg.ID).html("<p>Calculating ... </p>");
-            //    console.log("call 1")
-            //    calcStarsInline(seg.ID, hrs, 'act');
-            //});
-
+        
             $.each(j2a.segs, function (i, seg) {
                 $('#stars_' + seg.ID).html("<p>Calculating ... </p>");
-                console.log("call 2")
+               
                 calcStarsInline(seg.ID, hrs, 'stars');
             });
-        }
-    }
+       // }
+   // }
     //save hrs val and also info that stars are showing
 }
 
@@ -2173,7 +2435,7 @@ function stConn2() {
 
               
             }
-            $('#status_msgs').append("</br >Retrieving Activities and Segments for </br>" + data.firstname + " " + data.lastname + "</br >");
+            $('#status_msgs').append("</br >Retrieving Starred Segments for </br>" + data.firstname + " " + data.lastname + "</br >");
             
           //  getFavs();
           //  stAct();
@@ -2736,6 +2998,7 @@ function stStars(ID) {
                 console.log("parse stars")
                 function startDecode() {
                     //  drawTable("stars");
+                    $('#status_msgs').append('Processing Starred Segments </br>')
                     parse("stars");
                     clearInterval(timer);
                     var timer2 = setInterval(function () { finish() }, 10000);
@@ -2743,7 +3006,7 @@ function stStars(ID) {
                     function finish() {
                         saveSegmentsDB("stars");
                         //drawTable("stars");
-                        weatherAct();
+                        //weatherAct();
                         clearInterval(timer2);
                         //analyseSegs();
                     }
@@ -2759,18 +3022,19 @@ function stStars(ID) {
 }
 
 function stLeader(ID,type) {
-//alert(ID);
+    //alert(ID);
+    $('#lbBtn').hide();
     var strava_segs = {
         segs: [],
         timestamp: [],
         count: []
     };
     var timenow = Math.round(new Date().getTime() / 1000);
-
+    var gender = localStorage.getItem("gender");
      OAuth.initialize('7ZbKkdtjRFA8NVkn00ka1ixaIe8');
 
     OAuth.popup('strava', { cache: true }).done(function (result) {
-        result.get('https://www.strava.com/api/v3/segments/'+ID+'/leaderboard').done(function (data) {
+        result.get('https://www.strava.com/api/v3/segments/' + ID + '/leaderboard', { data: { gender: gender } }).done(function (data) {
             var jsontext = JSON.stringify(data);
             //$('#status_msgs').append(jsontext);
             //alert(jsontext);
@@ -2802,7 +3066,15 @@ function stLeader(ID,type) {
             
            // alert("Retrieved " + entries + jsonsegs);
             //drawTable();
-            drawLeaderboard(ID,type);
+           
+            var timer = setInterval(function () { startDecode() }, 5000);
+
+            function startDecode() {
+                clearInterval(timer);
+                showHistweather(ID, type, true, 'one', null)
+               // drawLeaderboard(ID, type);
+            }
+           
 
         });
 
@@ -2909,18 +3181,22 @@ function seg_details(ID) {
     });
 }
 
-function stEffort(ID) {
+function stEffort(ID,frID,type) {
     //alert(ID);
-    var userdata = localStorage.getItem('userdata');
-    var user = eval('(' + userdata + ')');
-    var athID = user.deets[0]['stravaID'];
+    if (frID != null) {
+        var athID = frID;
+    } else {
+        var userdata = localStorage.getItem('userdata');
+        var user = eval('(' + userdata + ')');
+        var athID = user.deets[0]['stravaID'];
+    }
     var timenow = Math.round(new Date().getTime() / 1000);
     var strava_segs = {
         segs: [],
         timestamp: [],
         count: []
     };
-     OAuth.initialize('7ZbKkdtjRFA8NVkn00ka1ixaIe8');
+    OAuth.initialize('7ZbKkdtjRFA8NVkn00ka1ixaIe8');
 
     OAuth.popup('strava', { cache: true }).done(function (result) {
         result.get('https://www.strava.com/api/v3/segments/'+ID+'/all_efforts',{ data: { athlete_id: athID} }).done(function (data) {
@@ -2930,8 +3206,6 @@ function stEffort(ID) {
             var ct = 0;
            // var entries = data['entry_count'];
             $.each(data, function (i, seg) {
-            
-
                 strava_segs.segs.push({
                     "pr_rank": seg.pr_rank,
                      "time": seg.start_date_local,
@@ -2952,16 +3226,54 @@ function stEffort(ID) {
                     "num": ct
                 });
                 var jsonsegs = JSON.stringify(strava_segs);
-                localStorage.setItem('eff_data_' + ID, jsonsegs);
-                drawSegEffort(ID);
+                if (frID != null) {
+                    localStorage.setItem('eff_data_' + ID + '_' + frID, jsonsegs);
+                } else {
+                    localStorage.setItem('eff_data_' + ID, jsonsegs);
+                }
+
+                showHistweather(ID,type, false, 'one',frID)
+                var timer = setInterval(function () { startDecode() }, 5000);
+               
+                function startDecode() {
+                    clearInterval(timer);
+                    drawSegEffort(ID, frID);
+                }
             } else {
                 $('#sgdata').html("You have no recorded efforts for this segment");
-                $('#refreshBtneffs').html("")
+                $('#refreshBtneffs').html("");
+                $('#segBtn').html("")
             }
 
         });
 
     });
+}
+
+function refreshData(ID,datatype,type) {
+    var str;
+    var ID = "735100";
+    var time = 500;
+    var timer1 = setTimeout(function () { startDecode() }, 8000);
+    var i = 0;
+   
+    if (type == 'lb') {
+        str = "lb_data_" + ID;
+        while (i < 10) {
+            console.log("Removing " + ID + "_" + i + "_hist");
+                        // }
+            localStorage.removeItem(ID + "_" + i + "_hist");
+            i++;
+        }
+        localStorage.removeItem(str);
+        function startDecode() {
+            clearTimeout(timer1);
+            stLeader(ID, type)
+
+        }
+        
+    }
+
 }
 
 function clearCache() {
@@ -3006,6 +3318,7 @@ function showLocal() {
     $('#testBtns').show();
     $('#table_calc_area2').show();
     $('#info').show();
+
     var str = "efforts";
     var str2= "weather";
     for (var i = 0; i < localStorage.length; i++) {
