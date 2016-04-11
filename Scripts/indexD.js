@@ -881,7 +881,10 @@ function poly2(ID, i, scroll, type, frID) {
     }
   
     var pl = localStorage.getItem(ID + "_poly"); //j2.segs[i].poly;
-    var frStr = getFriendFirstname(frID) + "'s Efforts";
+    if (frID != null) {
+        var frStr = getFriendFirstname(frID) + "'s Efforts";
+    }
+    
   //  alert(json);
     var j2 = eval('(' + json + ')');
     var dist = j2.segs[i].dist;

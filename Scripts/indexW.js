@@ -2411,14 +2411,14 @@ function stConn2() {
             //var total = parseInt(actct);// + parseInt(segct);
             //timex = (total * 2000)
             //console.log(timex);
-            //var timerst = setInterval(function () { closeStatus() }, timex); //rem bkk2
+            var timerst = setInterval(function () { closeStatus() }, timex); //rem bkk2
             function closeStatus() {
                 clearInterval(timerst);
                 $('#status_msgs').append("</br>Done .... stand by");
              
                 console.log(timex + " seconds up")
-                weatherSeg();
-                drawTable();
+               // weatherSeg();
+                drawTable("stars");
                
                 
                 var timerst2 = setInterval(function () { dispstarst() }, 2000);
