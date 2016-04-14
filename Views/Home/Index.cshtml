@@ -19,7 +19,7 @@
                 </div>
             </div>
     </div>
-    <div style="height:50px"></div>
+   
     <div class="menubtns" id="menu_buttons" style="display:none">
         <div class="btn-group">
             <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -37,7 +37,7 @@
 
     </div>
 
-
+    <div style="height:50px"></div>
     <div id="pic_header" class="profile" style="display:none"></div>
     <div id="logo_header" class="logoimg"><img style="width:auto;height: 42px;" src="~/Content/kom_logo_db.png" /></div>
 
@@ -164,7 +164,7 @@
                     <div class="cont">
                         <button type="button" class="btn btn-primary btn-sm" onclick="stConn2()">Refresh data from Strava</button>
                         <div style="height:20px">&nbsp;</div>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="stFriends()">Get friend data from Strava</button>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="stFriends()">Refresh friend data from Strava</button>
                         <div style="height:20px">&nbsp;</div>
                         <button type="button" class="btn btn-primary btn-sm" onclick="SignOut()">Sign Out</button>
                     </div>
@@ -205,11 +205,11 @@
                     <div class="text-center">
                     </div>
                     <div class="cont">
-                        <div style="display:inline-block">Gender</div>
+                        <div style="display:inline-block">Leaderboard Gender</div>
                        <div style="display:inline-block" id="genderDD">
                             <div class="btn-group">
                                 <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Both<span class="caret"></span>
+                                    Male and Female<span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a href="#" onclick="changeGender('B')">Male and Female</a></li>
@@ -239,7 +239,6 @@
                     <hr>
                     <div class="text-center">
                         <div class="btn-group btn-group-s" role="group">
-                            <button type="button" class="btn btn-success btn-sm" id="userspill" onclick="getFriends()">Friends</button>
                             <button type="button" class="btn btn-success btn-sm" id="starpill" autofocus="true" onclick="getWindiest(0)">Top Star Ratings</button>
      
                         </div>
@@ -393,7 +392,7 @@
                             <dtitle>Weather</dtitle>
                             <hr>
                             <div style="position:absolute;left:5px;top:28px" id="wtitle"></div>
-                            <div style="position:absolute;right:18px;top:30px;z-index:400" id="refreshBtnW">
+                            <div style="position:absolute;right:18px;top:55px;z-index:400" id="refreshBtnW">
 
 
                             </div>
@@ -418,7 +417,7 @@
                         <div class="dash-unit" id="leaderback">
                             <dtitle>Leaderboard</dtitle>
                             <hr>
-                            <div id="refreshBtnLB"><button style="position:absolute;right:10px;top:29px" type="button" class="btn btn-primary btn-sm" onclick="refreshData(null,'map','lb')">Refresh</button></div>
+                            <div id="refreshBtnLB"></div>
                             <div style="position:absolute;left:13px;top:30px" class="msg_sml" id="lbdata"></div>
                             <div id="lbPadding" style="padding-top:10px"></div>
                                                     

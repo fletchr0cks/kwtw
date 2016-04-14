@@ -182,7 +182,7 @@ function getWindiest(daysago) {
 
                 midhtml = midhtml + "<li style=\"height:65px\"><i class=\"read\"></i><p id=\"trow_" + PID + "\" class=\"un_sel\">" + segname +
                 "</p><p class=\"message\">At " + timestamp + "</p><p class=\"message_2\">" + loc + "</p><div class=\"actions\" id=\"stars_" + PID + "\">" + starsf + "</div>" +
-                "<div class=\"actions_c\"><button type=\"button\" class=\"btn btn-primary btn-sm\" id=\"userspill\" onclick=\"getNearby(" + PID + "," + lat + "," + lng + ")\">Map</button></div>";
+                "<div class=\"actions_c\"></div>";
                 $('#comspin').hide();
             })
             
@@ -700,11 +700,11 @@ function noActsmsg(type) {
     $('#my_activities').show();
     $('#act_table2').show();
     var top = "<div class=\"framemail\"><div class=\"window\"><ul class=\"mail\" id=\"ultop\">";
-    if (type == "act") {
-        var midhtml = "<li class=\"polylink\"><i class=\"read\"></i><p class=\"un_sel\">You have no Activities or Segments, try the Segments Nearby map view</p>";
-    } else {
-        var midhtml = "<li class=\"polylink\"><i class=\"read\"></i><p class=\"un_sel\">You have no KOMs/QOMs or Course Records</p>";
-    }
+  //  if (type == "act") {
+        var midhtml = "<li style=\"height:70px\"><i class=\"read\"></i><p class=\"un_sel\">You have no Starred Segments, please star Segments in Strava and refresh Strava data in Settings</p>";
+//    } else {
+  //      var midhtml = "<li class=\"polylink\"><i class=\"read\"></i><p class=\"un_sel\">You have no KOMs/QOMs or Course Records</p>";
+  //  }
     $('#act_table2').html(top + midhtml + "</ul></div></div>");
 }
 
@@ -712,9 +712,13 @@ function drawFriends() {
     $('#act_table_header').hide();
     $('#act_table2').hide();
     $('#my_activities').hide();
+    $('#seg_leaderboard').hide();
     $('#deets_tile').hide();
+    $('#seg_efforts').hide();
     $('#seg_weather').hide();
     $('#menubtns').hide();
+    $('#profile_tile').hide();
+      $('#seg_nearby').hide();
     $('#Hrsdd').hide();
     $('#pills_row').hide();
     $('#refreshBtn').hide();
@@ -725,6 +729,9 @@ function drawFriends() {
     var lastname = user.deets[0]['lastname'];
     var stravaID = user.deets[0]['stravaID'];
     var profile = user.deets[0]['profile'];
+    if (profile == "avatar/athlete/large.png") {
+        profile = "/Content/blank_avatar.jpg";
+    }
     var myKOMS = localStorage.getItem('komdata_' + stravaID);
     var midhtml = "";
     console.log(myKOMS)
@@ -741,6 +748,7 @@ function drawFriends() {
     }
     var json = localStorage.getItem('frdata');
     var j2 = eval('(' + json + ')');
+
   
     var fr_ct = 1;
     
@@ -758,8 +766,13 @@ function drawFriends() {
     // alert(firstID)
     var ht = parseInt((fr_ct) * 52) + 25; //56
     $('#frback').height(ht);
+   
+    if (fr_ct == 1) {
+        ht = ht + 45;
+        $('#frback').height(ht);
+        midhtml = midhtml + "<p>Add friends in Strava, then refresh Friend data in Settings";
+    }
     $('#friend_list').html(midhtml);
-
 
 }
 
@@ -908,6 +921,23 @@ function formatTime(time) {
     return timestr;
 }
 
+function clearCanvas(datatype) {
+    console.log(datatype)
+    if (datatype == "lb") {
+        $('#lbdata').html("<div style=\"padding-left:8px\" class=\"msg_sml\">Refreshing Leaderboard ...</div>");
+        var canvas = document.getElementById('leaderbd');
+        canvas.width = 350;
+        canvas.height = 1500;
+        canvas.style.width = '350px';
+        canvas.style.height = '1500px';
+        var ctx2d = canvas.getContext('2d');
+        ctx2d.clearRect(0, 0, ctx2d.canvas.width, ctx2d.canvas.height);
+        ctx2d.fillStyle = "rgba(255, 255, 255, 0.0)";
+        ctx2d.fillRect(0, 0, 350, 2000);
+        $('#g1').hide();
+    }
+}
+
 function drawLeaderboard(ID, type) {
     $('#seg_leaderboard').show();
     $('#lb_table').show();
@@ -917,7 +947,8 @@ function drawLeaderboard(ID, type) {
     $('#komability').html("");
     $('#refreshBtnLB').show();
     $('#komimg').show();
-    
+    var refreshbtnlb = "<button style=\"position:absolute;right:10px;top:29px\" type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"refreshData(" + ID + ",'" + type + "','lb')\">Refresh</button>";
+    $('#refreshBtnLB').html(refreshbtnlb);
     var lbhistchk0 = localStorage.getItem(ID + '_0_hist');
     var lbhistchk1 = localStorage.getItem(ID + '_1_hist');
 
@@ -1447,7 +1478,7 @@ function drawSegEffort(ID, frID) {
      $('#seg_weather').hide();
      $('#seg_efforts').show();
     console.log("efforts " + ID + " " + frID);
-    var type = 'map';
+    var type = 'segs';
     if (frID != null) {
         var lbhistchk0 = localStorage.getItem(ID + '_' + frID + '_0_hist_user');
         var lbhistchk1 = localStorage.getItem(ID + '_' + frID + '_1_hist_user');
@@ -1789,7 +1820,7 @@ function showHistweather(SegID,type,lb,num,frID) {
     $('#lbBtn').html("&nbsp;");
     var lbhistchk1 = "";
     var count = null;
-    console.log(SegID);
+    console.log("ht" + type);
     if (lb == true) {
         var json = localStorage.getItem('lb_data_' + SegID);
         var j2 = eval('(' + json + ')');
@@ -1819,9 +1850,9 @@ function showHistweather(SegID,type,lb,num,frID) {
     if (lbhistchk1 != null) {
         //have historical data, just show
         if (lb == true) {
-            drawLeaderboard(SegID, "hist");
+            drawLeaderboard(SegID, type); //was hist yyy
         } else {
-            drawSegEffort(SegID, frID, "hist");
+            drawSegEffort(SegID, frID, type);
         }
     
     } else {
@@ -1844,7 +1875,7 @@ function showHistweather(SegID,type,lb,num,frID) {
                             clearTimeout(timerAA);
                             if (lb == true) {
                                 console.log("finished" + count + " " + i);
-                                drawLeaderboard(SegID, "segs");
+                                drawLeaderboard(SegID, type); //was hist yyy
                             } else {
                                 console.log("finished" + count + " " + i);
                                 showEfforts(SegID, type, frID);
@@ -1866,7 +1897,7 @@ function showHistweather(SegID,type,lb,num,frID) {
                 clearTimeout(timerAB);
                 if (lb == true) {
                     console.log("finished" + count + " " + 0);
-                    drawLeaderboard(SegID, "segs");
+                    drawLeaderboard(SegID, type);  //was segs yyy
                 } else {
                     console.log("finished" + count + " " + 0);
                     showEfforts(SegID, type, frID);
@@ -2252,7 +2283,7 @@ function displayStarsmap(hrs) { //get seg weather
             if (wdata == null) {
             noW++
                 }
-            $('#stars_' + seg.PID).html("<p>Not yet retrieved</p>");
+           // $('#stars_' + seg.PID).html("<p>Not yet retrieved</p>");
             calcStarsInline(seg.PID, hrs, 'map');
         });
         console.log(noW + " " + segct)
@@ -2339,7 +2370,7 @@ function displayStars(hrs,type) { //get seg weather
             }
         
             $.each(j2a.segs, function (i, seg) {
-                $('#stars_' + seg.ID).html("<p>Calculating ... </p>");
+               // $('#stars_' + seg.ID).html("<p>Calculating ... </p>");
                
                 calcStarsInline(seg.ID, hrs, 'stars');
             });
@@ -2441,6 +2472,7 @@ function stConn2() {
           //  stAct();
             stKOMs(ID);
             stStars(ID);
+           // seg_efforts(ID);
             // do some stuff with result
         });
 
@@ -3024,6 +3056,7 @@ function stStars(ID) {
 function stLeader(ID,type) {
     //alert(ID);
     $('#lbBtn').hide();
+    console.log("his" + type)
     var strava_segs = {
         segs: [],
         timestamp: [],
@@ -3032,53 +3065,105 @@ function stLeader(ID,type) {
     var timenow = Math.round(new Date().getTime() / 1000);
     var gender = localStorage.getItem("gender");
      OAuth.initialize('7ZbKkdtjRFA8NVkn00ka1ixaIe8');
+     if (gender == "B") {
+         OAuth.popup('strava', { cache: true }).done(function (result) {
 
-    OAuth.popup('strava', { cache: true }).done(function (result) {
-        result.get('https://www.strava.com/api/v3/segments/' + ID + '/leaderboard', { data: { gender: gender } }).done(function (data) {
-            var jsontext = JSON.stringify(data);
-            //$('#status_msgs').append(jsontext);
-            //alert(jsontext);
-            var ct = 0;
-            var entries = data['entry_count'];
-            $.each(data.entries, function (i, seg) {
-            
+             result.get('https://www.strava.com/api/v3/segments/' + ID + '/leaderboard').done(function (data) {
+                 var jsontext = JSON.stringify(data);
+                 //$('#status_msgs').append(jsontext);
+                 //alert(jsontext);
+                 var ct = 0;
+                 var entries = data['entry_count'];
+                 $.each(data.entries, function (i, seg) {
 
-                strava_segs.segs.push({
-                    "name": seg.athlete_name,
-                     "time": seg.start_date_local,
-                     "profile": seg.athlete_profile,
-                     "mov_time": seg.moving_time
-                    //alert(poly + "hij" + ID);
-                });
-                
-                ct++;
-            });
-            strava_segs.timestamp.push({
-                "epoch": timenow,
-                "now": moment().format("MMM Do YYYY, h:mm:ss a")
-            });
-            strava_segs.count.push({
-                "num": ct
-            });
-            var jsonsegs = JSON.stringify(strava_segs);
-            localStorage.setItem('lb_data_'+ID, jsonsegs);
-            //localStorage.setItem('actct',ct);
-            
-           // alert("Retrieved " + entries + jsonsegs);
-            //drawTable();
-           
-            var timer = setInterval(function () { startDecode() }, 5000);
 
-            function startDecode() {
-                clearInterval(timer);
-                showHistweather(ID, type, true, 'one', null)
-               // drawLeaderboard(ID, type);
-            }
-           
+                     strava_segs.segs.push({
+                         "name": seg.athlete_name,
+                         "time": seg.start_date_local,
+                         "profile": seg.athlete_profile,
+                         "mov_time": seg.moving_time
+                         //alert(poly + "hij" + ID);
+                     });
 
-        });
+                     ct++;
+                 });
+                 strava_segs.timestamp.push({
+                     "epoch": timenow,
+                     "now": moment().format("MMM Do YYYY, h:mm:ss a")
+                 });
+                 strava_segs.count.push({
+                     "num": ct
+                 });
+                 var jsonsegs = JSON.stringify(strava_segs);
+                 localStorage.setItem('lb_data_' + ID, jsonsegs);
+                 //localStorage.setItem('actct',ct);
 
-    });
+                 // alert("Retrieved " + entries + jsonsegs);
+                 //drawTable();
+
+                 var timer = setInterval(function () { startDecode() }, 5000);
+
+                 function startDecode() {
+                     clearInterval(timer);
+                     showHistweather(ID, type, true, 'one', null)
+                     // drawLeaderboard(ID, type);
+                 }
+
+
+             });
+
+         });
+     } else {
+
+
+         OAuth.popup('strava', { cache: true }).done(function (result) {
+
+             result.get('https://www.strava.com/api/v3/segments/' + ID + '/leaderboard', { data: { gender: gender } }).done(function (data) {
+                 var jsontext = JSON.stringify(data);
+                 //$('#status_msgs').append(jsontext);
+                 //alert(jsontext);
+                 var ct = 0;
+                 var entries = data['entry_count'];
+                 $.each(data.entries, function (i, seg) {
+
+
+                     strava_segs.segs.push({
+                         "name": seg.athlete_name,
+                         "time": seg.start_date_local,
+                         "profile": seg.athlete_profile,
+                         "mov_time": seg.moving_time
+                         //alert(poly + "hij" + ID);
+                     });
+
+                     ct++;
+                 });
+                 strava_segs.timestamp.push({
+                     "epoch": timenow,
+                     "now": moment().format("MMM Do YYYY, h:mm:ss a")
+                 });
+                 strava_segs.count.push({
+                     "num": ct
+                 });
+                 var jsonsegs = JSON.stringify(strava_segs);
+                 localStorage.setItem('lb_data_' + ID, jsonsegs);
+                 //localStorage.setItem('actct',ct);
+
+                 // alert("Retrieved " + entries + jsonsegs);
+                 //drawTable();
+
+                 var timer = setInterval(function () { startDecode() }, 5000);
+
+                 function startDecode() {
+                     clearInterval(timer);
+                     showHistweather(ID, type, true, 'one', null)
+                     // drawLeaderboard(ID, type);
+                 }
+
+
+             });
+
+         });
+     }
 }
 
 var strava_all_segs = {
@@ -3210,7 +3295,8 @@ function stEffort(ID,frID,type) {
                     "pr_rank": seg.pr_rank,
                      "time": seg.start_date_local,
                      "kom_rank": seg.kom_rank,
-                     "mov_time": seg.moving_time
+                     "mov_time": seg.moving_time,
+                     "latlng": seg.segment.end_latlng
                     //alert(poly + "hij" + ID);
                 });
 
@@ -3252,12 +3338,13 @@ function stEffort(ID,frID,type) {
 
 function refreshData(ID,datatype,type) {
     var str;
-    var ID = "735100";
+    //var ID = "735100";
     var time = 500;
-    var timer1 = setTimeout(function () { startDecode() }, 8000);
+    var timer1 = setTimeout(function () { startDecode() }, 5000);
     var i = 0;
-   
-    if (type == 'lb') {
+    console.log(type)
+    if (type == 'lb') { //user later yyy
+        clearCanvas(type);
         str = "lb_data_" + ID;
         while (i < 10) {
             console.log("Removing " + ID + "_" + i + "_hist");
@@ -3268,7 +3355,7 @@ function refreshData(ID,datatype,type) {
         localStorage.removeItem(str);
         function startDecode() {
             clearTimeout(timer1);
-            stLeader(ID, type)
+            stLeader(ID, datatype)
 
         }
         
