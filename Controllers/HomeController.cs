@@ -14,12 +14,22 @@ namespace kwtwsite.Controllers
         DataRepo datarepo = new DataRepo();
         private DataClasses1DataContext db = new DataClasses1DataContext();
 
+        public ActionResult Index_old()
+        {
+            return RedirectToAction("Thanks");
+        }
+
         public ActionResult Index()
+        {
+            return RedirectToAction("Thanks");
+        }
+
+        public ActionResult Thanks()
         {
             return View();
         }
 
-        public ActionResult Front()
+        public ActionResult Thanks2()
         {
             return View();
         }
