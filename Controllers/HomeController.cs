@@ -14,25 +14,15 @@ namespace kwtwsite.Controllers
         DataRepo datarepo = new DataRepo();
         private DataClasses1DataContext db = new DataClasses1DataContext();
 
-        public ActionResult Index_old()
-        {
-            return RedirectToAction("Thanks");
-        }
+       
 
-        public ActionResult Index()
-        {
-            return RedirectToAction("Thanks");
-        }
-
+       
         public ActionResult Thanks()
         {
             return View();
         }
 
-        public ActionResult Thanks2()
-        {
-            return View();
-        }
+       
 
         public ActionResult Social()
         {
@@ -41,15 +31,7 @@ namespace kwtwsite.Controllers
             return View();
         }
 
-        public ActionResult Beta()
-        {
-            ViewBag.Message = "Your application description page.";
-            var DataContext = new DataClasses1DataContext();
-            var data = from u in DataContext.Users
-                       select u;
-
-            return View("Beta", data);
-        }
+      
 
         public JsonResult TopW()
         {
