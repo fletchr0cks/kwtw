@@ -20,7 +20,7 @@
     <script type="text/javascript" src="~/Scripts/raphael-2.1.4.min.js"></script>
     <link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
-    <link href="~/Content/bootstrap.css" rel="stylesheet">
+    <link href="~/Content/bootstrap0.css" rel="stylesheet">
     <link href="~/Content/main.css" rel="stylesheet">
     <link href="~/Content/font-style.css" rel="stylesheet">
     <link href="~/Content/flexslider.css" rel="stylesheet">
@@ -48,6 +48,54 @@
             });
 
         });
+
+
+        $(function () {
+
+            function isOnLine() {
+                return navigator.onLine;
+            }
+
+            function reportOnlineStatus() {
+                var status = $("#onlineStatus");
+
+                if (isOnLine()) {
+                    status.text("Online");
+                    status.
+                        removeClass("offline").
+                        addClass("online");
+                }
+                else {
+                    status.text("Offline");
+                    status.
+                        removeClass("online").
+                        addClass("offline");
+                }
+            }
+
+
+
+            window.addEventListener("online", function (e) {
+                reportOnlineStatus();
+                //saveToServer();
+            }, true);
+
+            window.addEventListener("offline", function (e) {
+                reportOnlineStatus();
+            }, true);
+
+            if (isOnLine()) {
+                // saveToServer();
+            }
+            // showCustomer();
+            reportOnlineStatus();
+
+            // drawSpacer();
+
+        });
+
+
+
         </script>
 
 </head>

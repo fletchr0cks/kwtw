@@ -641,6 +641,16 @@ digiclock {
 
 }    
 
+.status {
+    position: absolute;
+    right: 100px;
+    color:orange;
+    z-index: 300;
+    top: 5px
+
+}    
+
+
 .profile {
     position: absolute;
     right: 98px;

@@ -67,5 +67,3 @@ c:\users\fletc\documents\visual studio 2015\Projects\kwtwsite\kwtwsite\bin\Micro
 c:\users\fletc\documents\visual studio 2015\Projects\kwtwsite\kwtwsite\obj\Debug\kwtwsite.csprojResolveAssemblyReference.cache
 c:\users\fletc\documents\visual studio 2015\Projects\kwtwsite\kwtwsite\obj\Debug\kwtwsite.dll
 c:\users\fletc\documents\visual studio 2015\Projects\kwtwsite\kwtwsite\obj\Debug\kwtwsite.pdb
-C:\Users\fletc\Documents\GitHub\kwtw\obj\Debug\kwtwsite.dll
-C:\Users\fletc\Documents\GitHub\kwtw\obj\Debug\kwtwsite.pdb
